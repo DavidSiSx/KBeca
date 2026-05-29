@@ -2,7 +2,7 @@ import os
 import hashlib
 from typing import List, Optional
 from dotenv import load_dotenv
-import psycopg2
+import psycopg
 from pydantic import BaseModel, Field
 import instructor
 from openai import OpenAI
@@ -80,7 +80,7 @@ def upsert_scholarship(data: ScholarshipExtraction):
     
     try:
         print(f"💾 Guardando en PostgreSQL (Hash: {hash_id[:8]})...")
-        conn = psycopg2.connect(db_url)
+        conn = psycopg.connect(db_url)
         cur = conn.cursor()
         
         # Manejo correcto de arreglos PostgreSQL
