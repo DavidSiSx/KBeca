@@ -17,14 +17,14 @@ Este documento detalla los objetivos cumplidos y por cumplir en el ciclo de vida
 - [x] Configuración inicial del entorno de testing (Vitest / Playwright).
 - [x] (Commit Modular): `Feature: Setup inicial del proyecto Next.js y esquema de BD`
 
-## Fase 2: Motor de Ingesta y Seeder (En Progreso)
-- [ ] Creación de script `seed.ts` para popular la BD con datos de prueba realistas (Mock Data).
-- [ ] Setup de entorno Python (con uv/pip) para el scraper real.
-- [ ] Creación de script Playwright para extracción del DOM.
-- [ ] Integración de Instructor + Pydantic + LLM para parseo determinista.
-- [ ] Lógica de Idempotencia (Upsert) basada en Hash SHA-256.
-- [ ] Pruebas del scraper y manejo de fallos (Circuit Breaker).
-- [ ] (Commit Modular): `Feature: Pipeline de ingesta de datos y scraper resiliente`
+## Fase 2: Motor de Ingesta y Seeder (Completado)
+- [x] Creación de script `seed.ts` para popular la BD con datos de prueba realistas (Mock Data).
+- [x] Setup de entorno Python (con uv/pip) para el scraper real.
+- [x] Creación de script Playwright para extracción del DOM.
+- [x] Integración de Instructor + Pydantic + LLM para parseo determinista.
+- [x] Lógica de Idempotencia (Upsert) basada en Hash SHA-256.
+- [x] Pruebas del scraper y manejo de fallos (Circuit Breaker).
+- [x] (Commit Modular): `Feature: Pipeline de ingesta de datos y scraper resiliente`
 
 ## Fase 3: Arquitectura Frontend y Diseño UI
 - [ ] Estructuración de carpetas siguiendo el patrón Feature-Sliced Design (FSD).
