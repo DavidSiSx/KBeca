@@ -143,7 +143,11 @@
     "recent": "Publicación más reciente",
     "institutions": "Instituciones",
     "applyFilters": "Aplicar filtros",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "noResultsFilters": "No se encontraron becas con estos filtros.",
+    "removeFilters": "Quitar filtros",
+    "noResultsProfile": "No encontramos becas para este perfil por ahora.",
+    "modifyProfile": "Modificar perfil"
   },
   "Beca": {
     "backButton": "Volver a resultados",

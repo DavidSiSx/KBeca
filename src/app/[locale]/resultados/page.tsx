@@ -198,8 +198,17 @@ function ResultadosContent() {
           </div>
         ) : (
           <div className="text-center py-xl">
-             <p className="text-on-surface-variant font-body-lg">No se encontraron becas con estos filtros.</p>
-             <Button variant="outline" className="mt-md" onClick={() => { setSelectedInstitutions([]); setSortBy('relevance'); }}>Quitar filtros</Button>
+            {selectedInstitutions.length > 0 ? (
+              <>
+                 <p className="text-on-surface-variant font-body-lg">{t("noResultsFilters")}</p>
+                 <Button variant="outline" className="mt-md" onClick={() => { setSelectedInstitutions([]); setSortBy('relevance'); }}>{t("removeFilters")}</Button>
+              </>
+            ) : (
+              <>
+                 <p className="text-on-surface-variant font-body-lg">{t("noResultsProfile")}</p>
+                 <Button variant="filled" className="mt-md" onClick={() => { window.location.href = `/${locale}`; }}>{t("modifyProfile")}</Button>
+              </>
+            )}
           </div>
         )}
 
