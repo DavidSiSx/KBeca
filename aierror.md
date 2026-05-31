@@ -1,9 +1,12 @@
-# Registro de Errores de la IA (AI Error Log)
+# QA Error Logging
 
-Este archivo documenta los errores cometidos por la IA durante el desarrollo para evitar repetirlos en el futuro.
-
-## Error 1: Instalación de psycopg2-binary en Windows
-- **Descripción:** Al intentar instalar `psycopg2-binary==2.9.9` mediante `pip` en el entorno virtual de Python bajo Windows, la instalación falló intentando compilar desde el código fuente (`pg_config executable not found`).
-- **Causa:** Las ruedas precompiladas (wheels) de `psycopg2` a veces no coinciden con ciertas versiones de Python en Windows, forzando una compilación que requiere herramientas de PostgreSQL instaladas localmente.
-- **Solución implementada:** Se migró a la versión moderna **Psycopg 3** (`psycopg[binary]`), la cual tiene mejor soporte de binarios precompilados y es el estándar actual. Se actualizó `requirements.txt` y se modificó `main.py` para usar `import psycopg` en lugar de `import psycopg2`.
-- **Regla aprendida:** Para proyectos en Windows o entornos no controlados, priorizar siempre `psycopg[binary]` (v3) sobre el antiguo `psycopg2`.
+## 2026-05-30T16:49:00Z
+- **Componente:** `scraper/main.py` -> `src/db/schema.ts` (Neon Database)
+- **Error:** `❌ Error en base de datos: expected 768 dimensions, not 3072` y posterior `PostgresError: column cannot have more than 2000 dimensions for hnsw index`
+- **Causa Raíz:** El modelo `gemini-embedding-2` genera vectores de 3072 dimensiones por defecto. Al intentar actualizar PostgreSQL a `vector(3072)`, descubrimos que la extensión `pgvector` tiene un límite estricto de **2000 dimensiones** para índices HNSW (Hierarchical Navigable Small World), impidiendo su indexado para alta velocidad.
+- **Plan de Resolución (Arquitectura Superior):** 
+  En lugar de quitar el índice HNSW y degradar el rendimiento a "Sequential Scan", usaremos la capacidad de **aprendizaje de Matryoshka** de los modelos modernos de Gemini, forzando la reducción matemática a 768 dimensiones sin pérdida significativa de información.
+  1. Revertir esquema de BD a `vector(768)`.
+  2. En el Scraper (Python): `output_dimensionality=768`.
+  3. En Next.js Backend (TS): `outputDimensionality: 768`.
+  4. Ejecutar el scraper nuevamente.
