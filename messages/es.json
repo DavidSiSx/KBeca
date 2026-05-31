@@ -1,0 +1,138 @@
+{
+  "Landing": {
+    "nav": {
+      "howItWorks": "Cómo funciona",
+      "benefits": "Beneficios",
+      "startSearch": "Empezar búsqueda"
+    },
+    "hero": {
+      "badge": "Buscador Oficial y Gratuito",
+      "titlePart1": "Encuentra la beca ideal para tus ",
+      "description": "Buscador gratuito y accesible de becas en México. Sin registros, sin cookies, 100% privado.",
+      "startSearch": "Empezar búsqueda",
+      "typewriter": ["estudios.", "proyectos.", "metas.", "hijos.", "carrera.", "investigaciones."]
+    },
+    "howItWorks": {
+      "title": "¿Cómo funciona?",
+      "subtitle": "Encuentra tu beca en tres sencillos pasos.",
+      "step1Title": "Selecciona tu estado",
+      "step1Desc": "Filtramos las opciones disponibles específicamente para tu región académica o residencia.",
+      "step2Title": "Indica tu perfil",
+      "step2Desc": "Desde educación básica hasta posgrado, pasando por deportes o artes. Ajustamos todo a ti.",
+      "step3Title": "Descubre tus becas",
+      "step3Desc": "Obtén una lista clara de requisitos, fechas de cierre y enlaces directos para postularte."
+    },
+    "benefits": {
+      "title": "Compromiso con el estudiante",
+      "subtitle": "Nuestra plataforma está diseñada pensando en tus necesidades, garantizando un proceso transparente y seguro.",
+      "privacyTitle": "Privacidad Total",
+      "privacyDesc": "No guardamos tus datos personales ni usamos cookies de rastreo para publicidad.",
+      "accessibilityTitle": "Accesibilidad Real",
+      "accessibilityDesc": "Diseño de alto contraste y soporte completo para lectores de pantalla.",
+      "dataTitle": "Datos Oficiales",
+      "dataDesc": "Información actualizada directamente de convocatorias gubernamentales e institucionales."
+    },
+    "exampleCard": {
+      "badge": "Beca Abierta",
+      "dueDate": "Vence: 15 Oct",
+      "title": "Beca Benito Juárez Superior",
+      "description": "Apoyo económico para estudiantes de licenciatura o técnico superior en escuelas públicas.",
+      "button": "Ver detalles (Ejemplo)",
+      "language": "Lenguaje Claro"
+    },
+    "footer": {
+      "disclaimer": "KBeca es una herramienta informativa. No gestionamos trámites directamente ni otorgamos becas.",
+      "accessibility": "Cumplimos con los estándares WCAG 2.2 e ISO 40500.",
+      "help": "Términos y Condiciones",
+      "privacy": "Aviso de Privacidad"
+    }
+  },
+  "Wizard": {
+    "page": {
+      "backButton": "Volver al paso anterior",
+      "homeButton": "Volver al inicio",
+      "step": "Paso {step}",
+      "of": "de {total}",
+      "help": "Ayuda"
+    },
+    "StepEstado": {
+      "title": "¿En qué estado vives?",
+      "description": "Selecciona el estado de la República Mexicana donde resides actualmente para mostrarte las becas disponibles.",
+      "listTitle": "Lista de estados",
+      "placeholder": "Selecciona tu estado...",
+      "accessibilityDesc": "Selecciona el nombre de tu estado. \"Nacional / No aplica\" si no buscas por estado.",
+      "continue": "Continuar a perfil"
+    },
+    "StepNivel": {
+      "title": "¿Qué nivel estás estudiando?",
+      "description": "Selecciona el nivel educativo para mostrarte las becas correspondientes.",
+      "continue": "Siguiente"
+    },
+    "StepDatosPersonales": {
+      "title": "Datos personales",
+      "description": "Ayúdanos a encontrar becas específicas para tu perfil demográfico.",
+      "gender": "Género",
+      "genderPlaceholder": "Selecciona tu género",
+      "genders": {
+        "female": "Mujer",
+        "male": "Hombre",
+        "other": "Otro",
+        "prefer_not_to_say": "Prefiero no decirlo"
+      },
+      "age": "Edad",
+      "agePlaceholder": "Ej. 18",
+      "hasChildren": "¿Tienes hijos?",
+      "yes": "Sí",
+      "no": "No",
+      "pregnant": "¿Estás embarazada?",
+      "maternitySupport": "Existen apoyos específicos de maternidad.",
+      "back": "Atrás",
+      "continue": "Ver becas para mi perfil"
+    },
+    "StepGrupos": {
+      "title": "Grupos vulnerables",
+      "description": "Selecciona si perteneces a alguno de estos grupos. Muchas becas están dirigidas específicamente a ellos. (Opcional)",
+      "accessibilityDesc": "Selecciona grupos vulnerables",
+      "continue": "Buscar Becas"
+    }
+  },
+  "Resultados": {
+    "backButton": "Volver a búsqueda",
+    "title": "Becas Encontradas",
+    "help": "Ayuda",
+    "searching": "Buscando becas para ti...",
+    "errorGeneric": "Error al buscar becas",
+    "errorUnexpected": "Ocurrió un error inesperado",
+    "foundStart": "Encontramos ",
+    "foundMiddle": " becas",
+    "foundEnd": " para ti.",
+    "filter": "Filtrar",
+    "statusOpen": "Abierta",
+    "saveScholarship": "Guardar beca",
+    "closingDate": "Cierre: ",
+    "viewDetails": "Ver Detalles",
+    "loadMore": "Cargar más resultados"
+  },
+  "Beca": {
+    "backButton": "Volver a resultados",
+    "apply": "Ir a la Convocatoria",
+    "save": "Guardar",
+    "share": "Compartir",
+    "details": "Detalles",
+    "requirements": "Requisitos",
+    "benefits": "Beneficios",
+    "institution": "Institución",
+    "contact": "Contacto",
+    "loading": "Cargando beca...",
+    "notFound": "Beca no encontrada",
+    "targetAudience": "Dirigido a",
+    "mainRequirement": "Requisito principal",
+    "closingDate": "Fecha de corte",
+    "notSpecified": "No especificada",
+    "generalPublic": "Público en general",
+    "description": "Descripción",
+    "statusOpen": "Abierta",
+    "statusClosed": "Cerrada / Próxima",
+    "titleDetail": "Detalle de Beca"
+  }
+}
