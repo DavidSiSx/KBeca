@@ -4,5 +4,6 @@ export const GRUPOS = [
   { id: "Madres solteras", label: "Madres solteras" },
   { id: "Indígenas", label: "Indígenas" },
   { id: "Discapacitados", label: "Discapacitados" },
-  { id: "Deportistas", label: "Deportistas de alto rendimiento" }
+  { id: "Deportistas", label: "Deportistas de alto rendimiento" },
+  { id: "Desempleados", label: "Desempleados" }
 ];

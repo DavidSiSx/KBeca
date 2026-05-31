@@ -17,13 +17,13 @@ export function StepNivel() {
     }
   };
 
-  const isMyself = target === 'myself';
+  const targetKey = target === 'myself' ? 'title_myself' : target === 'child' ? 'title_child' : 'title_other';
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col flex-grow h-full content-start" id="academicLevelForm">
       <div className="mb-lg">
         <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-background mb-base">
-          {t("title", { target: isMyself ? t("title_myself") : t("title_other") })}
+          {t("title", { target: t(targetKey) })}
         </h2>
         <p className="font-body-lg text-body-lg text-on-surface-variant">{t("description")}</p>
       </div>

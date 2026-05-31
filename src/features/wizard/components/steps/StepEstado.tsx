@@ -15,13 +15,13 @@ export function StepEstado() {
     if (estado) nextStep();
   };
 
-  const isMyself = target === 'myself';
+  const targetKey = target === 'myself' ? 'title_myself' : target === 'child' ? 'title_child' : 'title_other';
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col flex-grow h-full">
       <div className="mb-lg">
         <h2 className="font-headline-lg-mobile text-headline-lg-mobile text-on-background mb-sm" id="estado-heading">
-          {t("title", { target: isMyself ? t("title_myself") : t("title_other") })}
+          {t("title", { target: t(targetKey) })}
         </h2>
         <p className="font-body-md text-body-md text-on-surface-variant">{t("description")}</p>
       </div>

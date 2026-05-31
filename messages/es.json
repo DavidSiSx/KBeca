@@ -67,7 +67,8 @@
     "StepEstado": {
       "title": "¿En qué estado {target}?",
       "title_myself": "vives",
-      "title_other": "vive el estudiante",
+      "title_child": "vive tu hijo/a",
+      "title_other": "vive la persona",
       "description": "Selecciona el estado de la República Mexicana donde reside actualmente para mostrar las becas disponibles.",
       "listTitle": "Lista de estados",
       "placeholder": "Selecciona tu estado...",
@@ -77,7 +78,8 @@
     "StepNivel": {
       "title": "¿Qué nivel {target}?",
       "title_myself": "estás estudiando",
-      "title_other": "estudia o estudiará",
+      "title_child": "estudia o estudiará tu hijo/a",
+      "title_other": "estudia o estudiará la persona",
       "description": "Selecciona el nivel educativo para mostrar las becas correspondientes. Si no estudia, selecciona 'No estudia'.",
       "continue": "Siguiente"
     },
@@ -98,11 +100,13 @@
       "ageUnknown": "No sé la edad exacta",
       "hasChildren": "¿{target}?",
       "hasChildren_myself": "Tienes hijos",
+      "hasChildren_child": "Tu hijo/a tiene hijos",
       "hasChildren_other": "La persona tiene hijos",
       "yes": "Sí",
       "no": "No",
       "pregnant": "¿{target}?",
       "pregnant_myself": "Estás embarazada",
+      "pregnant_child": "Tu hija está embarazada",
       "pregnant_other": "La persona está embarazada",
       "maternitySupport": "Existen apoyos específicos de maternidad.",
       "back": "Atrás",
@@ -112,9 +116,8 @@
       "title": "Grupos vulnerables",
       "description": "Selecciona si pertenece a alguno de estos grupos. (Opcional)",
       "accessibilityDesc": "Selecciona grupos vulnerables",
-      "none": "Ninguno de los anteriores",
-      "continue": "Buscar Becas",
-      "continueNone": "No pertenezco a ninguno, Buscar Becas"
+      "noneOption": "Ninguno de los anteriores",
+      "continue": "Buscar Becas"
     }
   },
   "Resultados": {

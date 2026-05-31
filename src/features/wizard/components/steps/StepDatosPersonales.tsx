@@ -80,7 +80,7 @@ export function StepDatosPersonales() {
 
         <div className="flex flex-col gap-xs">
           <span className="font-label-md text-label-md text-on-surface">
-            {t("hasChildren", { target: isMyself ? t("hasChildren_myself") : t("hasChildren_other") })}
+            {t("hasChildren", { target: t(`hasChildren_${target === 'myself' ? 'myself' : target === 'child' ? 'child' : 'other'}`) })}
           </span>
           <div className="flex gap-4 mt-2">
             <label className="relative flex items-center cursor-pointer gap-2">
@@ -109,7 +109,7 @@ export function StepDatosPersonales() {
         {gender === 'Femenino' && (
           <div className="flex flex-col gap-xs animate-in fade-in slide-in-from-top-4 duration-300 bg-surface-container p-4 rounded-lg mt-2">
             <span className="font-label-md text-label-md text-on-surface">
-              {t("pregnant", { target: isMyself ? t("pregnant_myself") : t("pregnant_other") })}
+              {t("pregnant", { target: t(`pregnant_${target === 'myself' ? 'myself' : target === 'child' ? 'child' : 'other'}`) })}
             </span>
             <div className="flex gap-4 mt-2">
               <label className="relative flex items-center cursor-pointer gap-2">

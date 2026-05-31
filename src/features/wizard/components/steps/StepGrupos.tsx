@@ -76,6 +76,23 @@ export function StepGrupos() {
               </label>
             );
           })}
+          
+          <label className="relative cursor-pointer group w-full">
+            <input 
+              type="checkbox" 
+              className="peer sr-only"
+              checked={groups.length === 0}
+              onChange={() => setGroups([])}
+            />
+            <div className="p-gutter rounded-xl border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-200 flex items-center gap-sm peer-checked:border-secondary peer-checked:bg-surface-container-low peer-focus-visible:ring-2 peer-focus-visible:ring-secondary peer-focus-visible:ring-offset-2">
+              <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${groups.length === 0 ? 'border-secondary bg-secondary text-on-secondary' : 'border-outline-variant bg-transparent'}`}>
+                {groups.length === 0 && (
+                  <span className="material-symbols-outlined text-[16px] font-bold">check</span>
+                )}
+              </div>
+              <span className="font-label-md text-label-md text-on-surface">{t("noneOption")}</span>
+            </div>
+          </label>
         </div>
       </fieldset>
 
@@ -84,7 +101,7 @@ export function StepGrupos() {
           type="submit" 
           className="w-full md:w-auto shadow-[0_4px_12px_rgba(0,0,0,0.05)] rounded-full"
         >
-          {groups.length === 0 ? t("continueNone") : t("continue")}
+          {t("continue")}
         </Button>
       </div>
     </form>
