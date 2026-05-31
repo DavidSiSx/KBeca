@@ -1,5 +1,10 @@
-import { db } from './index';
-import { scholarships } from './schema';
+/*
+  🚨 DECOY SEEDER 🚨
+  Este archivo es temporal para poblar la base de datos con datos falsos (para poder probar Fase 3 y 4).
+  Una vez que el Scraper (Fase 2) sea integrado completamente con la API, este archivo debe ser eliminado.
+*/
+import { db } from '@/db/client';
+import { scholarships } from '@/db/schema';
 import { fakerES_MX as faker } from '@faker-js/faker';
 import crypto from 'crypto';
 
@@ -30,6 +35,15 @@ function generateMockScholarships(count: number) {
     
     // 1 to 2 academic levels
     const academicLevels = faker.helpers.arrayElements(LEVELS, faker.number.int({ min: 1, max: 2 }));
+    
+    // Grupos objetivos
+    const TARGET_GROUPS = ['Adultos mayores', 'Enfermedades crónicas', 'Madres solteras', 'Indígenas', 'Discapacitados', 'Deportistas'];
+    const hasTargetGroup = faker.number.int({ min: 1, max: 100 }) <= 40;
+    const targetGroups = hasTargetGroup ? faker.helpers.arrayElements(TARGET_GROUPS, faker.number.int({ min: 1, max: 2 })) : null;
+
+    // Fechas
+    const callDate = faker.date.recent({ days: 30 });
+    const deadline = faker.date.future({ years: 1, refDate: callDate });
 
     mocks.push({
       hashId: hash,
@@ -37,9 +51,12 @@ function generateMockScholarships(count: number) {
       institutionName,
       description: faker.lorem.paragraphs(2),
       targetStates,
+      targetGroups,
       academicLevels,
       status: 'active',
-      deadline: faker.date.future({ years: 1 }),
+      callDate,
+      deadline,
+      url: faker.internet.url(),
     });
   }
   return mocks;

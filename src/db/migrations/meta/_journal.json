@@ -8,6 +8,13 @@
       "when": 1780036019581,
       "tag": "0000_legal_puppet_master",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1780076453986,
+      "tag": "0001_right_slayback",
+      "breakpoints": true
     }
   ]
 }
