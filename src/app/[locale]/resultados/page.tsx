@@ -228,17 +228,26 @@ function ResultadosContent() {
               <section>
                 <h3 className="font-title-md text-title-md text-on-surface mb-sm">{t("sortBy")}</h3>
                 <div className="flex flex-col gap-sm">
-                  <label className="flex items-center gap-md cursor-pointer group">
-                    <input type="radio" name="sortBy" value="relevance" checked={sortBy === 'relevance'} onChange={(e) => setSortBy(e.target.value as any)} className="w-5 h-5 accent-primary cursor-pointer" />
-                    <span className="font-body-md text-on-surface group-hover:text-primary transition-colors">{t("relevance")}</span>
+                  <label className="relative flex items-center cursor-pointer gap-3 group py-1">
+                    <input type="radio" name="sortBy" value="relevance" checked={sortBy === 'relevance'} onChange={(e) => setSortBy(e.target.value as any)} className="peer sr-only" />
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === 'relevance' ? 'border-primary' : 'border-outline-variant group-hover:border-primary'}`}>
+                      {sortBy === 'relevance' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                    </div>
+                    <span className="font-body-md text-on-surface transition-colors">{t("relevance")}</span>
                   </label>
-                  <label className="flex items-center gap-md cursor-pointer group">
-                    <input type="radio" name="sortBy" value="deadline" checked={sortBy === 'deadline'} onChange={(e) => setSortBy(e.target.value as any)} className="w-5 h-5 accent-primary cursor-pointer" />
-                    <span className="font-body-md text-on-surface group-hover:text-primary transition-colors">{t("closingSoon")}</span>
+                  <label className="relative flex items-center cursor-pointer gap-3 group py-1">
+                    <input type="radio" name="sortBy" value="deadline" checked={sortBy === 'deadline'} onChange={(e) => setSortBy(e.target.value as any)} className="peer sr-only" />
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === 'deadline' ? 'border-primary' : 'border-outline-variant group-hover:border-primary'}`}>
+                      {sortBy === 'deadline' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                    </div>
+                    <span className="font-body-md text-on-surface transition-colors">{t("closingSoon")}</span>
                   </label>
-                  <label className="flex items-center gap-md cursor-pointer group">
-                    <input type="radio" name="sortBy" value="recent" checked={sortBy === 'recent'} onChange={(e) => setSortBy(e.target.value as any)} className="w-5 h-5 accent-primary cursor-pointer" />
-                    <span className="font-body-md text-on-surface group-hover:text-primary transition-colors">{t("recent")}</span>
+                  <label className="relative flex items-center cursor-pointer gap-3 group py-1">
+                    <input type="radio" name="sortBy" value="recent" checked={sortBy === 'recent'} onChange={(e) => setSortBy(e.target.value as any)} className="peer sr-only" />
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === 'recent' ? 'border-primary' : 'border-outline-variant group-hover:border-primary'}`}>
+                      {sortBy === 'recent' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                    </div>
+                    <span className="font-body-md text-on-surface transition-colors">{t("recent")}</span>
                   </label>
                 </div>
               </section>
@@ -248,12 +257,18 @@ function ResultadosContent() {
                 <section>
                   <h3 className="font-title-md text-title-md text-on-surface mb-sm">{t("institutions")}</h3>
                   <div className="flex flex-col gap-sm">
-                    {uniqueInstitutions.map(inst => (
-                      <label key={inst} className="flex items-center gap-md cursor-pointer group">
-                        <input type="checkbox" checked={selectedInstitutions.includes(inst)} onChange={() => toggleInstitution(inst)} className="w-5 h-5 rounded accent-primary cursor-pointer" />
-                        <span className="font-body-md text-on-surface group-hover:text-primary transition-colors line-clamp-1" title={inst}>{inst}</span>
-                      </label>
-                    ))}
+                    {uniqueInstitutions.map(inst => {
+                      const isChecked = selectedInstitutions.includes(inst);
+                      return (
+                        <label key={inst} className="relative flex items-center cursor-pointer gap-3 group py-1">
+                          <input type="checkbox" checked={isChecked} onChange={() => toggleInstitution(inst)} className="peer sr-only" />
+                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${isChecked ? 'border-primary bg-primary text-on-primary' : 'border-outline-variant group-hover:border-primary'}`}>
+                            {isChecked && <span className="material-symbols-outlined text-[16px] font-bold">check</span>}
+                          </div>
+                          <span className="font-body-md text-on-surface transition-colors line-clamp-1" title={inst}>{inst}</span>
+                        </label>
+                      );
+                    })}
                   </div>
                 </section>
               )}

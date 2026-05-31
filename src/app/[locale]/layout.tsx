@@ -5,6 +5,7 @@ import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
+import "material-symbols/outlined.css";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,9 +37,6 @@ export default async function RootLayout({
       lang={locale}
       className={`${inter.variable} h-full antialiased font-sans`}
     >
-      <head>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-      </head>
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages}>
           {children}
