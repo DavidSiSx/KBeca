@@ -1,0 +1,39 @@
+name: Automated Scholarship Scraper
+
+on:
+  schedule:
+    # Run every 3 days at 00:00 UTC
+    - cron: '0 0 */3 * *'
+  workflow_dispatch: # Allows manual trigger from the Actions tab
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup uv (Python Package Manager)
+        uses: astral-sh/setup-uv@v2
+        with:
+          version: "latest"
+
+      - name: Setup Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        working-directory: ./scraper
+        run: uv pip install -r requirements.txt --system
+
+      - name: Install Playwright Browsers
+        working-directory: ./scraper
+        run: playwright install chromium --with-deps
+
+      - name: Run Scraper
+        working-directory: ./scraper
+        env:
+          GEMINI_API_KEY1: ${{ secrets.GEMINI_API_KEY1 }}
+          GEMINI_API_KEY2: ${{ secrets.GEMINI_API_KEY2 }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          PYTHONIOENCODING: "utf-8"
+        run: python main.py
