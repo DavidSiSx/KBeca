@@ -8,7 +8,7 @@
     "hero": {
       "badge": "Buscador Oficial y Gratuito",
       "titlePart1": "Encuentra la beca ideal para tus ",
-      "description": "Buscador gratuito y accesible de becas en México. Sin registros, sin cookies, 100% privado.",
+      "description": "Buscador gratuito y accesible de becas en México. Logramos extraer 363 programas y becas distintas. Sin registros, sin cookies, 100% privado.",
       "startSearch": "Empezar búsqueda",
       "typewriter": ["estudios.", "proyectos.", "metas.", "hijos.", "carrera.", "investigaciones."]
     },
@@ -42,7 +42,7 @@
     },
     "footer": {
       "disclaimer": "KBeca es una herramienta informativa. No gestionamos trámites directamente ni otorgamos becas.",
-      "accessibility": "Cumplimos con los estándares WCAG 2.2 e ISO 40500.",
+      "accessibility": "Diseño enfocado en la accesibilidad e inclusión.",
       "help": "Términos y Condiciones",
       "privacy": "Aviso de Privacidad"
     }

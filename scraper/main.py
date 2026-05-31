@@ -23,7 +23,7 @@ def get_gemini_client():
     return genai.Client(api_key=api_key)
 class ScholarshipExtraction(BaseModel):
     title: str = Field(description="Nombre oficial de la convocatoria.")
-    institution_name: str = Field(description="Entidad gubernamental o privada que la emite.")
+    institution_name: str = Field(description="Entidad gubernamental o privada que la emite. Si no se especifica en el texto, dedúcela obligatoriamente a partir de la URL de origen.")
     target_states: Optional[List[str]] = Field(
         description="Lista de estados exactos si es regional. Si dice 'Nacional' o 'Todo el país', retorna null."
     )
@@ -45,7 +45,10 @@ class ScholarshipExtraction(BaseModel):
     )
     call_date: Optional[str] = Field(description="Fecha de apertura de la convocatoria o fecha de publicación en formato YYYY-MM-DD. Null si no se especifica.")
     deadline: Optional[str] = Field(description="Fecha límite o cierre en formato YYYY-MM-DD. Null si no se especifica.")
-    description: str = Field(description="Resumen conciso de los beneficios de la beca en lenguaje claro.")
+    description: str = Field(description="Resumen detallado de los beneficios, montos y requisitos clave de la beca (Mínimo 2 oraciones). NO seas escueto.")
+
+class ScholarshipExtractionList(BaseModel):
+    scholarships: List[ScholarshipExtraction] = Field(description="Lista de becas o programas sociales encontrados en la página.")
 
 # --- 2. Funciones de Extracción (Playwright) ---
 def extract_text_from_url(url: str) -> str:
@@ -70,18 +73,30 @@ def extract_text_from_url(url: str) -> str:
         return clean_text
 
 @retry(wait=wait_exponential(multiplier=1, min=2, max=10), stop=stop_after_attempt(3))
-def parse_scholarship_text(text: str) -> ScholarshipExtraction:
+def parse_scholarship_text(text: str, url: str) -> ScholarshipExtractionList:
     print("🧠 Analizando texto con LLM (Google GenAI Nativo)...")
     # Limitar el tamaño del texto para no exceder la ventana de contexto
     truncated_text = text[:30000] 
     
     client = get_gemini_client()
+    
+    prompt = f"""Eres un analista experto en becas mexicanas. Extrae TODOS los programas o becas de la convocatoria al esquema JSON. INSTRUCCIONES CRÍTICAS:
+1. Si la página contiene un listado de múltiples programas sociales o becas, extráelos como elementos separados en la lista.
+2. target_states: Si el texto menciona 'Gobierno de [Estado]' o secretarías locales (ej. 'Estado de Yucatán'), extrae ese estado obligatoriamente (ej. 'Yucatán'). Retorna null SOLO si es una beca federal o nacional explícita.
+3. INFERENCIA DE INSTITUCIÓN: Usa la URL proporcionada ({url}) para deducir la institución si el texto es ambiguo. NUNCA pongas 'No especificada' en sitios institucionales o universitarios.
+4. FILTRO FEDERAL Y DUPLICADOS: NO extraigas menciones genéricas a 'Becas Federales', 'Becas Benito Juárez' o apoyos externos si estás analizando la página de una Universidad o Institución local. Extrae SOLO las becas PROPIAS e internas de la institución.
+5. Si otro dato no se menciona, retorna null. No inventes.
+
+URL de Origen: {url}
+Texto de la convocatoria:
+{truncated_text}"""
+
     response = client.models.generate_content(
         model='gemini-3.1-flash-lite',
-        contents=f"Eres un analista experto en becas mexicanas. Extrae los datos de la convocatoria al esquema JSON. INSTRUCCIONES CRÍTICAS:\n1. target_states: Si el texto menciona 'Gobierno de [Estado]' o secretarías locales (ej. 'Estado de Yucatán'), extrae ese estado obligatoriamente (ej. 'Yucatán'). Retorna null SOLO si es una beca federal o nacional explícita.\n2. Si otro dato no se menciona, retorna null. No inventes.\n\nTexto de la convocatoria:\n{truncated_text}",
+        contents=prompt,
         config=types.GenerateContentConfig(
             response_mime_type="application/json",
-            response_schema=ScholarshipExtraction,
+            response_schema=ScholarshipExtractionList,
             safety_settings=[
                 types.SafetySetting(
                     category=types.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
@@ -102,7 +117,7 @@ def parse_scholarship_text(text: str) -> ScholarshipExtraction:
             ],
         ),
     )
-    return ScholarshipExtraction.model_validate_json(response.text)
+    return ScholarshipExtractionList.model_validate_json(response.text)
 
 # --- 4. Idempotencia y Upsert (PostgreSQL) ---
 def upsert_scholarship(data: ScholarshipExtraction, url: str):
@@ -114,8 +129,8 @@ def upsert_scholarship(data: ScholarshipExtraction, url: str):
     # Eliminar parámetro pgbouncer que causa error en psycopg3
     db_url = db_url.replace("?pgbouncer=true", "").replace("&pgbouncer=true", "")
         
-    # Generar Hash SHA-256 para idempotencia basado en la URL
-    hash_input = url.encode('utf-8')
+    # Generar Hash SHA-256 basado en la URL y el Título para permitir múltiples becas por URL
+    hash_input = f"{url}|{data.title}".encode('utf-8')
     hash_id = hashlib.sha256(hash_input).hexdigest()
     
     try:
@@ -209,8 +224,10 @@ if __name__ == "__main__":
         try:
             print(f"Extrahendo y procesando: {url}")
             raw_text = extract_text_from_url(url)
-            scholarship_data = parse_scholarship_text(raw_text)
-            upsert_scholarship(scholarship_data, url)
+            scholarship_list = parse_scholarship_text(raw_text, url)
+            print(f"   => Detectadas {len(scholarship_list.scholarships)} becas en este enlace.")
+            for scholarship_data in scholarship_list.scholarships:
+                upsert_scholarship(scholarship_data, url)
             
             # Pausa de 4 segundos para evitar Rate Limits (15 RPM en Gemini Free Tier)
             time.sleep(4)
