@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colors */
+  --color-on-error: #ffffff;
+  --color-background: #f7fafc;
+  --color-tertiary-container: #73000c;
+  --color-on-tertiary-container: #ff736c;
+  --color-on-primary-container: #86a0cd;
+  --color-tertiary-fixed-dim: #ffb3ad;
+  --color-on-tertiary: #ffffff;
+  --color-secondary-fixed-dim: #89d3d4;
+  --color-surface: #f7fafc;
+  --color-surface-container-high: #e5e9eb;
+  --color-surface-dim: #d7dadc;
+  --color-outline: #74777f;
+  --color-primary-fixed-dim: #adc7f7;
+  --color-primary-fixed: #d6e3ff;
+  --color-error: #ba1a1a;
+  --color-surface-bright: #f7fafc;
+  --color-on-primary-fixed: #001b3c;
+  --color-surface-container-lowest: #ffffff;
+  --color-inverse-surface: #2d3133;
+  --color-on-tertiary-fixed-variant: #930013;
+  --color-tertiary-fixed: #ffdad7;
+  --color-secondary-fixed: #a5eff0;
+  --color-on-surface-variant: #43474e;
+  --color-on-secondary-fixed: #002020;
+  --color-secondary-container: #a2eded;
+  --color-surface-variant: #e0e3e5;
+  --color-primary: #002045;
+  --color-on-secondary-fixed-variant: #004f50;
+  --color-secondary: #13696a;
+  --color-surface-container-highest: #e0e3e5;
+  --color-on-secondary: #ffffff;
+  --color-primary-container: #1a365d;
+  --color-surface-container-low: #f1f4f6;
+  --color-on-background: #181c1e;
+  --color-surface-tint: #455f88;
+  --color-outline-variant: #c4c6cf;
+  --color-on-secondary-container: #1a6d6e;
+  --color-on-tertiary-fixed: #410004;
+  --color-inverse-primary: #adc7f7;
+  --color-on-surface: #181c1e;
+  --color-inverse-on-surface: #eef1f3;
+  --color-surface-container: #ebeef0;
+  --color-tertiary: #4b0005;
+  --color-on-primary-fixed-variant: #2d476f;
+  --color-error-container: #ffdad6;
+  --color-on-primary: #ffffff;
+  --color-on-error-container: #93000a;
+
+  /* Fonts */
+  --font-body-lg: "Inter", sans-serif;
+  --font-label-md: "Inter", sans-serif;
+  --font-headline-lg-mobile: "Inter", sans-serif;
+  --font-headline-xl: "Inter", sans-serif;
+  --font-headline-lg: "Inter", sans-serif;
+  --font-body-md: "Inter", sans-serif;
+  --font-label-sm: "Inter", sans-serif;
+
+  /* Spacing */
+  --spacing-xl: 48px;
+  --spacing-lg: 32px;
+  --spacing-xs: 4px;
+  --spacing-base: 8px;
+  --spacing-sm: 12px;
+  --spacing-gutter: 16px;
+  --spacing-md: 20px;
+  --spacing-container-margin: 20px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #f7fafc;
+  --foreground: #181c1e;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  transition: background-color 0.15s ease-out, color 0.15s ease-out;
+  -webkit-tap-highlight-color: transparent;
+  min-height: max(884px, 100dvh);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.fill-icon {
+  font-variation-settings: 'FILL' 1;
+}
+
+.scholarship-card:focus-within {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.hero-bg-gradient {
+  background-image: radial-gradient(circle at top right, #13696a 0%, transparent 40%), radial-gradient(circle at bottom left, #002045 0%, transparent 40%);
 }
