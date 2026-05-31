@@ -56,23 +56,23 @@
       "help": "Ayuda"
     },
     "StepEstado": {
-      "title": "¿En qué estado vives?",
-      "description": "Selecciona el estado de la República Mexicana donde resides actualmente para mostrarte las becas disponibles.",
+      "title": "¿En qué estado vive el estudiante?",
+      "description": "Selecciona el estado de la República Mexicana donde reside actualmente el estudiante para mostrar las becas disponibles.",
       "listTitle": "Lista de estados",
       "placeholder": "Selecciona tu estado...",
       "accessibilityDesc": "Selecciona el nombre de tu estado. \"Nacional / No aplica\" si no buscas por estado.",
       "continue": "Continuar a perfil"
     },
     "StepNivel": {
-      "title": "¿Qué nivel estás estudiando?",
-      "description": "Selecciona el nivel educativo para mostrarte las becas correspondientes.",
+      "title": "¿Qué nivel estudia o estudiará?",
+      "description": "Selecciona el nivel educativo del estudiante para mostrar las becas correspondientes.",
       "continue": "Siguiente"
     },
     "StepDatosPersonales": {
-      "title": "Datos personales",
-      "description": "Ayúdanos a encontrar becas específicas para tu perfil demográfico.",
+      "title": "Datos del Estudiante",
+      "description": "Ingresa los datos exactos de la persona que va a recibir la beca (ya seas tú o tus hijos).",
       "gender": "Género",
-      "genderPlaceholder": "Selecciona tu género",
+      "genderPlaceholder": "Selecciona el género del estudiante",
       "genders": {
         "female": "Mujer",
         "male": "Hombre",
@@ -81,17 +81,17 @@
       },
       "age": "Edad",
       "agePlaceholder": "Ej. 18",
-      "hasChildren": "¿Tienes hijos?",
+      "hasChildren": "¿El estudiante tiene hijos?",
       "yes": "Sí",
       "no": "No",
-      "pregnant": "¿Estás embarazada?",
+      "pregnant": "¿La estudiante está embarazada?",
       "maternitySupport": "Existen apoyos específicos de maternidad.",
       "back": "Atrás",
-      "continue": "Ver becas para mi perfil"
+      "continue": "Ver becas para este perfil"
     },
     "StepGrupos": {
       "title": "Grupos vulnerables",
-      "description": "Selecciona si perteneces a alguno de estos grupos. Muchas becas están dirigidas específicamente a ellos. (Opcional)",
+      "description": "Selecciona si el estudiante pertenece a alguno de estos grupos. Muchas becas están dirigidas específicamente a ellos. (Opcional)",
       "accessibilityDesc": "Selecciona grupos vulnerables",
       "continue": "Buscar Becas"
     }
