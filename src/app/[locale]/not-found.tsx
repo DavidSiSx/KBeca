@@ -20,18 +20,16 @@ export default function NotFoundPage() {
       />
       
       <main className="flex-grow flex flex-col items-center justify-center p-gutter text-center">
-        <span className="material-symbols-outlined text-8xl text-primary mb-6 animate-pulse">
-          location_off
-        </span>
-        <h1 className="font-headline-xl text-headline-xl text-on-background mb-4">
-          404 - {t('title')}
-        </h1>
-        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-md mb-8">
-          {t('description')}
-        </p>
-        <Link href="/" className={buttonVariants({ variant: 'filled', size: 'lg' })}>
-          {t('backToHome')}
-        </Link>
+        <div className="text-center flex flex-col items-center">
+          <span className="material-symbols-outlined text-[64px] text-primary mb-md">search_off</span>
+          <h1 className="font-headline-xl text-headline-xl text-primary mb-sm">{t("title")}</h1>
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-[448px] mb-8">
+            {t("description")}
+          </p>
+          <Link href="/" className={buttonVariants({ variant: 'filled', size: 'lg' })}>
+            {t('backToHome')}
+          </Link>
+        </div>
       </main>
     </div>
   );

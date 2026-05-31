@@ -215,7 +215,7 @@ function ResultadosContent() {
       {/* Modal de Filtros Centrado (Glassmorphism + Sombras suaves) */}
       {isFilterOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" role="dialog" id="filter-modal" aria-modal="true" aria-labelledby="filter-modal-title">
-          <div className="bg-surface-container-lowest rounded-3xl p-lg w-full max-w-md shadow-3xl animate-in fade-in zoom-in duration-200">
+          <div className="bg-surface-container-lowest rounded-3xl p-lg w-full max-w-[448px] shadow-3xl animate-in fade-in zoom-in duration-200">
             <div className="flex justify-between items-center mb-md border-b border-outline-variant pb-sm">
               <h2 id="filter-modal-title" className="font-headline-sm text-headline-sm text-primary">{t("filterTitle")}</h2>
               <Button variant="icon" size="icon" onClick={() => setIsFilterOpen(false)} aria-label={t("close")}>

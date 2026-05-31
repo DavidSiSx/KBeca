@@ -40,7 +40,7 @@ export default function ErrorPage({
         <h1 className="font-headline-xl text-headline-xl text-error mb-4">
           {t('title')}
         </h1>
-        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-md mb-8">
+        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-[448px] mb-8">
           {t('description')}
         </p>
         <div className="flex flex-col gap-4 sm:flex-row">
