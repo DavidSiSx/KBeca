@@ -199,7 +199,7 @@ function ResultadosContent() {
         ) : (
           <div className="text-center py-xl">
              <p className="text-on-surface-variant font-body-lg">No se encontraron becas con estos filtros.</p>
-             <Button variant="outlined" className="mt-md" onClick={() => { setSelectedInstitutions([]); setSortBy('relevance'); }}>Quitar filtros</Button>
+             <Button variant="outline" className="mt-md" onClick={() => { setSelectedInstitutions([]); setSortBy('relevance'); }}>Quitar filtros</Button>
           </div>
         )}
 
