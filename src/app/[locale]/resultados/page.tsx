@@ -18,7 +18,7 @@ function ResultadosContent() {
   const nivelAcademico = searchParams.get('level') || "";
 
   const [isSearching, setIsSearching] = useState(true);
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<Record<string, any>[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   // Estados del filtro Client-Side
@@ -66,7 +66,7 @@ function ResultadosContent() {
       }
     }
     loadMatches();
-  }, [estado, nivelAcademico, searchParams]);
+  }, [estado, nivelAcademico, searchParams, t]);
 
   // Derived state: instituciones únicas
   const uniqueInstitutions = useMemo(() => {
