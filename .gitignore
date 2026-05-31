@@ -9,6 +9,8 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+/.venv
+/scraper/.venv
 
 # testing
 /coverage
@@ -39,3 +41,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+/drizzle/*.db
+
+# Testing and Reports
+mass-test-report.json
+/src/test/
+/test_models.py
+
+# Documentation
+*.md
+!README.md
+!Documentacion/**/*.md
+
+# Assets
+/stitch_assets/
