@@ -13,11 +13,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        filled: "bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container",
-        tonal: "bg-secondary-container text-on-secondary-container hover:bg-secondary hover:text-on-secondary",
-        outline: "border-2 border-outline text-primary hover:bg-surface-variant hover:text-on-surface-variant",
-        ghost: "bg-transparent text-primary hover:bg-surface-variant hover:text-on-surface-variant",
-        icon: "bg-transparent text-primary hover:bg-primary/10 rounded-full",
+        filled: "bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container dark:bg-primary-fixed dark:text-on-primary-fixed dark:hover:bg-primary-fixed-dim",
+        tonal: "bg-secondary-container text-on-secondary-container hover:bg-secondary hover:text-on-secondary dark:bg-secondary-fixed dark:text-on-secondary-fixed dark:hover:bg-secondary-fixed-dim",
+        outline: "border-2 border-outline text-primary hover:bg-surface-variant hover:text-on-surface-variant dark:border-outline-variant dark:text-primary-fixed dark:hover:bg-on-background",
+        ghost: "bg-transparent text-primary hover:bg-surface-variant hover:text-on-surface-variant dark:text-primary-fixed dark:hover:bg-on-background",
+        icon: "bg-transparent text-primary hover:bg-primary/10 rounded-full dark:text-primary-fixed dark:hover:bg-primary-fixed/10",
       },
       size: {
         default: "h-12 px-6 py-3",

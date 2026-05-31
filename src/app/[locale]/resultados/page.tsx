@@ -7,12 +7,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState, Suspense, useMemo } from "react";
 import { fetchMatches } from "@/app/actions/getMatches";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 function ResultadosContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const t = useTranslations("Resultados");
+  const locale = useLocale();
 
   const estado = searchParams.get('state') || "";
   const nivelAcademico = searchParams.get('level') || "";
@@ -224,9 +225,9 @@ function ResultadosContent() {
       {/* Modal de Filtros Centrado (Glassmorphism + Sombras suaves) */}
       {isFilterOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" role="dialog" id="filter-modal" aria-modal="true" aria-labelledby="filter-modal-title">
-          <div className="bg-surface-container-lowest rounded-3xl p-lg w-full max-w-[448px] shadow-3xl animate-in fade-in zoom-in duration-200">
-            <div className="flex justify-between items-center mb-md border-b border-outline-variant pb-sm">
-              <h2 id="filter-modal-title" className="font-headline-sm text-headline-sm text-primary">{t("filterTitle")}</h2>
+          <div className="bg-surface-container-lowest dark:bg-on-background rounded-3xl p-lg w-full max-w-[448px] shadow-3xl animate-in fade-in zoom-in duration-200">
+            <div className="flex justify-between items-center mb-md border-b border-outline-variant dark:border-outline pb-sm">
+              <h2 id="filter-modal-title" className="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed">{t("filterTitle")}</h2>
               <Button variant="icon" size="icon" onClick={() => setIsFilterOpen(false)} aria-label={t("close")}>
                 <span className="material-symbols-outlined">close</span>
               </Button>
@@ -235,28 +236,28 @@ function ResultadosContent() {
             <div className="flex flex-col gap-lg max-h-[60vh] overflow-y-auto pr-2">
               {/* Sección Ordenar */}
               <section>
-                <h3 className="font-title-md text-title-md text-on-surface mb-sm">{t("sortBy")}</h3>
+                <h3 className="font-title-md text-title-md text-on-surface dark:text-inverse-on-surface mb-sm">{t("sortBy")}</h3>
                 <div className="flex flex-col gap-sm">
                   <label className="relative flex items-center cursor-pointer gap-3 group py-1">
                     <input type="radio" name="sortBy" value="relevance" checked={sortBy === 'relevance'} onChange={(e) => setSortBy(e.target.value as any)} className="peer sr-only" />
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === 'relevance' ? 'border-primary' : 'border-outline-variant group-hover:border-primary'}`}>
                       {sortBy === 'relevance' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
                     </div>
-                    <span className="font-body-md text-on-surface transition-colors">{t("relevance")}</span>
+                    <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors">{t("relevance")}</span>
                   </label>
                   <label className="relative flex items-center cursor-pointer gap-3 group py-1">
                     <input type="radio" name="sortBy" value="deadline" checked={sortBy === 'deadline'} onChange={(e) => setSortBy(e.target.value as any)} className="peer sr-only" />
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === 'deadline' ? 'border-primary' : 'border-outline-variant group-hover:border-primary'}`}>
                       {sortBy === 'deadline' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
                     </div>
-                    <span className="font-body-md text-on-surface transition-colors">{t("closingSoon")}</span>
+                    <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors">{t("closingSoon")}</span>
                   </label>
                   <label className="relative flex items-center cursor-pointer gap-3 group py-1">
                     <input type="radio" name="sortBy" value="recent" checked={sortBy === 'recent'} onChange={(e) => setSortBy(e.target.value as any)} className="peer sr-only" />
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === 'recent' ? 'border-primary' : 'border-outline-variant group-hover:border-primary'}`}>
                       {sortBy === 'recent' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
                     </div>
-                    <span className="font-body-md text-on-surface transition-colors">{t("recent")}</span>
+                    <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors">{t("recent")}</span>
                   </label>
                 </div>
               </section>
@@ -264,7 +265,7 @@ function ResultadosContent() {
               {/* Sección Instituciones */}
               {uniqueInstitutions.length > 0 && (
                 <section>
-                  <h3 className="font-title-md text-title-md text-on-surface mb-sm">{t("institutions")}</h3>
+                  <h3 className="font-title-md text-title-md text-on-surface dark:text-inverse-on-surface mb-sm">{t("institutions")}</h3>
                   <div className="flex flex-col gap-sm">
                     {uniqueInstitutions.map(inst => {
                       const isChecked = selectedInstitutions.includes(inst);
@@ -274,7 +275,7 @@ function ResultadosContent() {
                           <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${isChecked ? 'border-primary bg-primary text-on-primary' : 'border-outline-variant group-hover:border-primary'}`}>
                             {isChecked && <span className="material-symbols-outlined text-[16px] font-bold">check</span>}
                           </div>
-                          <span className="font-body-md text-on-surface transition-colors line-clamp-1" title={inst}>{inst}</span>
+                          <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors line-clamp-1" title={inst}>{inst}</span>
                         </label>
                       );
                     })}
