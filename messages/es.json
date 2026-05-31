@@ -111,7 +111,15 @@
     "saveScholarship": "Guardar beca",
     "closingDate": "Cierre: ",
     "viewDetails": "Ver Detalles",
-    "loadMore": "Cargar más resultados"
+    "loadMore": "Cargar más resultados",
+    "filterTitle": "Filtrar Resultados",
+    "sortBy": "Ordenar por",
+    "relevance": "Mayor coincidencia",
+    "closingSoon": "Fecha de cierre más próxima",
+    "recent": "Publicación más reciente",
+    "institutions": "Instituciones",
+    "applyFilters": "Aplicar filtros",
+    "close": "Cerrar"
   },
   "Beca": {
     "backButton": "Volver a resultados",

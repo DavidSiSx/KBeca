@@ -5,7 +5,7 @@ import { TopAppBar } from "@/components/ui/TopAppBar";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense, useMemo } from "react";
 import { fetchMatches } from "@/app/actions/getMatches";
 import { useTranslations } from "next-intl";
 
@@ -20,6 +20,11 @@ function ResultadosContent() {
   const [isSearching, setIsSearching] = useState(true);
   const [results, setResults] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+
+  // Estados del filtro Client-Side
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [sortBy, setSortBy] = useState<'relevance' | 'deadline' | 'recent'>('relevance');
+  const [selectedInstitutions, setSelectedInstitutions] = useState<string[]>([]);
 
   useEffect(() => {
     if (!estado || !nivelAcademico) {
@@ -63,16 +68,52 @@ function ResultadosContent() {
     loadMatches();
   }, [estado, nivelAcademico, searchParams]);
 
+  // Derived state: instituciones únicas
+  const uniqueInstitutions = useMemo(() => {
+    const insts = new Set(results.map(r => r.institutionName));
+    return Array.from(insts).filter(Boolean) as string[];
+  }, [results]);
+
+  // Derived state: resultados filtrados y ordenados
+  const filteredResults = useMemo(() => {
+    let filtered = [...results];
+    
+    if (selectedInstitutions.length > 0) {
+      filtered = filtered.filter(r => selectedInstitutions.includes(r.institutionName));
+    }
+    
+    if (sortBy === 'deadline') {
+      filtered.sort((a, b) => {
+        if (!a.deadline) return 1;
+        if (!b.deadline) return -1;
+        return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+      });
+    } else if (sortBy === 'recent') {
+       filtered.sort((a, b) => {
+         if (!a.callDate) return 1;
+         if (!b.callDate) return -1;
+         return new Date(b.callDate).getTime() - new Date(a.callDate).getTime();
+       });
+    }
+    
+    return filtered;
+  }, [results, selectedInstitutions, sortBy]);
+
+  const toggleInstitution = (inst: string) => {
+    setSelectedInstitutions(prev => 
+      prev.includes(inst) ? prev.filter(i => i !== inst) : [...prev, inst]
+    );
+  };
+
   if (!estado || !nivelAcademico) return null;
 
   return (
     <div className="bg-background text-on-background min-h-screen font-body-md flex flex-col pb-safe md:pb-0">
       
-      {/* Header unificado (mismo diseño que Wizard) */}
       <TopAppBar 
         title={t("title")} 
         onBackClick={() => router.push("/wizard")}
-        onHelpClick={() => alert("Los resultados mostrados se basan en la coincidencia entre tu perfil y los requisitos de cada convocatoria. Las de mayor coincidencia aparecen primero.")}
+        onHelpClick={() => alert("Los resultados mostrados se basan en la coincidencia entre tu perfil y los requisitos de cada convocatoria.")}
       />
 
       <main className="flex-1 w-full max-w-[1140px] mx-auto px-container-margin md:px-gutter mt-lg">
@@ -84,10 +125,16 @@ function ResultadosContent() {
             ) : error ? (
               <span className="text-error">{error}</span>
             ) : (
-              <span>{t("foundStart")}<span className="font-bold text-primary">{results.length}{t("foundMiddle")}</span>{t("foundEnd")}</span>
+              <span>{t("foundStart")}<span className="font-bold text-primary">{filteredResults.length}{t("foundMiddle")}</span>{t("foundEnd")}</span>
             )}
           </h2>
-          <Button variant="tonal" aria-expanded="false" className="gap-xs">
+          <Button 
+            variant="tonal" 
+            aria-expanded={isFilterOpen}
+            aria-controls="filter-modal"
+            className="gap-xs"
+            onClick={() => setIsFilterOpen(true)}
+          >
             <span className="material-symbols-outlined">tune</span>
             {t("filter")}
           </Button>
@@ -113,9 +160,9 @@ function ResultadosContent() {
               </div>
             ))}
           </div>
-        ) : !error && results.length > 0 ? (
+        ) : !error && filteredResults.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md" role="list">
-            {results.map((beca) => (
+            {filteredResults.map((beca) => (
               <article key={beca.id} className="scholarship-card bg-surface-container-lowest rounded-xl border border-outline-variant p-md flex flex-col gap-sm hover:bg-surface-container-low transition-colors relative" role="listitem" tabIndex={0}>
                 <div className="flex justify-between items-start">
                   <span className="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-full">{t("statusOpen")}</span>
@@ -149,9 +196,14 @@ function ResultadosContent() {
               </article>
             ))}
           </div>
-        ) : null}
+        ) : (
+          <div className="text-center py-xl">
+             <p className="text-on-surface-variant font-body-lg">No se encontraron becas con estos filtros.</p>
+             <Button variant="outlined" className="mt-md" onClick={() => { setSelectedInstitutions([]); setSortBy('relevance'); }}>Quitar filtros</Button>
+          </div>
+        )}
 
-        {results.length > 9 && (
+        {filteredResults.length > 9 && (
           <div className="mt-lg flex justify-center pb-xl">
             <Button variant="ghost">
                 {t("loadMore")}
@@ -159,6 +211,62 @@ function ResultadosContent() {
           </div>
         )}
       </main>
+
+      {/* Modal de Filtros Centrado (Glassmorphism + Sombras suaves) */}
+      {isFilterOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" role="dialog" id="filter-modal" aria-modal="true" aria-labelledby="filter-modal-title">
+          <div className="bg-surface-container-lowest rounded-3xl p-lg w-full max-w-md shadow-3xl animate-in fade-in zoom-in duration-200">
+            <div className="flex justify-between items-center mb-md border-b border-outline-variant pb-sm">
+              <h2 id="filter-modal-title" className="font-headline-sm text-headline-sm text-primary">{t("filterTitle")}</h2>
+              <Button variant="icon" size="icon" onClick={() => setIsFilterOpen(false)} aria-label={t("close")}>
+                <span className="material-symbols-outlined">close</span>
+              </Button>
+            </div>
+            
+            <div className="flex flex-col gap-lg max-h-[60vh] overflow-y-auto pr-2">
+              {/* Sección Ordenar */}
+              <section>
+                <h3 className="font-title-md text-title-md text-on-surface mb-sm">{t("sortBy")}</h3>
+                <div className="flex flex-col gap-sm">
+                  <label className="flex items-center gap-md cursor-pointer group">
+                    <input type="radio" name="sortBy" value="relevance" checked={sortBy === 'relevance'} onChange={(e) => setSortBy(e.target.value as any)} className="w-5 h-5 accent-primary cursor-pointer" />
+                    <span className="font-body-md text-on-surface group-hover:text-primary transition-colors">{t("relevance")}</span>
+                  </label>
+                  <label className="flex items-center gap-md cursor-pointer group">
+                    <input type="radio" name="sortBy" value="deadline" checked={sortBy === 'deadline'} onChange={(e) => setSortBy(e.target.value as any)} className="w-5 h-5 accent-primary cursor-pointer" />
+                    <span className="font-body-md text-on-surface group-hover:text-primary transition-colors">{t("closingSoon")}</span>
+                  </label>
+                  <label className="flex items-center gap-md cursor-pointer group">
+                    <input type="radio" name="sortBy" value="recent" checked={sortBy === 'recent'} onChange={(e) => setSortBy(e.target.value as any)} className="w-5 h-5 accent-primary cursor-pointer" />
+                    <span className="font-body-md text-on-surface group-hover:text-primary transition-colors">{t("recent")}</span>
+                  </label>
+                </div>
+              </section>
+
+              {/* Sección Instituciones */}
+              {uniqueInstitutions.length > 0 && (
+                <section>
+                  <h3 className="font-title-md text-title-md text-on-surface mb-sm">{t("institutions")}</h3>
+                  <div className="flex flex-col gap-sm">
+                    {uniqueInstitutions.map(inst => (
+                      <label key={inst} className="flex items-center gap-md cursor-pointer group">
+                        <input type="checkbox" checked={selectedInstitutions.includes(inst)} onChange={() => toggleInstitution(inst)} className="w-5 h-5 rounded accent-primary cursor-pointer" />
+                        <span className="font-body-md text-on-surface group-hover:text-primary transition-colors line-clamp-1" title={inst}>{inst}</span>
+                      </label>
+                    ))}
+                  </div>
+                </section>
+              )}
+            </div>
+
+            <div className="mt-xl pt-sm border-t border-outline-variant flex justify-end">
+              <Button variant="filled" className="w-full sm:w-auto" onClick={() => setIsFilterOpen(false)}>
+                {t("applyFilters")}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
