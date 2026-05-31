@@ -11,7 +11,8 @@ from playwright.sync_api import sync_playwright
 from tenacity import retry, wait_exponential, stop_after_attempt
 
 # Cargar variables de entorno
-load_dotenv(dotenv_path='../.env.local')
+dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env.local')
+load_dotenv(dotenv_path=dotenv_path)
 
 def get_gemini_client():
     import random

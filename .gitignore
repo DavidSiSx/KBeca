@@ -60,3 +60,5 @@ mass-test-report.json
 
 # Assets
 /stitch_assets/
+
+__pycache__/
