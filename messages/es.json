@@ -134,5 +134,16 @@
     "statusOpen": "Abierta",
     "statusClosed": "Cerrada / Próxima",
     "titleDetail": "Detalle de Beca"
+  },
+  "NotFound": {
+    "title": "Página no encontrada",
+    "description": "Lo sentimos, la página que estás buscando no existe o fue eliminada.",
+    "backToHome": "Volver al Inicio"
+  },
+  "Error": {
+    "title": "¡Ups! Algo salió mal",
+    "description": "Ocurrió un error inesperado al procesar tu solicitud.",
+    "retry": "Intentar de nuevo",
+    "backToHome": "Ir al Inicio"
   }
 }
