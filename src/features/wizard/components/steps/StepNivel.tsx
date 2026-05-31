@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { NIVELES } from "@/config/niveles";
 
 export function StepNivel() {
-  const { nivelAcademico, setNivelAcademico, prevStep, nextStep } = useWizardStore();
+  const { nivelAcademico, setNivelAcademico, prevStep, nextStep, target } = useWizardStore();
   const t = useTranslations("Wizard.StepNivel");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -17,10 +17,14 @@ export function StepNivel() {
     }
   };
 
+  const isMyself = target === 'myself';
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col flex-grow h-full content-start" id="academicLevelForm">
       <div className="mb-lg">
-        <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-background mb-base">{t("title")}</h2>
+        <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-background mb-base">
+          {t("title", { target: isMyself ? t("title_myself") : t("title_other") })}
+        </h2>
         <p className="font-body-lg text-body-lg text-on-surface-variant">{t("description")}</p>
       </div>
 

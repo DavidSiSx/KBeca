@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ESTADOS } from "@/config/estados";
 
 export function StepEstado() {
-  const { estado, setEstado, nextStep } = useWizardStore();
+  const { estado, setEstado, nextStep, target } = useWizardStore();
   const t = useTranslations("Wizard.StepEstado");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -15,10 +15,14 @@ export function StepEstado() {
     if (estado) nextStep();
   };
 
+  const isMyself = target === 'myself';
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col flex-grow h-full">
       <div className="mb-lg">
-        <h2 className="font-headline-lg-mobile text-headline-lg-mobile text-on-background mb-sm" id="estado-heading">{t("title")}</h2>
+        <h2 className="font-headline-lg-mobile text-headline-lg-mobile text-on-background mb-sm" id="estado-heading">
+          {t("title", { target: isMyself ? t("title_myself") : t("title_other") })}
+        </h2>
         <p className="font-body-md text-body-md text-on-surface-variant">{t("description")}</p>
       </div>
 

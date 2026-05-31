@@ -84,7 +84,7 @@ export function StepGrupos() {
           type="submit" 
           className="w-full md:w-auto shadow-[0_4px_12px_rgba(0,0,0,0.05)] rounded-full"
         >
-          {t("continue")}
+          {groups.length === 0 ? t("continueNone") : t("continue")}
         </Button>
       </div>
     </form>

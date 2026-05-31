@@ -3,6 +3,7 @@ import { devtools } from 'zustand/middleware';
 
 export interface WizardState {
   step: number;
+  target: 'myself' | 'child' | 'other' | null;
   estado: string | null;
   nivelAcademico: string | null;
   gender: 'Femenino' | 'Masculino' | 'Otro' | null;
@@ -12,6 +13,7 @@ export interface WizardState {
   groups: string[];
   
   setStep: (step: number) => void;
+  setTarget: (target: 'myself' | 'child' | 'other') => void;
   nextStep: () => void;
   prevStep: () => void;
   setEstado: (estado: string) => void;
@@ -28,6 +30,7 @@ export const useWizardStore = create<WizardState>()(
   devtools(
     (set) => ({
       step: 1,
+      target: null,
       estado: null,
       nivelAcademico: null,
       gender: null,
@@ -37,6 +40,7 @@ export const useWizardStore = create<WizardState>()(
       groups: [],
       
       setStep: (step) => set({ step }),
+      setTarget: (target) => set({ target }),
       nextStep: () => set((state) => ({ step: state.step + 1 })),
       prevStep: () => set((state) => ({ step: Math.max(1, state.step - 1) })),
       setEstado: (estado) => set({ estado }),
@@ -49,6 +53,7 @@ export const useWizardStore = create<WizardState>()(
       
       reset: () => set({ 
         step: 1, 
+        target: null,
         estado: null, 
         nivelAcademico: null,
         gender: null,

@@ -55,22 +55,35 @@
       "of": "de {total}",
       "help": "Ayuda"
     },
+    "StepTarget": {
+      "title": "¿Para quién estás buscando la beca?",
+      "description": "Esto nos ayuda a darte los resultados correctos.",
+      "options": {
+        "myself": "Para mí",
+        "child": "Para mi hijo/a",
+        "other": "Para otra persona"
+      }
+    },
     "StepEstado": {
-      "title": "¿En qué estado vive el estudiante?",
-      "description": "Selecciona el estado de la República Mexicana donde reside actualmente el estudiante para mostrar las becas disponibles.",
+      "title": "¿En qué estado {target}?",
+      "title_myself": "vives",
+      "title_other": "vive el estudiante",
+      "description": "Selecciona el estado de la República Mexicana donde reside actualmente para mostrar las becas disponibles.",
       "listTitle": "Lista de estados",
       "placeholder": "Selecciona tu estado...",
       "accessibilityDesc": "Selecciona el nombre de tu estado. \"Nacional / No aplica\" si no buscas por estado.",
       "continue": "Continuar a perfil"
     },
     "StepNivel": {
-      "title": "¿Qué nivel estudia o estudiará?",
-      "description": "Selecciona el nivel educativo del estudiante para mostrar las becas correspondientes.",
+      "title": "¿Qué nivel {target}?",
+      "title_myself": "estás estudiando",
+      "title_other": "estudia o estudiará",
+      "description": "Selecciona el nivel educativo para mostrar las becas correspondientes. Si no estudia, selecciona 'No estudia'.",
       "continue": "Siguiente"
     },
     "StepDatosPersonales": {
-      "title": "Datos del Estudiante",
-      "description": "Ingresa los datos exactos de la persona que va a recibir la beca (ya seas tú o tus hijos).",
+      "title": "Datos del perfil",
+      "description": "Ingresa los datos exactos de la persona que va a recibir la beca.",
       "gender": "Género",
       "genderPlaceholder": "Selecciona el género del estudiante",
       "genders": {
@@ -81,19 +94,27 @@
       },
       "age": "Edad",
       "agePlaceholder": "Ej. 18",
-      "hasChildren": "¿El estudiante tiene hijos?",
+      "ageApprox": "Edad aproximada",
+      "ageUnknown": "No sé la edad exacta",
+      "hasChildren": "¿{target}?",
+      "hasChildren_myself": "Tienes hijos",
+      "hasChildren_other": "La persona tiene hijos",
       "yes": "Sí",
       "no": "No",
-      "pregnant": "¿La estudiante está embarazada?",
+      "pregnant": "¿{target}?",
+      "pregnant_myself": "Estás embarazada",
+      "pregnant_other": "La persona está embarazada",
       "maternitySupport": "Existen apoyos específicos de maternidad.",
       "back": "Atrás",
       "continue": "Ver becas para este perfil"
     },
     "StepGrupos": {
       "title": "Grupos vulnerables",
-      "description": "Selecciona si el estudiante pertenece a alguno de estos grupos. Muchas becas están dirigidas específicamente a ellos. (Opcional)",
+      "description": "Selecciona si pertenece a alguno de estos grupos. (Opcional)",
       "accessibilityDesc": "Selecciona grupos vulnerables",
-      "continue": "Buscar Becas"
+      "none": "Ninguno de los anteriores",
+      "continue": "Buscar Becas",
+      "continueNone": "No pertenezco a ninguno, Buscar Becas"
     }
   },
   "Resultados": {
