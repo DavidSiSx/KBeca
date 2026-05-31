@@ -167,9 +167,6 @@ function ResultadosContent() {
               <article key={beca.id} className="scholarship-card bg-surface-container-lowest rounded-xl border border-outline-variant p-md flex flex-col gap-sm hover:bg-surface-container-low transition-colors relative" role="listitem" tabIndex={0}>
                 <div className="flex justify-between items-start">
                   <span className="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-full">{t("statusOpen")}</span>
-                  <Button variant="icon" size="icon" aria-label={t("saveScholarship")}>
-                    <span className="material-symbols-outlined">bookmark_border</span>
-                  </Button>
                 </div>
                 <h3 className="font-headline-lg-mobile text-headline-lg-mobile text-primary mt-xs">{beca.title}</h3>
                 <p className="font-body-md text-body-md text-on-surface flex items-center gap-xs">

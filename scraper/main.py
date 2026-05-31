@@ -85,7 +85,8 @@ def parse_scholarship_text(text: str, url: str) -> ScholarshipExtractionList:
 2. target_states: Si el texto menciona 'Gobierno de [Estado]' o secretarías locales (ej. 'Estado de Yucatán'), extrae ese estado obligatoriamente (ej. 'Yucatán'). Retorna null SOLO si es una beca federal o nacional explícita.
 3. INFERENCIA DE INSTITUCIÓN: Usa la URL proporcionada ({url}) para deducir la institución si el texto es ambiguo. NUNCA pongas 'No especificada' en sitios institucionales o universitarios.
 4. FILTRO FEDERAL Y DUPLICADOS: NO extraigas menciones genéricas a 'Becas Federales', 'Becas Benito Juárez' o apoyos externos si estás analizando la página de una Universidad o Institución local. Extrae SOLO las becas PROPIAS e internas de la institución.
-5. Si otro dato no se menciona, retorna null. No inventes.
+5. EXTRANJERO: Si la beca es para mexicanos en el extranjero (Ej. IME Becas, Relaciones Exteriores para estudiar fuera), el target_states DEBE ser ['Extranjero']. NO pongas null ni 'Nacional' para evitar que se muestre a residentes en México.
+6. Si otro dato no se menciona, retorna null. No inventes.
 
 URL de Origen: {url}
 Texto de la convocatoria:
