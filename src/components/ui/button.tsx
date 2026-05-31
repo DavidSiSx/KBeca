@@ -15,9 +15,9 @@ const buttonVariants = cva(
       variant: {
         filled: "bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container",
         tonal: "bg-secondary-container text-on-secondary-container hover:bg-secondary hover:text-on-secondary",
-        outline: "border-2 border-outline text-primary dark:text-primary-fixed hover:bg-surface-variant hover:text-on-surface-variant",
-        ghost: "bg-transparent text-primary dark:text-primary-fixed hover:bg-surface-variant hover:text-on-surface-variant",
-        icon: "bg-transparent text-primary dark:text-primary-fixed hover:bg-primary/10 dark:hover:bg-primary-fixed/10 rounded-full",
+        outline: "border-2 border-outline text-primary hover:bg-surface-variant hover:text-on-surface-variant",
+        ghost: "bg-transparent text-primary hover:bg-surface-variant hover:text-on-surface-variant",
+        icon: "bg-transparent text-primary hover:bg-primary/10 rounded-full",
       },
       size: {
         default: "h-12 px-6 py-3",
