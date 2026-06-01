@@ -177,6 +177,7 @@ def upsert_scholarship(data: ScholarshipExtraction, url: str):
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ON CONFLICT (hash_id) DO UPDATE SET 
                 title = EXCLUDED.title,
+                target_states = EXCLUDED.target_states,
                 target_groups = EXCLUDED.target_groups,
                 academic_levels = EXCLUDED.academic_levels,
                 call_date = EXCLUDED.call_date,
