@@ -6,6 +6,7 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Supabase-336791?logo=postgresql&logoColor=white)](https://supabase.com/)
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Demo](https://img.shields.io/badge/Demo-kbeca.vercel.app-00C7B7?logo=vercel&logoColor=white)](https://kbeca.vercel.app/es)
 
 **Plataforma Inteligente de Búsqueda y Emparejamiento de Becas en México.**
 
