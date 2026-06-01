@@ -66,6 +66,12 @@ KBeca es una solución tecnológica diseñada para democratizar el acceso a la e
    ```
    La aplicación estará disponible en `http://localhost:3000`.
 
+## ⚠️ Scripts destructivos
+
+**Solo ejecutar en desarrollo local:**
+- `npm run db:seed`: Inserta datos de prueba (mocks).
+- `npx tsx scripts/clear-db.ts`: **BORRA** toda la base de datos de manera irrecuperable.
+
 ## Uso del Scraper (Ingesta de Datos)
 
 El pipeline de ingesta automatizado escanea sitios oficiales, lee las convocatorias y actualiza (Upsert) la base de datos.

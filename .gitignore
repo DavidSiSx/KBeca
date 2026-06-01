@@ -1,64 +1,76 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
+# ══ DEPENDENCIAS ══════════════════════════════════════════
+node_modules/
+.pnp
 .pnp.*
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-/.venv
-/scraper/.venv
 
-# testing
-/coverage
+# ══ PYTHON ════════════════════════════════════════════════
+.venv/
+scraper/.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+*.egg
 
-# next.js
-/.next/
-/out/
+# ══ NEXT.JS ═══════════════════════════════════════════════
+.next/
+out/
+build/
 
-# production
-/build
+# ══ VARIABLES DE ENTORNO ══════════════════════════════════
+# .env.example NO se ignora — es necesario para contributors
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
 
-# misc
-.DS_Store
-*.pem
+# ══ BASE DE DATOS ══════════════════════════════════════════
+*.db
+*.sqlite
+*.sqlite3
+drizzle/*.db
 
-# debug
+# ══ TYPESCRIPT ════════════════════════════════════════════
+*.tsbuildinfo
+next-env.d.ts
+
+# ══ TESTING Y REPORTES ════════════════════════════════════
+coverage/
+mass-test-report.json
+test_models.py
+test-results*/
+playwright-report/
+blob-report/
+
+# ══ LOGS ══════════════════════════════════════════════════
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
 
-# env files (can opt-in for committing if needed)
-.env*
+# ══ SO Y EDITORES ══════════════════════════════════════════
+.DS_Store
+Thumbs.db
+*.pem
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
 
-# vercel
+# ══ VERCEL ════════════════════════════════════════════════
 .vercel
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-# Database
-*.db
-*.sqlite
-*.sqlite3
-/drizzle/*.db
-
-# Testing and Reports
-mass-test-report.json
-/src/test/
-/test_models.py
-
-# Documentation
-*.md
-!README.md
-!Documentacion/**/*.md
-
-# Assets
-/stitch_assets/
-
-__pycache__/
+# ══ ASSETS TEMPORALES ══════════════════════════════════════
+stitch_assets/

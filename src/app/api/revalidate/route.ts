@@ -2,7 +2,8 @@ import { revalidateTag } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
-  const secret = request.nextUrl.searchParams.get('secret');
+  const authHeader = request.headers.get('authorization');
+  const secret = authHeader?.split('Bearer ')[1];
   
   if (!process.env.REVALIDATION_SECRET || secret !== process.env.REVALIDATION_SECRET) {
     return NextResponse.json({ message: 'Acceso no autorizado' }, { status: 401 });
