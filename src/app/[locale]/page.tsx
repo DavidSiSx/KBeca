@@ -44,14 +44,14 @@ export default function LandingPage() {
             <div className="absolute inset-0 opacity-10 pointer-events-none hero-bg-gradient"></div>
             <div className="z-10 max-w-3xl flex flex-col items-center gap-md px-md">
               <span className="inline-flex items-center gap-xs px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm border border-secondary/20">
-                <span aria-hidden="true" className="material-symbols-outlined text-[14px]">verified_user</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[14px]">lock_open</span>
                 {t("hero.badge")}
               </span>
               <h1 className="text-[40px] leading-[1.1] md:text-[64px] md:leading-[1.05] font-black tracking-tight text-on-surface text-balance">
                 {t("hero.titlePart1")} <Typewriter words={typewriterWords} />
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl text-balance">{t("hero.description")}</p>
-              <Link className={buttonVariants({ variant: "filled", size: "lg", className: "mt-sm min-h-[48px]" })} href="/wizard">
+              <Link className={buttonVariants({ variant: "filled", size: "lg", className: "mt-sm min-h-[48px] shadow-lg ring-2 ring-primary/30" })} href="/wizard">
                 {t("hero.startSearch")}
               </Link>
             </div>

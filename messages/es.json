@@ -6,7 +6,7 @@
       "startSearch": "Empezar búsqueda"
     },
     "hero": {
-      "badge": "Buscador Oficial y Gratuito",
+      "badge": "Gratuito y sin registro",
       "titlePart1": "Encuentra la beca ideal para tus ",
       "description": "Buscador gratuito y accesible de becas en México. Logramos extraer 363 programas y becas distintas. Sin registros, sin cookies, 100% privado.",
       "startSearch": "Empezar búsqueda",
@@ -29,7 +29,7 @@
       "privacyDesc": "No guardamos tus datos personales ni usamos cookies de rastreo para publicidad.",
       "accessibilityTitle": "Accesibilidad Real",
       "accessibilityDesc": "Diseño de alto contraste y soporte completo para lectores de pantalla.",
-      "dataTitle": "Datos Oficiales",
+      "dataTitle": "Datos Independientes",
       "dataDesc": "Información actualizada directamente de convocatorias gubernamentales e institucionales."
     },
     "exampleCard": {
