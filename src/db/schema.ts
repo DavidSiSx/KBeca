@@ -1,4 +1,4 @@
-import { pgTable, serial, text, timestamp, index, varchar, customType } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, timestamp, index, varchar, customType, boolean } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 
 // Definir tipo customizado para pgvector
@@ -28,6 +28,7 @@ export const scholarships = pgTable(
     targetGroups: text('target_groups').array(), // Ej: adultos mayores, enfermedades, indígenas, etc.
     academicLevels: text('academic_levels').array().notNull(),
     status: varchar('status', { length: 50 }).notNull().default('active'), // active, pending, expired
+    requiresEnrollment: boolean('requires_enrollment').default(false), // true si requiere estar inscrito en la institucion
     callDate: timestamp('call_date'), // Fecha de convocatoria
     deadline: timestamp('deadline'), // Expira
     embedding: vectorType('embedding'), // Representación semántica (Gemini 768)

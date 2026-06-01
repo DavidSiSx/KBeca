@@ -46,6 +46,7 @@ class ScholarshipExtraction(BaseModel):
     call_date: Optional[str] = Field(description="Fecha de apertura de la convocatoria o fecha de publicación en formato YYYY-MM-DD. Null si no se especifica.")
     deadline: Optional[str] = Field(description="Fecha límite o cierre en formato YYYY-MM-DD. Null si no se especifica.")
     description: str = Field(description="Resumen detallado de los beneficios, montos y requisitos clave de la beca (Mínimo 2 oraciones). NO seas escueto.")
+    requires_enrollment: bool = Field(default=False, description="True si la beca SOLO aplica para alumnos inscritos o aceptados en la institución que la ofrece (ej. becas internas del Tec de Monterrey, UNAM, universidades privadas). False para becas gubernamentales o de acceso público general.")
 
 class ScholarshipExtractionList(BaseModel):
     scholarships: List[ScholarshipExtraction] = Field(description="Lista de becas o programas sociales encontrados en la página.")
@@ -87,6 +88,7 @@ def parse_scholarship_text(text: str, url: str) -> ScholarshipExtractionList:
 4. FILTRO FEDERAL Y DUPLICADOS: NO extraigas menciones genéricas a 'Becas Federales', 'Becas Benito Juárez' o apoyos externos si estás analizando la página de una Universidad o Institución local. Extrae SOLO las becas PROPIAS e internas de la institución.
 5. EXTRANJERO: Si la beca es para mexicanos en el extranjero (Ej. IME Becas, Relaciones Exteriores para estudiar fuera), el target_states DEBE ser ['Extranjero']. NO pongas null ni 'Nacional' para evitar que se muestre a residentes en México.
 6. Si otro dato no se menciona, retorna null. No inventes.
+7. INSCRIPCION INTERNA: Si la beca SOLO aplica a alumnos actualmente inscritos o de nuevo ingreso en la misma institución que la ofrece (ej. becas del Tec de Monterrey para sus propios alumnos, Universidad Anáhuac para sus estudiantes), pon requires_enrollment = true. Para becas de gobierno o fondos externos de libre acceso, pon false.
 
 URL de Origen: {url}
 Texto de la convocatoria:
@@ -154,6 +156,7 @@ def upsert_scholarship(data: ScholarshipExtraction, url: str):
         # Manejo correcto de arreglos PostgreSQL
         target_states = data.target_states if data.target_states else None
         target_groups = data.target_groups if data.target_groups else None
+        requires_enrollment = data.requires_enrollment if hasattr(data, 'requires_enrollment') else False
         academic_levels = data.academic_levels
         
         # Corregir caso donde el LLM devuelve el string "null"
@@ -173,8 +176,8 @@ def upsert_scholarship(data: ScholarshipExtraction, url: str):
 
         # Sentencia UPSERT (ON CONFLICT)
         query = """
-            INSERT INTO scholarships (hash_id, title, institution_name, description, url, target_states, target_groups, academic_levels, call_date, deadline, status, embedding)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO scholarships (hash_id, title, institution_name, description, url, target_states, target_groups, academic_levels, call_date, deadline, status, requires_enrollment, embedding)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ON CONFLICT (hash_id) DO UPDATE SET 
                 title = EXCLUDED.title,
                 target_states = EXCLUDED.target_states,
@@ -183,13 +186,14 @@ def upsert_scholarship(data: ScholarshipExtraction, url: str):
                 call_date = EXCLUDED.call_date,
                 deadline = EXCLUDED.deadline,
                 status = EXCLUDED.status,
+                requires_enrollment = EXCLUDED.requires_enrollment,
                 embedding = EXCLUDED.embedding,
                 updated_at = NOW();
         """
         
         cur.execute(query, (
             hash_id, data.title, data.institution_name, data.description, url,
-            target_states, target_groups, academic_levels, call_date, deadline, status, embedding_str
+            target_states, target_groups, academic_levels, call_date, deadline, status, requires_enrollment, embedding_str
         ))
         
         conn.commit()

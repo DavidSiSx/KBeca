@@ -173,6 +173,12 @@ function ResultadosContent() {
                   <span className="material-symbols-outlined text-[18px]">account_balance</span>
                   {beca.institutionName}
                 </p>
+                {beca.requiresEnrollment && (
+                  <p className="font-label-sm text-label-sm text-on-tertiary-container bg-tertiary-container px-2 py-1 rounded-md flex items-center gap-xs w-fit">
+                    <span className="material-symbols-outlined text-[14px]">school</span>
+                    Solo para alumnos inscritos
+                  </p>
+                )}
                 <div className="flex flex-wrap gap-2 mt-2">
                   {beca.academicLevels?.map((lvl: string) => (
                     <p key={lvl} className="font-label-md text-label-md text-on-surface-variant bg-surface-container px-2 py-1 rounded-md inline-block self-start">{lvl}</p>
