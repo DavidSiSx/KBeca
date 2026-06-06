@@ -23,7 +23,7 @@ export function StepEstado() {
         : "title_other";
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col flex-grow h-full">
+    <form onSubmit={handleSubmit} className="flex flex-col flex-grow h-full w-full">
       <div className="mb-lg">
         <h2
           className="font-display-md text-[32px] md:text-[40px] leading-[1.1] font-[700] text-on-background mb-sm"
@@ -39,10 +39,10 @@ export function StepEstado() {
       <div
         role="group"
         aria-labelledby="estado-heading"
-        className="border-0 p-0 m-0 mb-xl flex-grow w-full flex flex-col"
+        className="mb-xl flex-grow w-full block"
       >
         <span className="sr-only">{t("listTitle")}</span>
-        <div className="relative w-full max-w-md">
+        <div className="relative w-full sm:w-[400px]">
           <CustomSelect
             options={ESTADOS}
             value={estado}

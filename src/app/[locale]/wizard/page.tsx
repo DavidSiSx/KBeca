@@ -69,7 +69,7 @@ export default function WizardPage() {
           </div>
         </div>
 
-        <div className="animate-in fade-in slide-in-from-bottom-4 duration-300 flex-grow flex flex-col">
+        <div className="animate-in fade-in slide-in-from-bottom-4 duration-300 flex-grow flex flex-col w-full">
           {step === 1 && <StepTarget />}
           {step === 2 && <StepEstado />}
           {step === 3 && <StepNivel />}
