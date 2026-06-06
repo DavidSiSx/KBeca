@@ -38,19 +38,16 @@ export function StepEstado() {
 
       <fieldset
         aria-labelledby="estado-heading"
-        className="border-0 p-0 m-0 mb-xl flex-grow"
+        className="border-0 p-0 m-0 mb-xl flex-grow w-full"
       >
         <legend className="sr-only">{t("listTitle")}</legend>
-        <div className="relative max-w-md">
-          {/* Le daremos estilo brutalista al CustomSelect pasándole className, asumiendo que lo soporta o modificando su padre */}
-          <div className="p-1 border-[3px] border-on-background bg-surface-container-lowest shadow-[6px_6px_0px_0px_#1c1c18]">
-            <CustomSelect
-              options={ESTADOS}
-              value={estado}
-              onChange={setEstado}
-              placeholder={t("placeholder")}
-            />
-          </div>
+        <div className="relative w-full max-w-md">
+          <CustomSelect
+            options={ESTADOS}
+            value={estado}
+            onChange={setEstado}
+            placeholder={t("placeholder")}
+          />
           <div id="estado-desc" className="sr-only">
             {t("accessibilityDesc")}
           </div>

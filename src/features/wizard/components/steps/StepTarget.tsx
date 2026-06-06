@@ -19,18 +19,18 @@ export function StepTarget() {
       id: "myself" as const,
       label: t("options.myself"),
       icon: (
-        <UserCircle className="w-8 h-8 md:w-10 md:h-10 text-primary mb-sm" />
+        <UserCircle className="w-8 h-8 md:w-10 md:h-10 mb-2" />
       ),
     },
     {
       id: "child" as const,
       label: t("options.child"),
-      icon: <Users className="w-8 h-8 md:w-10 md:h-10 text-primary mb-sm" />,
+      icon: <Users className="w-8 h-8 md:w-10 md:h-10 mb-2" />,
     },
     {
       id: "other" as const,
       label: t("options.other"),
-      icon: <UserPlus className="w-8 h-8 md:w-10 md:h-10 text-primary mb-sm" />,
+      icon: <UserPlus className="w-8 h-8 md:w-10 md:h-10 mb-2" />,
     },
   ];
 

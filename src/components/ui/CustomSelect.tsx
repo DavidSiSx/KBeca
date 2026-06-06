@@ -70,12 +70,12 @@ export function CustomSelect({
         aria-haspopup="listbox"
         aria-expanded={isOpen ? "true" : "false"}
         className={clsx(
-          "w-full h-[56px] px-4 py-2 border-2 rounded-lg flex items-center justify-between transition-colors outline-none",
-          "bg-surface-container-lowest font-body-lg text-body-lg",
+          "w-full h-[56px] px-4 py-2 border-[3px] border-on-background flex items-center justify-between transition-all outline-none",
+          "bg-background font-display-md font-bold text-lg uppercase tracking-wider",
           isOpen
-            ? "border-secondary ring-1 ring-secondary"
-            : "border-outline-variant hover:border-outline",
-          selectedOption ? "text-on-surface" : "text-on-surface-variant",
+            ? "shadow-none translate-x-[2px] translate-y-[2px]"
+            : "shadow-[6px_6px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_#1c1c18]",
+          selectedOption ? "text-on-background" : "text-on-background/70",
         )}
       >
         <span className="truncate">
@@ -83,7 +83,7 @@ export function CustomSelect({
         </span>
         <ChevronDown
           className={clsx(
-            "w-5 h-5 text-on-surface-variant transition-transform duration-200",
+            "w-6 h-6 text-on-background stroke-[3] transition-transform duration-200",
             isOpen && "rotate-180",
           )}
         />
@@ -95,7 +95,7 @@ export function CustomSelect({
           role="listbox"
           aria-label={placeholder || "Opciones disponibles"}
           tabIndex={-1}
-          className="absolute z-50 w-full mt-2 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.12)] max-h-60 overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200"
+          className="absolute z-50 w-full mt-2 bg-surface-container-lowest border-[3px] border-on-background shadow-[8px_8px_0px_0px_#1c1c18] max-h-60 overflow-y-auto custom-scrollbar animate-in fade-in slide-in-from-top-2 duration-200"
         >
           {options.map((option, index) => {
             const isSelected = option.value === value;
@@ -133,21 +133,21 @@ export function CustomSelect({
                   }
                 }}
                 className={clsx(
-                  "px-4 py-3 cursor-pointer transition-colors flex items-center justify-between",
+                  "px-4 py-3 cursor-pointer transition-colors flex items-center justify-between border-b-[3px] border-on-background last:border-b-0",
                   isSelected
-                    ? "bg-secondary-container/30 text-primary font-bold"
-                    : "text-on-surface hover:bg-surface-container",
+                    ? "bg-primary text-on-primary font-[900]"
+                    : "text-on-background hover:bg-surface-variant font-bold",
                 )}
               >
-                <div className="flex flex-col">
+                <div className="flex flex-col font-display-md tracking-wider">
                   <span>{option.label}</span>
                   {option.desc && (
-                    <span className="text-sm font-normal text-on-surface-variant">
+                    <span className={clsx("text-sm font-bold", isSelected ? "text-on-primary/80" : "text-on-surface-variant")}>
                       {option.desc}
                     </span>
                   )}
                 </div>
-                {isSelected && <Check className="w-5 h-5 text-primary" />}
+                {isSelected && <Check className="w-6 h-6 text-on-primary stroke-[3]" />}
               </li>
             );
           })}
