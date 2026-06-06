@@ -1,176 +1,306 @@
 import Link from "next/link";
+import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
-import { Typewriter } from "@/components/ui/typewriter";
 import { useTranslations } from "next-intl";
+import { HeroScene } from "@/components/ui/HeroScene";
+import { Footer } from "@/components/ui/Footer";
+
+import { getTranslations } from "next-intl/server";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const t = await getTranslations("Landing");
+  return {
+    title: t("hero.titlePart1") + " | KBeca",
+    description: t("hero.description"),
+  };
+}
 
 export default function LandingPage() {
   const t = useTranslations("Landing");
-  const typewriterWords = t.raw("hero.typewriter") as string[];
 
   return (
-    <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased selection:bg-secondary-container selection:text-on-secondary-container">
-      {/* Top Navigation (Desktop/Tablet) */}
-      <header className="hidden md:flex justify-between items-center h-16 px-lg w-full max-w-[1140px] mx-auto sticky top-0 bg-surface z-50 border-b border-outline-variant">
-        <div className="flex items-center gap-xs">
-          <span aria-hidden="true" className="material-symbols-outlined fill text-primary text-2xl">school</span>
-          <span className="font-headline-lg text-headline-lg text-primary">KBeca</span>
+    <div className="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
+      {/* ─── Header / Nav ─── */}
+      <header className="flex justify-between items-center px-4 md:px-20 py-6 w-full border-b-4 border-on-background bg-background z-50">
+        <Link
+          href="/"
+          className="flex items-center gap-2 font-display-lg text-headline-xl text-on-background font-black tracking-tighter"
+          aria-label="KBeca - Inicio"
+        >
+          <Image src="/kbeca-logo-clean.svg" alt="KBeca Logo" width={40} height={40} className="w-10 h-10 object-contain" priority />
+          KBeca
+        </Link>
+
+        <div className="hidden md:flex items-center gap-gutter">
+          <a
+            className="text-on-surface font-label-bold text-label-bold hover:text-secondary transition-colors duration-200"
+            href="#como-funciona"
+          >
+            {t("nav.howItWorks")}
+          </a>
+          <a
+            className="text-on-surface font-label-bold text-label-bold hover:text-secondary transition-colors duration-200"
+            href="#por-que-kbeca"
+          >
+            {t("nav.benefits")}
+          </a>
         </div>
-        <nav aria-label="Navegación principal">
-          <ul className="flex items-center gap-lg">
-            <li><a className="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors py-2" href="#como-funciona">{t("nav.howItWorks")}</a></li>
-            <li><a className="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors py-2" href="#beneficios">{t("nav.benefits")}</a></li>
-            <li>
-              <Link className={buttonVariants({ variant: "filled", size: "sm", className: "flex items-center gap-xs" })} href="/wizard">
-                {t("nav.startSearch")} <span aria-hidden="true" className="material-symbols-outlined text-[18px]">arrow_forward</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
+
+        <Link
+          className="hidden md:inline-flex items-center justify-center bg-primary text-on-primary font-label-bold text-label-bold px-6 py-3 min-h-[48px] border-2 border-on-background hover:bg-surface-tint transition-colors"
+          href="/wizard"
+        >
+          {t("nav.startSearch")}
+        </Link>
+
+        {/* Mobile Menu Button */}
+        <Link
+          href="/wizard"
+          className="md:hidden p-2 text-on-background min-h-[48px] min-w-[48px] flex items-center justify-center"
+          aria-label={t("nav.startSearch")}
+        >
+          <span
+            className="material-symbols-outlined text-[24px]"
+            aria-hidden="true"
+          >
+            search
+          </span>
+        </Link>
       </header>
 
-      {/* TopAppBar (Mobile) */}
-      <header className="md:hidden w-full top-0 sticky bg-surface border-b border-outline-variant flex justify-between items-center h-16 px-gutter z-50">
-        <div className="flex items-center gap-xs">
-          <span aria-hidden="true" className="material-symbols-outlined fill text-primary text-2xl">school</span>
-          <span className="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">KBeca</span>
-        </div>
-      </header>
+      {/* ─── Main Content ─── */}
+      <main id="main-content">
+        {/* ─── Hero Section (Diorama Scene) ─── */}
+        <section className="relative min-h-[90vh] flex items-center px-4 md:px-20 border-b-4 border-on-background w-full isolate overflow-hidden bg-background">
+          <HeroScene />
 
-      <main className="flex-grow flex flex-col items-center w-full px-gutter md:px-container-margin">
-        <div className="w-full max-w-[1140px] flex flex-col gap-xl py-xl">
-          {/* Hero Section */}
-          <section className="flex flex-col items-center text-center gap-lg py-xl lg:py-24 relative overflow-hidden rounded-xl bg-surface-container-lowest border border-outline-variant">
-            {/* Abstract decorative background element */}
-            <div className="absolute inset-0 opacity-10 pointer-events-none hero-bg-gradient"></div>
-            <div className="z-10 max-w-3xl flex flex-col items-center gap-md px-md">
-              <span className="inline-flex items-center gap-xs px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm border border-secondary/20">
-                <span aria-hidden="true" className="material-symbols-outlined text-[14px]">lock_open</span>
+          <div className="max-w-[1280px] w-full mx-auto relative z-20 py-16 md:py-24 pointer-events-none">
+            <div className="max-w-2xl flex flex-col items-start pointer-events-auto">
+              <span className="inline-flex items-center px-4 py-1 border-2 border-secondary text-secondary font-label-bold text-label-bold mb-6 bg-background uppercase tracking-wider shadow-[2px_2px_0px_0px_#1c1c18]">
                 {t("hero.badge")}
               </span>
-              <h1 className="text-[40px] leading-[1.1] md:text-[64px] md:leading-[1.05] font-black tracking-tight text-on-surface text-balance">
-                {t("hero.titlePart1")} <Typewriter words={typewriterWords} />
+
+              <h1 className="font-display-lg text-[40px] leading-[1.1] md:text-[64px] md:leading-[1.05] font-[800] tracking-tight text-on-background mb-6">
+                {t("hero.titlePart1")}
+                <span className="rotating-text-wrapper h-[1.1em] align-top text-primary" aria-hidden="true">
+                  <span className="rotating-text">
+                    <span className="block h-[1.1em]">Bachillerato</span>
+                    <span className="block h-[1.1em]">Universidad</span>
+                    <span className="block h-[1.1em]">Posgrado</span>
+                  </span>
+                </span>
+                <span className="sr-only"> Bachillerato, Universidad o Posgrado</span>
               </h1>
-              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl text-balance">{t("hero.description")}</p>
-              <Link className={buttonVariants({ variant: "filled", size: "lg", className: "mt-sm min-h-[48px] shadow-lg ring-2 ring-primary/30" })} href="/wizard">
-                {t("hero.startSearch")}
+
+              <p className="font-body-lg text-body-lg text-on-background mb-8 w-full max-w-[600px] font-medium">
+                {t("hero.description")}
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-stretch gap-4 w-full sm:w-auto mt-2">
+                <Link
+                  className="w-full sm:w-auto inline-flex items-center justify-center bg-primary text-on-primary font-label-bold text-label-bold px-8 py-4 min-h-[48px] border-2 border-on-background hover:bg-surface-tint transition-colors shadow-[4px_4px_0px_0px_#1c1c18] active:shadow-[0px_0px_0px_0px_#1c1c18] active:translate-y-1 active:translate-x-1"
+                  href="/wizard"
+                >
+                  {t("hero.startSearch")}
+                </Link>
+                <div className="w-full sm:w-auto inline-flex items-center justify-center bg-background px-8 py-4 min-h-[48px] border-2 border-on-background shadow-[4px_4px_0px_0px_#1c1c18]">
+                  <p className="text-sm font-body-sm text-on-background flex items-center gap-2 font-bold m-0">
+                    <span
+                      className="material-symbols-outlined text-tertiary text-lg"
+                      aria-hidden="true"
+                    >
+                      shield_lock
+                    </span>
+                    {t("hero.privacyNote")}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── How It Works ─── */}
+        <section
+          className="py-24 px-4 md:px-20 bg-surface-container-low border-b border-on-background"
+          id="como-funciona"
+          aria-labelledby="how-it-works-title"
+        >
+          <div className="max-w-[1280px] mx-auto">
+            <div className="text-center mb-16">
+              <h2
+                id="how-it-works-title"
+                className="font-display-md text-[32px] md:text-[48px] leading-[1.1] font-[700] text-on-background mb-4"
+              >
+                {t("howItWorks.title")}
+              </h2>
+              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                {t("howItWorks.subtitle")}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Step 1 */}
+              <article className="flex flex-col bg-background border-2 border-on-background relative hard-shadow-hover group">
+                <div className="w-full aspect-[4/3] bg-surface-variant border-b-2 border-on-background relative overflow-hidden flex items-center justify-center">
+                  <div className="absolute top-4 left-4 w-10 h-10 bg-secondary border-2 border-on-background flex items-center justify-center text-on-secondary font-display-md text-xl font-bold shadow-[2px_2px_0px_0px_#1c1c18] z-10">
+                    1
+                  </div>
+                  {/* TODO: Reemplazar este contenido por tu SVG exportado de Canva (ej. <img src="/images/step1.svg" />) */}
+                  <span className="font-label-bold text-on-surface-variant/50 flex flex-col items-center gap-2">
+                    <span className="material-symbols-outlined text-4xl" aria-hidden="true">image</span>
+                    800x600px SVG
+                  </span>
+                </div>
+                <div className="p-6 text-center flex flex-col items-center flex-grow">
+                  <h3 className="font-headline-md text-headline-md text-on-background mb-3">
+                    {t("howItWorks.step1Title")}
+                  </h3>
+                  <p className="font-body-md text-body-md text-on-surface-variant">
+                    {t("howItWorks.step1Desc")}
+                  </p>
+                </div>
+              </article>
+
+              {/* Step 2 */}
+              <article className="flex flex-col bg-background border-2 border-on-background relative hard-shadow-hover group">
+                <div className="w-full aspect-[4/3] bg-surface-variant border-b-2 border-on-background relative overflow-hidden flex items-center justify-center">
+                  <div className="absolute top-4 left-4 w-10 h-10 bg-tertiary border-2 border-on-background flex items-center justify-center text-on-tertiary font-display-md text-xl font-bold shadow-[2px_2px_0px_0px_#1c1c18] z-10">
+                    2
+                  </div>
+                  {/* TODO: Reemplazar este contenido por tu SVG exportado de Canva */}
+                  <span className="font-label-bold text-on-surface-variant/50 flex flex-col items-center gap-2">
+                    <span className="material-symbols-outlined text-4xl" aria-hidden="true">image</span>
+                    800x600px SVG
+                  </span>
+                </div>
+                <div className="p-6 text-center flex flex-col items-center flex-grow">
+                  <h3 className="font-headline-md text-headline-md text-on-background mb-3">
+                    {t("howItWorks.step2Title")}
+                  </h3>
+                  <p className="font-body-md text-body-md text-on-surface-variant">
+                    {t("howItWorks.step2Desc")}
+                  </p>
+                </div>
+              </article>
+
+              {/* Step 3 */}
+              <article className="flex flex-col bg-background border-2 border-on-background relative hard-shadow-hover group">
+                <div className="w-full aspect-[4/3] bg-surface-variant border-b-2 border-on-background relative overflow-hidden flex items-center justify-center">
+                  <div className="absolute top-4 left-4 w-10 h-10 bg-primary border-2 border-on-background flex items-center justify-center text-on-primary font-display-md text-xl font-bold shadow-[2px_2px_0px_0px_#1c1c18] z-10">
+                    3
+                  </div>
+                  {/* TODO: Reemplazar este contenido por tu SVG exportado de Canva */}
+                  <span className="font-label-bold text-on-surface-variant/50 flex flex-col items-center gap-2">
+                    <span className="material-symbols-outlined text-4xl" aria-hidden="true">image</span>
+                    800x600px SVG
+                  </span>
+                </div>
+                <div className="p-6 text-center flex flex-col items-center flex-grow">
+                  <h3 className="font-headline-md text-headline-md text-on-background mb-3">
+                    {t("howItWorks.step3Title")}
+                  </h3>
+                  <p className="font-body-md text-body-md text-on-surface-variant">
+                    {t("howItWorks.step3Desc")}
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── Benefits / Por que KBeca ─── */}
+        <section
+          className="py-24 px-4 md:px-20 bg-background border-b border-on-background"
+          id="por-que-kbeca"
+          aria-labelledby="benefits-title"
+        >
+          <div className="max-w-[1280px] mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6 w-full">
+              <h2
+                id="benefits-title"
+                className="font-display-md text-[32px] md:text-[48px] leading-[1.1] font-[700] text-on-background flex-1"
+              >
+                {t("benefits.title")}
+              </h2>
+              <Link
+                className="inline-flex items-center gap-2 font-label-bold text-label-bold text-primary hover:text-surface-tint border-b-2 border-primary pb-1 group transition-colors"
+                href="/wizard"
+              >
+                {t("benefits.startSearchLink")}
+                <span
+                  className="material-symbols-outlined transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
+                >
+                  arrow_forward
+                </span>
               </Link>
             </div>
-          </section>
 
-          {/* How it works (Bento-ish Grid) */}
-          <section className="flex flex-col gap-lg w-full" id="como-funciona" aria-labelledby="how-it-works-title">
-            <header className="text-center mb-md">
-              <h2 id="how-it-works-title" className="font-headline-lg text-headline-lg md:font-headline-xl md:text-headline-xl text-on-surface">{t("howItWorks.title")}</h2>
-              <p className="font-body-md text-body-md text-on-surface-variant mt-xs">{t("howItWorks.subtitle")}</p>
-            </header>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-              {/* Step 1 */}
-              <article className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-lg flex flex-col items-center text-center gap-md relative overflow-hidden group hover:border-secondary transition-all hover:shadow-md hover:-translate-y-1">
-                <div className="w-16 h-16 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center shadow-sm">
-                  <span className="font-headline-lg text-headline-lg font-bold">1</span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              {/* Card 1: Privacy */}
+              <div className="group border-2 border-on-background p-8 flex flex-col bg-surface-container-lowest hover:bg-secondary-fixed transition-colors duration-300">
+                <div className="w-12 h-12 mb-6 border-2 border-on-background bg-secondary-container flex items-center justify-center rounded-sm">
+                  <span
+                    aria-hidden="true"
+                    className="material-symbols-outlined text-on-secondary-container text-2xl"
+                  >
+                    visibility_off
+                  </span>
                 </div>
-                <div>
-                  <h3 className="font-headline-md text-headline-md text-on-surface mb-2">{t("howItWorks.step1Title")}</h3>
-                  <p className="font-body-md text-body-md text-on-surface-variant">{t("howItWorks.step1Desc")}</p>
-                </div>
-                <span aria-hidden="true" className="material-symbols-outlined absolute -bottom-6 -right-6 text-9xl text-surface-container-highest opacity-50 group-hover:text-primary-fixed-dim/20 transition-colors z-0">map</span>
-              </article>
-              {/* Step 2 */}
-              <article className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-lg flex flex-col items-center text-center gap-md relative overflow-hidden group hover:border-secondary transition-all hover:shadow-md hover:-translate-y-1">
-                <div className="w-16 h-16 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center shadow-sm">
-                  <span className="font-headline-lg text-headline-lg font-bold">2</span>
-                </div>
-                <div>
-                  <h3 className="font-headline-md text-headline-md text-on-surface mb-2">{t("howItWorks.step2Title")}</h3>
-                  <p className="font-body-md text-body-md text-on-surface-variant">{t("howItWorks.step2Desc")}</p>
-                </div>
-                <span aria-hidden="true" className="material-symbols-outlined absolute -bottom-6 -right-6 text-9xl text-surface-container-highest opacity-50 group-hover:text-primary-fixed-dim/20 transition-colors z-0">person_search</span>
-              </article>
-              {/* Step 3 */}
-              <article className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-lg flex flex-col items-center text-center gap-md relative overflow-hidden group hover:border-secondary transition-all hover:shadow-md hover:-translate-y-1">
-                <div className="w-16 h-16 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-sm">
-                  <span className="font-headline-lg text-headline-lg font-bold">3</span>
-                </div>
-                <div>
-                  <h3 className="font-headline-md text-headline-md text-on-surface mb-2">{t("howItWorks.step3Title")}</h3>
-                  <p className="font-body-md text-body-md text-on-surface-variant">{t("howItWorks.step3Desc")}</p>
-                </div>
-                <span aria-hidden="true" className="material-symbols-outlined absolute -bottom-6 -right-6 text-9xl text-surface-container-highest opacity-50 group-hover:text-secondary-fixed-dim/20 transition-colors z-0">task_alt</span>
-              </article>
-            </div>
-          </section>
+                <h3 className="font-headline-md text-headline-md text-on-background mb-4">
+                  {t("benefits.card1Title")}
+                </h3>
+                <p className="font-body-md text-body-md text-on-surface-variant flex-grow">
+                  {t("benefits.card1Desc")}
+                </p>
+              </div>
 
-          {/* Features / Benefits */}
-          <section className="bg-surface-container rounded-xl p-lg md:p-xl flex flex-col md:flex-row gap-xl items-center border border-outline-variant" id="beneficios">
-            <div className="w-full md:w-1/2 flex flex-col gap-lg">
-              <div>
-                <h2 className="font-headline-lg text-headline-lg md:font-headline-xl md:text-headline-xl text-on-surface mb-xs">{t("benefits.title")}</h2>
-                <p className="font-body-lg text-body-lg text-on-surface-variant">{t("benefits.subtitle")}</p>
-              </div>
-              <ul className="flex flex-col gap-md">
-                <li className="flex items-start gap-sm">
-                  <span aria-hidden="true" className="material-symbols-outlined fill text-secondary mt-1">shield_lock</span>
-                  <div>
-                    <strong className="font-label-md text-label-md text-on-surface block text-base">{t("benefits.privacyTitle")}</strong>
-                    <span className="font-body-md text-body-md text-on-surface-variant">{t("benefits.privacyDesc")}</span>
-                  </div>
-                </li>
-                <li className="flex items-start gap-sm">
-                  <span aria-hidden="true" className="material-symbols-outlined fill text-secondary mt-1">accessibility_new</span>
-                  <div>
-                    <strong className="font-label-md text-label-md text-on-surface block text-base">{t("benefits.accessibilityTitle")}</strong>
-                    <span className="font-body-md text-body-md text-on-surface-variant">{t("benefits.accessibilityDesc")}</span>
-                  </div>
-                </li>
-                <li className="flex items-start gap-sm">
-                  <span aria-hidden="true" className="material-symbols-outlined fill text-secondary mt-1">fact_check</span>
-                  <div>
-                    <strong className="font-label-md text-label-md text-on-surface block text-base">{t("benefits.dataTitle")}</strong>
-                    <span className="font-body-md text-body-md text-on-surface-variant">{t("benefits.dataDesc")}</span>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div className="w-full md:w-1/2 bg-surface rounded-lg p-md border border-outline-variant shadow-sm relative">
-              <div className="flex flex-col gap-sm">
-                <div className="flex justify-between items-start">
-                  <span className="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-xs font-semibold">{t("exampleCard.badge")}</span>
-                  <span className="text-on-surface-variant text-sm">{t("exampleCard.dueDate")}</span>
+              {/* Card 2: Updated Info */}
+              <div className="group border-2 border-on-background p-8 flex flex-col bg-surface-container-lowest hover:bg-tertiary-fixed transition-colors duration-300">
+                <div className="w-12 h-12 mb-6 border-2 border-on-background bg-tertiary-container flex items-center justify-center rounded-sm">
+                  <span
+                    aria-hidden="true"
+                    className="material-symbols-outlined text-on-tertiary-container text-2xl"
+                  >
+                    update
+                  </span>
                 </div>
-                <h3 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">{t("exampleCard.title")}</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant">{t("exampleCard.description")}</p>
-                <div className="h-12 w-full bg-surface-container-high rounded mt-2 flex items-center justify-center text-on-surface-variant font-label-md">{t("exampleCard.button")}</div>
+                <h3 className="font-headline-md text-headline-md text-on-background mb-4">
+                  {t("benefits.card2Title")}
+                </h3>
+                <p className="font-body-md text-body-md text-on-surface-variant flex-grow">
+                  {t("benefits.card2Desc")}
+                </p>
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-tertiary-container text-on-tertiary-container px-4 py-2 rounded-lg font-label-sm shadow-sm border border-tertiary-container/20 flex items-center gap-1">
-                <span aria-hidden="true" className="material-symbols-outlined text-[16px]">g_translate</span> {t("exampleCard.language")}
+
+              {/* Card 3: Accessibility */}
+              <div className="group border-2 border-on-background p-8 flex flex-col bg-surface-container-lowest hover:bg-primary-fixed transition-colors duration-300">
+                <div className="w-12 h-12 mb-6 border-2 border-on-background bg-primary-container flex items-center justify-center rounded-sm">
+                  <span
+                    aria-hidden="true"
+                    className="material-symbols-outlined text-on-primary-container text-2xl"
+                  >
+                    public
+                  </span>
+                </div>
+                <h3 className="font-headline-md text-headline-md text-on-background mb-4">
+                  {t("benefits.card3Title")}
+                </h3>
+                <p className="font-body-md text-body-md text-on-surface-variant flex-grow">
+                  {t("benefits.card3Desc")}
+                </p>
               </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full bg-surface-container-lowest border-t border-outline-variant mt-xl">
-        <div className="max-w-[1140px] mx-auto px-gutter md:px-container-margin py-lg flex flex-col md:flex-row md:justify-between items-start gap-8">
-          <div className="flex flex-col gap-4 w-full md:max-w-[400px]">
-            <div className="flex items-center gap-2">
-              <span aria-hidden="true" className="material-symbols-outlined fill text-primary text-2xl">school</span>
-              <span className="font-headline-lg-mobile text-headline-lg-mobile text-primary">KBeca</span>
-            </div>
-            <p className="font-body-md text-body-md text-on-surface-variant text-sm text-balance">
-              {t("footer.disclaimer")}
-            </p>
-            <p className="font-body-md text-body-md text-on-surface-variant text-sm flex items-center gap-2">
-              <span aria-hidden="true" className="material-symbols-outlined text-[16px]">accessible</span>
-              {t("footer.accessibility")}
-            </p>
-          </div>
-          <div className="flex flex-col md:flex-row gap-6 md:gap-8 w-full md:w-auto pt-6 md:pt-0 border-t border-outline-variant/30 md:border-0 md:items-center">
-            <Link className="font-label-md text-label-md text-primary hover:underline underline-offset-4 focus-visible:ring-2 focus-visible:ring-secondary rounded transition-all" href="/terminos">{t("footer.help")}</Link>
-            <Link className="font-label-md text-label-md text-primary hover:underline underline-offset-4 focus-visible:ring-2 focus-visible:ring-secondary rounded transition-all" href="/privacidad">{t("footer.privacy")}</Link>
-          </div>
-        </div>
-      </footer>
+      {/* ─── Footer ─── */}
+      <Footer />
     </div>
   );
 }

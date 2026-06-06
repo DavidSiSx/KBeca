@@ -1,49 +1,59 @@
 {
   "Landing": {
     "nav": {
-      "howItWorks": "Cómo funciona",
-      "benefits": "Beneficios",
-      "startSearch": "Empezar búsqueda"
+      "howItWorks": "Como funciona",
+      "benefits": "Por que KBeca",
+      "startSearch": "Buscar mi beca"
     },
     "hero": {
       "badge": "Gratuito y sin registro",
-      "titlePart1": "Encuentra la beca ideal para tus ",
-      "description": "Buscador gratuito y accesible de becas en México. Logramos extraer 363 programas y becas distintas. Sin registros, sin cookies, 100% privado.",
-      "startSearch": "Empezar búsqueda",
+      "titlePart1": "Encuentra tu beca para ",
+      "rotatingWords": ["Bachillerato", "Universidad", "Posgrado"],
+      "description": "Mas de 300 becas disponibles. Sin registro, sin cookies, 100% privado. Descubre oportunidades educativas en todo Mexico con nuestra plataforma intuitiva y segura.",
+      "startSearch": "Buscar mi beca",
+      "privacyNote": "100% Privacidad garantizada",
       "typewriter": ["estudios.", "proyectos.", "metas.", "hijos.", "carrera.", "investigaciones."]
     },
+    "heroImageAlt": "Estudiante mexicano joven mirando con esperanza hacia un diploma de beca y un birrete de graduacion flotando, con elementos graficos geometricos en colores terracota, ocre y verde cactus sobre fondo crema.",
     "howItWorks": {
-      "title": "¿Cómo funciona?",
-      "subtitle": "Encuentra tu beca en tres sencillos pasos.",
-      "step1Title": "Selecciona tu estado",
-      "step1Desc": "Filtramos las opciones disponibles específicamente para tu región académica o residencia.",
-      "step2Title": "Indica tu perfil",
-      "step2Desc": "Desde educación básica hasta posgrado, pasando por deportes o artes. Ajustamos todo a ti.",
-      "step3Title": "Descubre tus becas",
-      "step3Desc": "Obtén una lista clara de requisitos, fechas de cierre y enlaces directos para postularte."
+      "title": "Como funciona?",
+      "subtitle": "Un proceso transparente y directo para conectarte con las mejores oportunidades.",
+      "step1Title": "Completa tu perfil",
+      "step1Desc": "Ingresa datos basicos sobre tu nivel de estudios y area de interes de forma totalmente anonima.",
+      "step2Title": "Filtra resultados",
+      "step2Desc": "Nuestro sistema busca coincidencias exactas entre miles de opciones disponibles a nivel nacional.",
+      "step3Title": "Elige tu beca",
+      "step3Desc": "Revisa los requisitos detallados y accede directamente a las convocatorias oficiales."
     },
     "benefits": {
-      "title": "Compromiso con el estudiante",
-      "subtitle": "Nuestra plataforma está diseñada pensando en tus necesidades, garantizando un proceso transparente y seguro.",
+      "title": "Por que KBeca",
+      "startSearchLink": "Iniciar busqueda",
+      "card1Title": "Sin registro ni cookies",
+      "card1Desc": "Tu privacidad es fundamental. No recopilamos datos personales, no usamos cookies de seguimiento y no necesitas crear una cuenta para ver las becas.",
+      "card2Title": "Informacion actualizada",
+      "card2Desc": "Nuestro equipo verifica constantemente las convocatorias. Solo mostramos becas activas o proximas a abrir para que no pierdas tiempo.",
+      "card3Title": "Accesible para todos",
+      "card3Desc": "Disenado para ser rapido, claro y facil de usar en cualquier dispositivo y conexion a internet. La educacion debe ser universal.",
+      "subtitle": "",
       "privacyTitle": "Privacidad Total",
       "privacyDesc": "No guardamos tus datos personales ni usamos cookies de rastreo para publicidad.",
       "accessibilityTitle": "Accesibilidad Real",
-      "accessibilityDesc": "Diseño de alto contraste y soporte completo para lectores de pantalla.",
+      "accessibilityDesc": "Diseno de alto contraste y soporte completo para lectores de pantalla.",
       "dataTitle": "Datos Independientes",
-      "dataDesc": "Información actualizada directamente de convocatorias gubernamentales e institucionales."
+      "dataDesc": "Informacion actualizada directamente de convocatorias gubernamentales e institucionales."
     },
     "exampleCard": {
       "badge": "Beca Abierta",
       "dueDate": "Vence: 15 Oct",
-      "title": "Beca Benito Juárez Superior",
-      "description": "Apoyo económico para estudiantes de licenciatura o técnico superior en escuelas públicas.",
+      "title": "Beca Benito Juarez Superior",
+      "description": "Apoyo economico para estudiantes de licenciatura o tecnico superior en escuelas publicas.",
       "button": "Ver detalles (Ejemplo)",
       "language": "Lenguaje Claro"
     },
     "footer": {
-      "disclaimer": "KBeca es una herramienta informativa. No gestionamos trámites directamente ni otorgamos becas.",
-      "accessibility": "Diseño enfocado en la accesibilidad e inclusión.",
-      "help": "Términos y Condiciones",
+      "disclaimer": "KBeca es una herramienta informativa. No gestionamos tramites directamente ni otorgamos becas.",
+      "accessibility": "Diseno enfocado en la accesibilidad e inclusion.",
+      "help": "Terminos y Condiciones",
       "privacy": "Aviso de Privacidad"
     }
   },
@@ -56,38 +66,38 @@
       "help": "Ayuda"
     },
     "StepTarget": {
-      "title": "¿Para quién estás buscando la beca?",
+      "title": "Para quien estas buscando la beca?",
       "description": "Esto nos ayuda a darte los resultados correctos.",
       "options": {
-        "myself": "Para mí",
+        "myself": "Para mi",
         "child": "Para mi hijo/a",
         "other": "Para otra persona"
       }
     },
     "StepEstado": {
-      "title": "¿En qué estado {target}?",
+      "title": "En que estado {target}?",
       "title_myself": "vives",
       "title_child": "vive tu hijo/a",
       "title_other": "vive la persona",
-      "description": "Selecciona el estado de la República Mexicana donde reside actualmente para mostrar las becas disponibles.",
+      "description": "Selecciona el estado de la Republica Mexicana donde reside actualmente para mostrar las becas disponibles.",
       "listTitle": "Lista de estados",
       "placeholder": "Selecciona tu estado...",
       "accessibilityDesc": "Selecciona el nombre de tu estado. \"Nacional / No aplica\" si no buscas por estado.",
       "continue": "Continuar a perfil"
     },
     "StepNivel": {
-      "title": "¿Qué nivel {target}?",
-      "title_myself": "estás estudiando",
-      "title_child": "estudia o estudiará tu hijo/a",
-      "title_other": "estudia o estudiará la persona",
+      "title": "Que nivel {target}?",
+      "title_myself": "estas estudiando",
+      "title_child": "estudia o estudiara tu hijo/a",
+      "title_other": "estudia o estudiara la persona",
       "description": "Selecciona el nivel educativo para mostrar las becas correspondientes. Si no estudia, selecciona 'No estudia'.",
       "continue": "Siguiente"
     },
     "StepDatosPersonales": {
       "title": "Datos del perfil",
       "description": "Ingresa los datos exactos de la persona que va a recibir la beca.",
-      "gender": "Género",
-      "genderPlaceholder": "Selecciona el género del estudiante",
+      "gender": "Genero",
+      "genderPlaceholder": "Selecciona el genero del estudiante",
       "genders": {
         "female": "Mujer",
         "male": "Hombre",
@@ -97,19 +107,19 @@
       "age": "Edad",
       "agePlaceholder": "Ej. 18",
       "ageApprox": "Edad aproximada",
-      "ageUnknown": "No sé la edad exacta",
-      "hasChildren": "¿{target}?",
+      "ageUnknown": "No se la edad exacta",
+      "hasChildren": "{target}?",
       "hasChildren_myself": "Tienes hijos",
       "hasChildren_child": "Tu hijo/a tiene hijos",
       "hasChildren_other": "La persona tiene hijos",
-      "yes": "Sí",
+      "yes": "Si",
       "no": "No",
-      "pregnant": "¿{target}?",
-      "pregnant_myself": "Estás embarazada",
-      "pregnant_child": "Tu hija está embarazada",
-      "pregnant_other": "La persona está embarazada",
-      "maternitySupport": "Existen apoyos específicos de maternidad.",
-      "back": "Atrás",
+      "pregnant": "{target}?",
+      "pregnant_myself": "Estas embarazada",
+      "pregnant_child": "Tu hija esta embarazada",
+      "pregnant_other": "La persona esta embarazada",
+      "maternitySupport": "Existen apoyos especificos de maternidad.",
+      "back": "Atras",
       "continue": "Ver becas para este perfil"
     },
     "StepGrupos": {
@@ -121,12 +131,12 @@
     }
   },
   "Resultados": {
-    "backButton": "Volver a búsqueda",
+    "backButton": "Volver a busqueda",
     "title": "Becas Encontradas",
     "help": "Ayuda",
     "searching": "Buscando becas para ti...",
     "errorGeneric": "Error al buscar becas",
-    "errorUnexpected": "Ocurrió un error inesperado",
+    "errorUnexpected": "Ocurrio un error inesperado",
     "foundStart": "Encontramos ",
     "foundMiddle": " becas",
     "foundEnd": " para ti.",
@@ -135,12 +145,12 @@
     "saveScholarship": "Guardar beca",
     "closingDate": "Cierre: ",
     "viewDetails": "Ver Detalles",
-    "loadMore": "Cargar más resultados",
+    "loadMore": "Cargar mas resultados",
     "filterTitle": "Filtrar Resultados",
     "sortBy": "Ordenar por",
     "relevance": "Mayor coincidencia",
-    "closingSoon": "Fecha de cierre más próxima",
-    "recent": "Publicación más reciente",
+    "closingSoon": "Fecha de cierre mas proxima",
+    "recent": "Publicacion mas reciente",
     "institutions": "Instituciones",
     "applyFilters": "Aplicar filtros",
     "close": "Cerrar",
@@ -157,7 +167,7 @@
     "details": "Detalles",
     "requirements": "Requisitos",
     "benefits": "Beneficios",
-    "institution": "Institución",
+    "institution": "Institucion",
     "contact": "Contacto",
     "loading": "Cargando beca...",
     "notFound": "Beca no encontrada",
@@ -165,20 +175,20 @@
     "mainRequirement": "Requisito principal",
     "closingDate": "Fecha de corte",
     "notSpecified": "No especificada",
-    "generalPublic": "Público en general",
-    "description": "Descripción",
+    "generalPublic": "Publico en general",
+    "description": "Descripcion",
     "statusOpen": "Abierta",
-    "statusClosed": "Cerrada / Próxima",
+    "statusClosed": "Cerrada / Proxima",
     "titleDetail": "Detalle de Beca"
   },
   "NotFound": {
-    "title": "Página no encontrada",
-    "description": "Lo sentimos, la página que estás buscando no existe o fue eliminada.",
+    "title": "Pagina no encontrada",
+    "description": "Lo sentimos, la pagina que estas buscando no existe o fue eliminada.",
     "backToHome": "Volver al Inicio"
   },
   "Error": {
-    "title": "¡Ups! Algo salió mal",
-    "description": "Ocurrió un error inesperado al procesar tu solicitud.",
+    "title": "Ups! Algo salio mal",
+    "description": "Ocurrio un error inesperado al procesar tu solicitud.",
     "retry": "Intentar de nuevo",
     "backToHome": "Ir al Inicio"
   }

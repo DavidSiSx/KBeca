@@ -6,7 +6,7 @@ export function StepTarget() {
   const { target, setTarget, nextStep } = useWizardStore();
   const t = useTranslations("Wizard.StepTarget");
 
-  const handleSelect = (selectedTarget: 'myself' | 'child' | 'other') => {
+  const handleSelect = (selectedTarget: "myself" | "child" | "other") => {
     setTarget(selectedTarget);
     // Give a tiny delay for visual feedback of the click before advancing
     setTimeout(() => {
@@ -16,20 +16,22 @@ export function StepTarget() {
 
   const options = [
     {
-      id: 'myself' as const,
+      id: "myself" as const,
       label: t("options.myself"),
-      icon: <UserCircle className="w-8 h-8 md:w-10 md:h-10 text-primary mb-sm" />
+      icon: (
+        <UserCircle className="w-8 h-8 md:w-10 md:h-10 text-primary mb-sm" />
+      ),
     },
     {
-      id: 'child' as const,
+      id: "child" as const,
       label: t("options.child"),
-      icon: <Users className="w-8 h-8 md:w-10 md:h-10 text-primary mb-sm" />
+      icon: <Users className="w-8 h-8 md:w-10 md:h-10 text-primary mb-sm" />,
     },
     {
-      id: 'other' as const,
+      id: "other" as const,
       label: t("options.other"),
-      icon: <UserPlus className="w-8 h-8 md:w-10 md:h-10 text-primary mb-sm" />
-    }
+      icon: <UserPlus className="w-8 h-8 md:w-10 md:h-10 text-primary mb-sm" />,
+    },
   ];
 
   return (
@@ -46,12 +48,13 @@ export function StepTarget() {
       <div className="flex-grow flex flex-col gap-base md:flex-row md:justify-center md:gap-gutter pt-md">
         {options.map((option) => (
           <button
+            type="button"
             key={option.id}
             onClick={() => handleSelect(option.id)}
             className={`flex flex-col items-center justify-center p-xl md:p-2xl border-2 rounded-2xl transition-all duration-200 flex-1 w-full md:max-w-[280px] hover:bg-surface-container-low hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary ${
-              target === option.id 
-                ? 'border-primary bg-primary/5 shadow-sm' 
-                : 'border-outline-variant bg-surface-container-lowest'
+              target === option.id
+                ? "border-primary bg-primary/5 shadow-sm"
+                : "border-outline-variant bg-surface-container-lowest"
             }`}
           >
             {option.icon}

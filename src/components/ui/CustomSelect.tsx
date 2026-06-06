@@ -18,14 +18,23 @@ interface CustomSelectProps {
   id?: string;
 }
 
-export function CustomSelect({ options, value, onChange, placeholder = "Selecciona una opción", id }: CustomSelectProps) {
+export function CustomSelect({
+  options,
+  value,
+  onChange,
+  placeholder = "Selecciona una opción",
+  id,
+}: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Handle click outside to close
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     }
@@ -42,14 +51,19 @@ export function CustomSelect({ options, value, onChange, placeholder = "Seleccio
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         onKeyDown={(e) => {
-          if ((e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') && !isOpen) {
+          if (
+            (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") &&
+            !isOpen
+          ) {
             e.preventDefault();
             setIsOpen(true);
             setTimeout(() => {
-              const firstOption = containerRef.current?.querySelector('li') as HTMLLIElement;
+              const firstOption = containerRef.current?.querySelector(
+                'div[role="option"]',
+              ) as HTMLDivElement;
               if (firstOption) firstOption.focus();
             }, 50);
-          } else if (e.key === 'Escape' && isOpen) {
+          } else if (e.key === "Escape" && isOpen) {
             setIsOpen(false);
           }
         }}
@@ -58,17 +72,26 @@ export function CustomSelect({ options, value, onChange, placeholder = "Seleccio
         className={clsx(
           "w-full h-[56px] px-4 py-2 border-2 rounded-lg flex items-center justify-between transition-colors outline-none",
           "bg-surface-container-lowest font-body-lg text-body-lg",
-          isOpen ? "border-secondary ring-1 ring-secondary" : "border-outline-variant hover:border-outline",
-          selectedOption ? "text-on-surface" : "text-on-surface-variant"
+          isOpen
+            ? "border-secondary ring-1 ring-secondary"
+            : "border-outline-variant hover:border-outline",
+          selectedOption ? "text-on-surface" : "text-on-surface-variant",
         )}
       >
-        <span className="truncate">{selectedOption ? selectedOption.label : placeholder}</span>
-        <ChevronDown className={clsx("w-5 h-5 text-on-surface-variant transition-transform duration-200", isOpen && "rotate-180")} />
+        <span className="truncate">
+          {selectedOption ? selectedOption.label : placeholder}
+        </span>
+        <ChevronDown
+          className={clsx(
+            "w-5 h-5 text-on-surface-variant transition-transform duration-200",
+            isOpen && "rotate-180",
+          )}
+        />
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <ul
+        <div
           role="listbox"
           tabIndex={-1}
           className="absolute z-50 w-full mt-2 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.12)] max-h-60 overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200"
@@ -76,7 +99,7 @@ export function CustomSelect({ options, value, onChange, placeholder = "Seleccio
           {options.map((option, index) => {
             const isSelected = option.value === value;
             return (
-              <li
+              <div
                 key={option.value}
                 role="option"
                 aria-selected={isSelected}
@@ -84,42 +107,50 @@ export function CustomSelect({ options, value, onChange, placeholder = "Seleccio
                 onClick={() => {
                   onChange(option.value);
                   setIsOpen(false);
-                  containerRef.current?.querySelector('button')?.focus();
+                  containerRef.current?.querySelector("button")?.focus();
                 }}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
+                  if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
                     onChange(option.value);
                     setIsOpen(false);
-                    containerRef.current?.querySelector('button')?.focus();
-                  } else if (e.key === 'ArrowDown') {
+                    containerRef.current?.querySelector("button")?.focus();
+                  } else if (e.key === "ArrowDown") {
                     e.preventDefault();
-                    const nextItem = e.currentTarget.nextElementSibling as HTMLLIElement;
+                    const nextItem = e.currentTarget
+                      .nextElementSibling as HTMLDivElement;
                     if (nextItem) nextItem.focus();
-                  } else if (e.key === 'ArrowUp') {
+                  } else if (e.key === "ArrowUp") {
                     e.preventDefault();
-                    const prevItem = e.currentTarget.previousElementSibling as HTMLLIElement;
+                    const prevItem = e.currentTarget
+                      .previousElementSibling as HTMLDivElement;
                     if (prevItem) prevItem.focus();
-                  } else if (e.key === 'Escape') {
+                  } else if (e.key === "Escape") {
                     e.preventDefault();
                     setIsOpen(false);
-                    containerRef.current?.querySelector('button')?.focus();
+                    containerRef.current?.querySelector("button")?.focus();
                   }
                 }}
                 className={clsx(
                   "px-4 py-3 cursor-pointer transition-colors flex items-center justify-between",
-                  isSelected ? "bg-secondary-container/30 text-primary font-bold" : "text-on-surface hover:bg-surface-container"
+                  isSelected
+                    ? "bg-secondary-container/30 text-primary font-bold"
+                    : "text-on-surface hover:bg-surface-container",
                 )}
               >
                 <div className="flex flex-col">
                   <span>{option.label}</span>
-                  {option.desc && <span className="text-sm font-normal text-on-surface-variant">{option.desc}</span>}
+                  {option.desc && (
+                    <span className="text-sm font-normal text-on-surface-variant">
+                      {option.desc}
+                    </span>
+                  )}
                 </div>
                 {isSelected && <Check className="w-5 h-5 text-primary" />}
-              </li>
+              </div>
             );
           })}
-        </ul>
+        </div>
       )}
     </div>
   );

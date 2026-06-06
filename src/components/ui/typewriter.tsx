@@ -15,34 +15,55 @@ export function Typewriter({
   deletingSpeed = 50,
   pauseTime = 1500,
 }: TypewriterProps) {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [currentText, setCurrentText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
+  type State = {
+    currentWordIndex: number;
+    currentText: string;
+    isDeleting: boolean;
+  };
+  const [state, dispatch] = React.useReducer(
+    (state: State, action: Partial<State>) => ({ ...state, ...action }),
+    { currentWordIndex: 0, currentText: "", isDeleting: false },
+  );
+  const { currentWordIndex, currentText, isDeleting } = state;
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    
+
     const word = words[currentWordIndex];
 
     if (isDeleting) {
       timer = setTimeout(() => {
-        setCurrentText((prev) => prev.slice(0, -1));
-        if (currentText.length === 0) {
-          setIsDeleting(false);
-          setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        const newText = currentText.slice(0, -1);
+        if (newText.length === 0) {
+          dispatch({
+            currentText: newText,
+            isDeleting: false,
+            currentWordIndex: (currentWordIndex + 1) % words.length,
+          });
+        } else {
+          dispatch({ currentText: newText });
         }
       }, deletingSpeed);
     } else {
       timer = setTimeout(() => {
-        setCurrentText(word.slice(0, currentText.length + 1));
-        if (currentText.length === word.length) {
-          timer = setTimeout(() => setIsDeleting(true), pauseTime);
+        const newText = word.slice(0, currentText.length + 1);
+        dispatch({ currentText: newText });
+        if (newText.length === word.length) {
+          timer = setTimeout(() => dispatch({ isDeleting: true }), pauseTime);
         }
       }, typingSpeed);
     }
 
     return () => clearTimeout(timer);
-  }, [currentText, isDeleting, words, currentWordIndex, typingSpeed, deletingSpeed, pauseTime]);
+  }, [
+    currentText,
+    isDeleting,
+    words,
+    currentWordIndex,
+    typingSpeed,
+    deletingSpeed,
+    pauseTime,
+  ]);
 
   return (
     <span className="inline-block text-left text-primary-fixed dark:text-primary border-b-4 border-primary-fixed dark:border-primary transition-all duration-75">

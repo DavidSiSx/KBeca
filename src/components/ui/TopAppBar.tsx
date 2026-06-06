@@ -11,49 +11,56 @@ interface TopAppBarProps {
   onBackClick?: () => void;
 }
 
-export function TopAppBar({ title, showBackButton = true, showHelpButton = true, onHelpClick, onBackClick }: TopAppBarProps) {
+const defaultHelpClick = () => {
+  alert(
+    "KBeca te ayuda a encontrar becas basadas en tu perfil. Si la plataforma parece no actualizarse, intenta cambiar un dato para refrescar la búsqueda.",
+  );
+};
+
+export function TopAppBar({
+  title,
+  showBackButton = true,
+  showHelpButton = true,
+  onHelpClick,
+  onBackClick,
+}: TopAppBarProps) {
   const router = useRouter();
   const t = useTranslations("Beca");
 
-  const defaultHelpClick = () => {
-    alert("KBeca te ayuda a encontrar becas basadas en tu perfil. Si la plataforma parece no actualizarse, intenta cambiar un dato para refrescar la búsqueda.");
-  };
-
   return (
-    <header className="w-full top-0 sticky z-40 bg-surface dark:bg-on-background border-b border-outline-variant dark:border-outline">
-      <div className="flex justify-between items-center h-16 px-gutter w-full max-w-[1140px] mx-auto">
-        
-        {/* Espacio para mantener el título centrado si no hay botón de atrás */}
-        <div className="w-10">
+    <header className="w-full top-0 sticky z-40 bg-background border-b-4 border-on-background">
+      <div className="flex justify-between items-center h-20 px-4 md:px-20 w-full max-w-[1280px] mx-auto">
+        <div className="w-12 flex justify-start">
           {showBackButton && (
-            <Button 
-              variant="icon"
-              size="icon"
-              onClick={onBackClick || (() => router.back())} 
-              aria-label={t("backButton")} 
+            <button
+              className="w-12 h-12 flex items-center justify-center bg-background border-2 border-on-background shadow-[2px_2px_0px_0px_#1c1c18] hover:bg-surface-variant active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all cursor-pointer"
+              onClick={onBackClick || (() => router.back())}
+              aria-label={t("backButton")}
             >
-              <span aria-hidden="true" className="material-symbols-outlined">arrow_back</span>
-            </Button>
+              <span aria-hidden="true" className="material-symbols-outlined text-on-background font-bold">
+                arrow_back
+              </span>
+            </button>
           )}
         </div>
 
-        <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed m-0 text-center flex-1">
+        <h1 className="font-display-md text-headline-md md:text-headline-lg font-black text-on-background m-0 text-center flex-1 tracking-tighter">
           {title}
         </h1>
 
-        <div className="w-10 flex justify-end">
+        <div className="w-12 flex justify-end">
           {showHelpButton && (
-            <Button 
-              variant="icon"
-              size="icon"
-              onClick={onHelpClick || defaultHelpClick} 
-              aria-label="Ayuda" 
+            <button
+              className="w-12 h-12 flex items-center justify-center bg-background border-2 border-on-background shadow-[2px_2px_0px_0px_#1c1c18] hover:bg-surface-variant active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all cursor-pointer"
+              onClick={onHelpClick || defaultHelpClick}
+              aria-label="Ayuda"
             >
-              <span aria-hidden="true" className="material-symbols-outlined">help</span>
-            </Button>
+              <span aria-hidden="true" className="material-symbols-outlined text-on-background font-bold">
+                help
+              </span>
+            </button>
           )}
         </div>
-
       </div>
     </header>
   );

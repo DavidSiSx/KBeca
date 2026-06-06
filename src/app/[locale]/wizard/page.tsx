@@ -24,12 +24,21 @@ export default function WizardPage() {
 
   return (
     <div className="bg-background text-on-background font-body-lg text-body-lg min-h-screen flex flex-col pb-[100px]">
-      <TopAppBar 
+      <TopAppBar
         title={
-          <>{t("step", { step })} <span className="opacity-60 text-sm align-middle">{t("of", { total: 5 })}</span></>
-        } 
-        onBackClick={handleBack} 
-        onHelpClick={() => alert("KBeca te guía paso a paso para encontrar becas compatibles con tu perfil. Asegúrate de contestar con honestidad.")}
+          <>
+            {t("step", { step })}{" "}
+            <span className="opacity-60 text-sm align-middle">
+              {t("of", { total: 5 })}
+            </span>
+          </>
+        }
+        onBackClick={handleBack}
+        onHelpClick={() =>
+          alert(
+            "KBeca te guía paso a paso para encontrar becas compatibles con tu perfil. Asegúrate de contestar con honestidad.",
+          )
+        }
       />
 
       <main className="flex-grow px-gutter py-lg max-w-[1140px] mx-auto w-full flex flex-col">
@@ -41,7 +50,6 @@ export default function WizardPage() {
           {step === 5 && <StepGrupos />}
         </div>
       </main>
-
     </div>
   );
 }

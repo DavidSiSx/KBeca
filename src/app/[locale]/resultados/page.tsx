@@ -15,8 +15,8 @@ function ResultadosContent() {
   const t = useTranslations("Resultados");
   const locale = useLocale();
 
-  const estado = searchParams.get('state') || "";
-  const nivelAcademico = searchParams.get('level') || "";
+  const estado = searchParams.get("state") || "";
+  const nivelAcademico = searchParams.get("level") || "";
 
   const [isSearching, setIsSearching] = useState(true);
   const [results, setResults] = useState<Record<string, any>[]>([]);
@@ -24,8 +24,12 @@ function ResultadosContent() {
 
   // Estados del filtro Client-Side
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [sortBy, setSortBy] = useState<'relevance' | 'deadline' | 'recent'>('relevance');
-  const [selectedInstitutions, setSelectedInstitutions] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState<"relevance" | "deadline" | "recent">(
+    "relevance",
+  );
+  const [selectedInstitutions, setSelectedInstitutions] = useState<string[]>(
+    [],
+  );
 
   useEffect(() => {
     if (!estado || !nivelAcademico) {
@@ -39,11 +43,14 @@ function ResultadosContent() {
       setIsSearching(true);
       setError(null);
       try {
-        const gender = (searchParams.get('gender') || "Otro") as 'Femenino' | 'Masculino' | 'Otro';
-        const age = parseInt(searchParams.get('age') || "18");
-        const hasChildren = searchParams.get('hasChildren') === 'true';
-        const isPregnant = searchParams.get('isPregnant') === 'true';
-        const groups = searchParams.getAll('groups');
+        const gender = (searchParams.get("gender") || "Otro") as
+          | "Femenino"
+          | "Masculino"
+          | "Otro";
+        const age = parseInt(searchParams.get("age") || "18");
+        const hasChildren = searchParams.get("hasChildren") === "true";
+        const isPregnant = searchParams.get("isPregnant") === "true";
+        const groups = searchParams.getAll("groups");
 
         const res = await fetchMatches({
           state: estado,
@@ -52,7 +59,7 @@ function ResultadosContent() {
           age,
           hasChildren,
           isPregnant,
-          groups
+          groups,
         });
 
         if (res.success && res.data) {
@@ -71,38 +78,40 @@ function ResultadosContent() {
 
   // Derived state: instituciones únicas
   const uniqueInstitutions = useMemo(() => {
-    const insts = new Set(results.map(r => r.institutionName));
+    const insts = new Set(results.map((r) => r.institutionName));
     return Array.from(insts).filter(Boolean) as string[];
   }, [results]);
 
   // Derived state: resultados filtrados y ordenados
   const filteredResults = useMemo(() => {
     let filtered = [...results];
-    
+
     if (selectedInstitutions.length > 0) {
-      filtered = filtered.filter(r => selectedInstitutions.includes(r.institutionName));
+      filtered = filtered.filter((r) =>
+        selectedInstitutions.includes(r.institutionName),
+      );
     }
-    
-    if (sortBy === 'deadline') {
+
+    if (sortBy === "deadline") {
       filtered.sort((a, b) => {
         if (!a.deadline) return 1;
         if (!b.deadline) return -1;
         return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
       });
-    } else if (sortBy === 'recent') {
-       filtered.sort((a, b) => {
-         if (!a.callDate) return 1;
-         if (!b.callDate) return -1;
-         return new Date(b.callDate).getTime() - new Date(a.callDate).getTime();
-       });
+    } else if (sortBy === "recent") {
+      filtered.sort((a, b) => {
+        if (!a.callDate) return 1;
+        if (!b.callDate) return -1;
+        return new Date(b.callDate).getTime() - new Date(a.callDate).getTime();
+      });
     }
-    
+
     return filtered;
   }, [results, selectedInstitutions, sortBy]);
 
   const toggleInstitution = (inst: string) => {
-    setSelectedInstitutions(prev => 
-      prev.includes(inst) ? prev.filter(i => i !== inst) : [...prev, inst]
+    setSelectedInstitutions((prev) =>
+      prev.includes(inst) ? prev.filter((i) => i !== inst) : [...prev, inst],
     );
   };
 
@@ -110,27 +119,39 @@ function ResultadosContent() {
 
   return (
     <div className="bg-background text-on-background min-h-screen font-body-md flex flex-col pb-safe md:pb-0">
-      
-      <TopAppBar 
-        title={t("title")} 
+      <TopAppBar
+        title={t("title")}
         onBackClick={() => router.push("/wizard")}
-        onHelpClick={() => alert("Los resultados mostrados se basan en la coincidencia entre tu perfil y los requisitos de cada convocatoria.")}
+        onHelpClick={() =>
+          alert(
+            "Los resultados mostrados se basan en la coincidencia entre tu perfil y los requisitos de cada convocatoria.",
+          )
+        }
       />
 
       <main className="flex-1 w-full max-w-[1140px] mx-auto px-container-margin md:px-gutter mt-lg">
-        
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-lg gap-sm">
-          <h2 aria-live="polite" className="font-body-lg text-body-lg text-on-surface-variant">
+          <h2
+            aria-live="polite"
+            className="font-body-lg text-body-lg text-on-surface-variant"
+          >
             {isSearching ? (
               <span>{t("searching")}</span>
             ) : error ? (
               <span className="text-error">{error}</span>
             ) : (
-              <span>{t("foundStart")}<span className="font-bold text-primary">{filteredResults.length}{t("foundMiddle")}</span>{t("foundEnd")}</span>
+              <span>
+                {t("foundStart")}
+                <span className="font-bold text-primary">
+                  {filteredResults.length}
+                  {t("foundMiddle")}
+                </span>
+                {t("foundEnd")}
+              </span>
             )}
           </h2>
-          <Button 
-            variant="tonal" 
+          <Button
+            variant="tonal"
             aria-expanded={isFilterOpen}
             aria-controls="filter-modal"
             className="gap-xs"
@@ -142,75 +163,131 @@ function ResultadosContent() {
         </div>
 
         {isSearching ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md" role="list">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} role="listitem" className="bg-surface-container-lowest rounded-xl border border-outline-variant p-md flex flex-col gap-sm animate-pulse">
+              <li
+                key={i}
+                className="bg-surface-container-lowest rounded-xl border border-outline-variant p-md flex flex-col gap-sm animate-pulse"
+              >
                 <div className="flex justify-between items-start">
-                  <div className="w-20 h-6 bg-surface-container-high rounded-full"></div>
-                  <div className="w-8 h-8 bg-surface-container-high rounded-full"></div>
+                  <div className="w-20 h-6 bg-surface-container-high rounded-full" />
+                  <div className="w-8 h-8 bg-surface-container-high rounded-full" />
                 </div>
-                <div className="w-3/4 h-6 bg-surface-container-high rounded mt-xs"></div>
-                <div className="w-1/2 h-4 bg-surface-container-high rounded"></div>
+                <div className="w-3/4 h-6 bg-surface-container-high rounded mt-xs" />
+                <div className="w-1/2 h-4 bg-surface-container-high rounded" />
                 <div className="flex gap-2 mt-2">
-                  <div className="w-24 h-6 bg-surface-container-high rounded-md"></div>
+                  <div className="w-24 h-6 bg-surface-container-high rounded-md" />
                 </div>
                 <div className="mt-auto pt-sm border-t border-outline-variant flex flex-col gap-xs">
-                  <div className="w-1/3 h-4 bg-surface-container-high rounded"></div>
-                  <div className="w-full h-12 bg-surface-container-high rounded-lg mt-xs"></div>
+                  <div className="w-1/3 h-4 bg-surface-container-high rounded" />
+                  <div className="w-full h-12 bg-surface-container-high rounded-lg mt-xs" />
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         ) : !error && filteredResults.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md" role="list">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
             {filteredResults.map((beca) => (
-              <article key={beca.id} className="scholarship-card bg-surface-container-lowest rounded-xl border border-outline-variant p-md flex flex-col gap-sm hover:bg-surface-container-low transition-colors relative" role="listitem" tabIndex={0}>
+              <li
+                key={beca.id}
+                className="scholarship-card bg-surface-container-lowest rounded-xl border border-outline-variant p-md flex flex-col gap-sm hover:bg-surface-container-low transition-colors relative"
+                tabIndex={0}
+              >
                 <div className="flex justify-between items-start">
-                  <span className="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-full">{t("statusOpen")}</span>
+                  <span className="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-full">
+                    {t("statusOpen")}
+                  </span>
                 </div>
-                <h3 className="font-headline-lg-mobile text-headline-lg-mobile text-primary mt-xs">{beca.title}</h3>
+                <h3 className="font-headline-lg-mobile text-headline-lg-mobile text-primary mt-xs">
+                  {beca.title}
+                </h3>
                 <p className="font-body-md text-body-md text-on-surface flex items-center gap-xs">
-                  <span className="material-symbols-outlined text-[18px]">account_balance</span>
+                  <span className="material-symbols-outlined text-[18px]">
+                    account_balance
+                  </span>
                   {beca.institutionName}
                 </p>
                 {beca.requiresEnrollment && (
                   <p className="font-label-sm text-label-sm text-on-tertiary-container bg-tertiary-container px-2 py-1 rounded-md flex items-center gap-xs w-fit">
-                    <span className="material-symbols-outlined text-[14px]">school</span>
+                    <span className="material-symbols-outlined text-[14px]">
+                      school
+                    </span>
                     Solo para alumnos inscritos
                   </p>
                 )}
                 <div className="flex flex-wrap gap-2 mt-2">
                   {beca.academicLevels?.map((lvl: string) => (
-                    <p key={lvl} className="font-label-md text-label-md text-on-surface-variant bg-surface-container px-2 py-1 rounded-md inline-block self-start">{lvl}</p>
+                    <p
+                      key={lvl}
+                      className="font-label-md text-label-md text-on-surface-variant bg-surface-container px-2 py-1 rounded-md inline-block self-start"
+                    >
+                      {lvl}
+                    </p>
                   ))}
                 </div>
-                
+
                 <div className="mt-auto pt-sm border-t border-outline-variant flex flex-col gap-xs">
                   {beca.deadline && (
                     <p className="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-xs">
-                      <span className="material-symbols-outlined text-[16px]">calendar_today</span>
-                      {t("closingDate")}<strong className="text-error">{new Date(beca.deadline).toLocaleDateString()}</strong>
+                      <span className="material-symbols-outlined text-[16px]">
+                        calendar_today
+                      </span>
+                      {t("closingDate")}
+                      <strong className="text-error">
+                        {new Date(beca.deadline).toLocaleDateString()}
+                      </strong>
                     </p>
                   )}
-                  <Link href={`/beca/${beca.id}`} aria-label={`${t("viewDetails")} ${beca.title}`} className={buttonVariants({ variant: "filled", className: "w-full mt-xs gap-xs after:absolute after:inset-0" })}>
+                  <Link
+                    href={`/beca/${beca.id}`}
+                    aria-label={`${t("viewDetails")} ${beca.title}`}
+                    className={buttonVariants({
+                      variant: "filled",
+                      className:
+                        "w-full mt-xs gap-xs after:absolute after:inset-0",
+                    })}
+                  >
                     {t("viewDetails")}
-                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    <span className="material-symbols-outlined text-[18px]">
+                      arrow_forward
+                    </span>
                   </Link>
                 </div>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
         ) : (
           <div className="text-center py-xl">
             {selectedInstitutions.length > 0 ? (
               <>
-                 <p className="text-on-surface-variant font-body-lg">{t("noResultsFilters")}</p>
-                 <Button variant="outline" className="mt-md" onClick={() => { setSelectedInstitutions([]); setSortBy('relevance'); }}>{t("removeFilters")}</Button>
+                <p className="text-on-surface-variant font-body-lg">
+                  {t("noResultsFilters")}
+                </p>
+                <Button
+                  variant="outline"
+                  className="mt-md"
+                  onClick={() => {
+                    setSelectedInstitutions([]);
+                    setSortBy("relevance");
+                  }}
+                >
+                  {t("removeFilters")}
+                </Button>
               </>
             ) : (
               <>
-                 <p className="text-on-surface-variant font-body-lg">{t("noResultsProfile")}</p>
-                 <Button variant="filled" className="mt-md" onClick={() => { window.location.href = `/${locale}`; }}>{t("modifyProfile")}</Button>
+                <p className="text-on-surface-variant font-body-lg">
+                  {t("noResultsProfile")}
+                </p>
+                <Button
+                  variant="filled"
+                  className="mt-md"
+                  onClick={() => {
+                    window.location.href = `/${locale}`;
+                  }}
+                >
+                  {t("modifyProfile")}
+                </Button>
               </>
             )}
           </div>
@@ -218,49 +295,103 @@ function ResultadosContent() {
 
         {filteredResults.length > 9 && (
           <div className="mt-lg flex justify-center pb-xl">
-            <Button variant="ghost">
-                {t("loadMore")}
-            </Button>
+            <Button variant="ghost">{t("loadMore")}</Button>
           </div>
         )}
       </main>
 
       {/* Modal de Filtros Centrado (Glassmorphism + Sombras suaves) */}
       {isFilterOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" role="dialog" id="filter-modal" aria-modal="true" aria-labelledby="filter-modal-title">
+        <dialog
+          open
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm bg-transparent border-none w-full h-full m-0 max-w-none max-h-none"
+          id="filter-modal"
+          aria-labelledby="filter-modal-title"
+        >
           <div className="bg-surface-container-lowest dark:bg-on-background rounded-3xl p-lg w-full max-w-[448px] shadow-3xl animate-in fade-in zoom-in duration-200">
             <div className="flex justify-between items-center mb-md border-b border-outline-variant dark:border-outline pb-sm">
-              <h2 id="filter-modal-title" className="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed">{t("filterTitle")}</h2>
-              <Button variant="icon" size="icon" onClick={() => setIsFilterOpen(false)} aria-label={t("close")}>
+              <h2
+                id="filter-modal-title"
+                className="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed"
+              >
+                {t("filterTitle")}
+              </h2>
+              <Button
+                variant="icon"
+                size="icon"
+                onClick={() => setIsFilterOpen(false)}
+                aria-label={t("close")}
+              >
                 <span className="material-symbols-outlined">close</span>
               </Button>
             </div>
-            
+
             <div className="flex flex-col gap-lg max-h-[60vh] overflow-y-auto pr-2">
               {/* Sección Ordenar */}
               <section>
-                <h3 className="font-title-md text-title-md text-on-surface dark:text-inverse-on-surface mb-sm">{t("sortBy")}</h3>
+                <h3 className="font-title-md text-title-md text-on-surface dark:text-inverse-on-surface mb-sm">
+                  {t("sortBy")}
+                </h3>
                 <div className="flex flex-col gap-sm">
                   <label className="relative flex items-center cursor-pointer gap-3 group py-1">
-                    <input type="radio" name="sortBy" value="relevance" checked={sortBy === 'relevance'} onChange={(e) => setSortBy(e.target.value as any)} className="peer sr-only" />
-                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === 'relevance' ? 'border-primary' : 'border-outline-variant group-hover:border-primary'}`}>
-                      {sortBy === 'relevance' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                    <input
+                      type="radio"
+                      name="sortBy"
+                      value="relevance"
+                      checked={sortBy === "relevance"}
+                      onChange={(e) => setSortBy(e.target.value as any)}
+                      className="peer sr-only"
+                    />
+                    <div
+                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === "relevance" ? "border-primary" : "border-outline-variant group-hover:border-primary"}`}
+                    >
+                      {sortBy === "relevance" && (
+                        <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+                      )}
                     </div>
-                    <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors">{t("relevance")}</span>
+                    <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors">
+                      {t("relevance")}
+                    </span>
                   </label>
                   <label className="relative flex items-center cursor-pointer gap-3 group py-1">
-                    <input type="radio" name="sortBy" value="deadline" checked={sortBy === 'deadline'} onChange={(e) => setSortBy(e.target.value as any)} className="peer sr-only" />
-                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === 'deadline' ? 'border-primary' : 'border-outline-variant group-hover:border-primary'}`}>
-                      {sortBy === 'deadline' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                    <input
+                      type="radio"
+                      name="sortBy"
+                      value="deadline"
+                      checked={sortBy === "deadline"}
+                      onChange={(e) => setSortBy(e.target.value as any)}
+                      className="peer sr-only"
+                    />
+                    <div
+                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === "deadline" ? "border-primary" : "border-outline-variant group-hover:border-primary"}`}
+                    >
+                      {sortBy === "deadline" && (
+                        <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+                      )}
                     </div>
-                    <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors">{t("closingSoon")}</span>
+                    <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors">
+                      {t("closingSoon")}
+                    </span>
                   </label>
                   <label className="relative flex items-center cursor-pointer gap-3 group py-1">
-                    <input type="radio" name="sortBy" value="recent" checked={sortBy === 'recent'} onChange={(e) => setSortBy(e.target.value as any)} className="peer sr-only" />
-                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === 'recent' ? 'border-primary' : 'border-outline-variant group-hover:border-primary'}`}>
-                      {sortBy === 'recent' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                    <input
+                      type="radio"
+                      name="sortBy"
+                      value="recent"
+                      checked={sortBy === "recent"}
+                      onChange={(e) => setSortBy(e.target.value as any)}
+                      className="peer sr-only"
+                    />
+                    <div
+                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === "recent" ? "border-primary" : "border-outline-variant group-hover:border-primary"}`}
+                    >
+                      {sortBy === "recent" && (
+                        <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+                      )}
                     </div>
-                    <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors">{t("recent")}</span>
+                    <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors">
+                      {t("recent")}
+                    </span>
                   </label>
                 </div>
               </section>
@@ -268,17 +399,38 @@ function ResultadosContent() {
               {/* Sección Instituciones */}
               {uniqueInstitutions.length > 0 && (
                 <section>
-                  <h3 className="font-title-md text-title-md text-on-surface dark:text-inverse-on-surface mb-sm">{t("institutions")}</h3>
+                  <h3 className="font-title-md text-title-md text-on-surface dark:text-inverse-on-surface mb-sm">
+                    {t("institutions")}
+                  </h3>
                   <div className="flex flex-col gap-sm">
-                    {uniqueInstitutions.map(inst => {
+                    {uniqueInstitutions.map((inst) => {
                       const isChecked = selectedInstitutions.includes(inst);
                       return (
-                        <label key={inst} className="relative flex items-center cursor-pointer gap-3 group py-1">
-                          <input type="checkbox" checked={isChecked} onChange={() => toggleInstitution(inst)} className="peer sr-only" />
-                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${isChecked ? 'border-primary bg-primary text-on-primary' : 'border-outline-variant group-hover:border-primary'}`}>
-                            {isChecked && <span className="material-symbols-outlined text-[16px] font-bold">check</span>}
+                        <label
+                          key={inst}
+                          className="relative flex items-center cursor-pointer gap-3 group py-1"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => toggleInstitution(inst)}
+                            className="peer sr-only"
+                          />
+                          <div
+                            className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${isChecked ? "border-primary bg-primary text-on-primary" : "border-outline-variant group-hover:border-primary"}`}
+                          >
+                            {isChecked && (
+                              <span className="material-symbols-outlined text-[16px] font-bold">
+                                check
+                              </span>
+                            )}
                           </div>
-                          <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors line-clamp-1" title={inst}>{inst}</span>
+                          <span
+                            className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors line-clamp-1"
+                            title={inst}
+                          >
+                            {inst}
+                          </span>
                         </label>
                       );
                     })}
@@ -288,21 +440,24 @@ function ResultadosContent() {
             </div>
 
             <div className="mt-xl pt-sm border-t border-outline-variant flex justify-end">
-              <Button variant="filled" className="w-full sm:w-auto" onClick={() => setIsFilterOpen(false)}>
+              <Button
+                variant="filled"
+                className="w-full sm:w-auto"
+                onClick={() => setIsFilterOpen(false)}
+              >
                 {t("applyFilters")}
               </Button>
             </div>
           </div>
-        </div>
+        </dialog>
       )}
-
     </div>
   );
 }
 
 export default function ResultadosPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-background"></div>}>
+    <Suspense fallback={<div className="min-h-screen bg-background" />}>
       <ResultadosContent />
     </Suspense>
   );
