@@ -119,7 +119,7 @@ export function StepDatosPersonales() {
             value={age || ""}
             onChange={(e) => setAge(parseInt(e.target.value))}
             placeholder={t("agePlaceholder")}
-            className="w-full sm:w-[400px] h-[56px] px-4 py-2 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] font-display-md font-bold text-xl text-on-surface bg-surface-container-lowest placeholder-on-surface-variant outline-none focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1c1c18] transition-all"
+            className="w-full sm:w-[400px] h-[56px] px-4 py-2 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] font-display-md font-bold text-xl text-on-surface bg-surface-container-lowest placeholder-on-surface-variant outline-none focus-visible:ring-4 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1c1c18] transition-all"
           />
           {age !== null && (age < 10 || age > 99) && (
             <span className="text-error font-body-md font-bold mt-1 bg-[#f5d9d9] px-2 py-1 border-[2px] border-error w-fit shadow-[2px_2px_0px_0px_#ba1a1a]">
@@ -145,7 +145,7 @@ export function StepDatosPersonales() {
                 onChange={() => setHasChildren(true)}
                 className="peer sr-only"
               />
-              <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-surface-container-lowest text-on-surface peer-checked:bg-primary peer-checked:text-on-primary transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
+              <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-surface-container-lowest text-on-surface peer-checked:bg-primary peer-checked:text-on-primary peer-focus-visible:ring-4 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
                 <span className="font-display-md font-bold uppercase tracking-wider">
                   {t("yes")}
                 </span>
@@ -159,7 +159,7 @@ export function StepDatosPersonales() {
                 onChange={() => setHasChildren(false)}
                 className="peer sr-only"
               />
-              <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-surface-container-lowest text-on-surface peer-checked:bg-primary peer-checked:text-on-primary transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
+              <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-surface-container-lowest text-on-surface peer-checked:bg-primary peer-checked:text-on-primary peer-focus-visible:ring-4 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
                 <span className="font-display-md font-bold uppercase tracking-wider">
                   {t("no")}
                 </span>
@@ -188,7 +188,7 @@ export function StepDatosPersonales() {
                   onChange={() => setIsPregnant(true)}
                   className="peer sr-only"
                 />
-                <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-background text-on-background peer-checked:bg-on-background peer-checked:text-background transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
+                <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-background text-on-background peer-checked:bg-on-background peer-checked:text-background peer-focus-visible:ring-4 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
                   <span className="font-display-md font-bold uppercase tracking-wider">
                     {t("yes")}
                   </span>
@@ -202,7 +202,7 @@ export function StepDatosPersonales() {
                   onChange={() => setIsPregnant(false)}
                   className="peer sr-only"
                 />
-                <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-background text-on-background peer-checked:bg-on-background peer-checked:text-background transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
+                <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-background text-on-background peer-checked:bg-on-background peer-checked:text-background peer-focus-visible:ring-4 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
                   <span className="font-display-md font-bold uppercase tracking-wider">
                     {t("no")}
                   </span>

@@ -71,6 +71,7 @@ export function CustomSelect({
         aria-expanded={isOpen ? "true" : "false"}
         className={clsx(
           "w-full h-[56px] px-4 py-2 border-[3px] border-on-background flex items-center justify-between transition-all outline-none",
+          "focus-visible:ring-4 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           "bg-background font-display-md font-bold text-lg uppercase tracking-wider",
           isOpen
             ? "shadow-none translate-x-[2px] translate-y-[2px]"
@@ -133,7 +134,8 @@ export function CustomSelect({
                   }
                 }}
                 className={clsx(
-                  "px-4 py-3 cursor-pointer transition-colors flex items-center justify-between border-b-[3px] border-on-background last:border-b-0",
+                  "px-4 py-3 cursor-pointer transition-colors flex items-center justify-between border-b-[3px] border-on-background last:border-b-0 outline-none",
+                  "focus-visible:bg-surface-variant focus-visible:ring-inset focus-visible:ring-4 focus-visible:ring-primary",
                   isSelected
                     ? "bg-primary text-on-primary font-[900]"
                     : "text-on-background hover:bg-surface-variant font-bold",
