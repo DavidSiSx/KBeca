@@ -159,15 +159,18 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Step 1 */}
               <article className="flex flex-col bg-background border-2 border-on-background relative hard-shadow-hover group">
-                <div className="w-full aspect-[4/3] bg-surface-variant border-b-2 border-on-background relative overflow-hidden flex items-center justify-center">
+                <div className="w-full aspect-[4/3] bg-secondary-container border-b-2 border-on-background relative overflow-hidden flex items-center justify-center">
                   <div className="absolute top-4 left-4 w-10 h-10 bg-secondary border-2 border-on-background flex items-center justify-center text-on-secondary font-display-md text-xl font-bold shadow-[2px_2px_0px_0px_#1c1c18] z-10">
                     1
                   </div>
                   {/* TODO: Reemplazar este contenido por tu SVG exportado de Canva (ej. <img src="/images/step1.svg" />) */}
-                  <span className="font-label-bold text-on-surface-variant/50 flex flex-col items-center gap-2">
-                    <span className="material-symbols-outlined text-4xl" aria-hidden="true">image</span>
-                    800x600px SVG
-                  </span>
+                  <Image 
+                    src="/images/step1_illustration.png" 
+                    alt="Completa tu perfil" 
+                    fill 
+                    className="object-cover" 
+                    unoptimized
+                  />
                 </div>
                 <div className="p-6 text-center flex flex-col items-center flex-grow">
                   <h3 className="font-headline-md text-headline-md text-on-background mb-3">
@@ -181,15 +184,17 @@ export default function LandingPage() {
 
               {/* Step 2 */}
               <article className="flex flex-col bg-background border-2 border-on-background relative hard-shadow-hover group">
-                <div className="w-full aspect-[4/3] bg-surface-variant border-b-2 border-on-background relative overflow-hidden flex items-center justify-center">
+                <div className="w-full aspect-[4/3] bg-tertiary-container border-b-2 border-on-background relative overflow-hidden flex items-center justify-center">
                   <div className="absolute top-4 left-4 w-10 h-10 bg-tertiary border-2 border-on-background flex items-center justify-center text-on-tertiary font-display-md text-xl font-bold shadow-[2px_2px_0px_0px_#1c1c18] z-10">
                     2
                   </div>
-                  {/* TODO: Reemplazar este contenido por tu SVG exportado de Canva */}
-                  <span className="font-label-bold text-on-surface-variant/50 flex flex-col items-center gap-2">
-                    <span className="material-symbols-outlined text-4xl" aria-hidden="true">image</span>
-                    800x600px SVG
-                  </span>
+                  <Image 
+                    src="/images/step2_illustration.png" 
+                    alt="Encuentra becas" 
+                    fill 
+                    className="object-cover" 
+                    unoptimized
+                  />
                 </div>
                 <div className="p-6 text-center flex flex-col items-center flex-grow">
                   <h3 className="font-headline-md text-headline-md text-on-background mb-3">
@@ -203,15 +208,17 @@ export default function LandingPage() {
 
               {/* Step 3 */}
               <article className="flex flex-col bg-background border-2 border-on-background relative hard-shadow-hover group">
-                <div className="w-full aspect-[4/3] bg-surface-variant border-b-2 border-on-background relative overflow-hidden flex items-center justify-center">
+                <div className="w-full aspect-[4/3] bg-[#ffb4a5] border-b-2 border-on-background relative overflow-hidden flex items-center justify-center">
                   <div className="absolute top-4 left-4 w-10 h-10 bg-primary border-2 border-on-background flex items-center justify-center text-on-primary font-display-md text-xl font-bold shadow-[2px_2px_0px_0px_#1c1c18] z-10">
                     3
                   </div>
-                  {/* TODO: Reemplazar este contenido por tu SVG exportado de Canva */}
-                  <span className="font-label-bold text-on-surface-variant/50 flex flex-col items-center gap-2">
-                    <span className="material-symbols-outlined text-4xl" aria-hidden="true">image</span>
-                    800x600px SVG
-                  </span>
+                  <Image 
+                    src="/images/step3_illustration.png" 
+                    alt="Aplica y gana" 
+                    fill 
+                    className="object-cover" 
+                    unoptimized
+                  />
                 </div>
                 <div className="p-6 text-center flex flex-col items-center flex-grow">
                   <h3 className="font-headline-md text-headline-md text-on-background mb-3">
