@@ -36,11 +36,12 @@ export function StepEstado() {
         </p>
       </div>
 
-      <fieldset
+      <div
+        role="group"
         aria-labelledby="estado-heading"
-        className="border-0 p-0 m-0 mb-xl flex-grow w-full"
+        className="border-0 p-0 m-0 mb-xl flex-grow w-full flex flex-col"
       >
-        <legend className="sr-only">{t("listTitle")}</legend>
+        <span className="sr-only">{t("listTitle")}</span>
         <div className="relative w-full max-w-md">
           <CustomSelect
             options={ESTADOS}
@@ -52,7 +53,7 @@ export function StepEstado() {
             {t("accessibilityDesc")}
           </div>
         </div>
-      </fieldset>
+      </div>
 
       <div className="mt-auto pt-lg pb-safe flex justify-center w-full md:mt-xl md:justify-end">
         <button

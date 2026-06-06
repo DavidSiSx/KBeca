@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useWizardStore } from "@/features/wizard/store/wizard-store";
 import { StepTarget } from "@/features/wizard/components/steps/StepTarget";
 import { StepEstado } from "@/features/wizard/components/steps/StepEstado";
@@ -10,9 +11,16 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { TopAppBar } from "@/components/ui/TopAppBar";
+
 export default function WizardPage() {
-  const { step, prevStep } = useWizardStore();
+  const { step, prevStep, reset } = useWizardStore();
   const t = useTranslations("Wizard.page");
+
+  useEffect(() => {
+    // Si el wizard se monta (el usuario entra), nos aseguramos de que inicie limpio.
+    reset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleBack = () => {
     if (step > 1) {
