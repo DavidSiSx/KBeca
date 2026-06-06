@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { HeroScene } from "@/components/ui/HeroScene";
 import { Footer } from "@/components/ui/Footer";
+import PartnersMarquee from "@/components/ui/PartnersMarquee";
 
 import { getTranslations } from "next-intl/server";
 
@@ -139,7 +140,7 @@ export default function LandingPage() {
 
         {/* ─── How It Works ─── */}
         <section
-          className="py-24 px-4 md:px-20 bg-surface-container-low border-b border-on-background"
+          className="py-20 px-4 md:px-12 bg-background border-b-[4px] border-on-background relative overflow-hidden"
           id="como-funciona"
           aria-labelledby="how-it-works-title"
         >
@@ -158,8 +159,8 @@ export default function LandingPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Step 1 */}
-              <article className="flex flex-col bg-background border-2 border-on-background relative hard-shadow-hover group">
-                <div className="w-full aspect-[4/3] bg-secondary-container border-b-2 border-on-background relative overflow-hidden flex items-center justify-center">
+              <article className="flex flex-col border-[3px] shadow-[4px_4px_0px_0px_#1c1c18] border-on-background bg-surface-container-low h-full group hover:-translate-y-1 transition-transform duration-300">
+                <div className="w-full aspect-[4/3] bg-secondary-container border-b-[3px] border-on-background relative overflow-hidden flex items-center justify-center">
                   <div className="absolute top-4 left-4 w-10 h-10 bg-secondary border-2 border-on-background flex items-center justify-center text-on-secondary font-display-md text-xl font-bold shadow-[2px_2px_0px_0px_#1c1c18] z-10">
                     1
                   </div>
@@ -183,8 +184,8 @@ export default function LandingPage() {
               </article>
 
               {/* Step 2 */}
-              <article className="flex flex-col bg-background border-2 border-on-background relative hard-shadow-hover group">
-                <div className="w-full aspect-[4/3] bg-tertiary-container border-b-2 border-on-background relative overflow-hidden flex items-center justify-center">
+              <article className="flex flex-col border-[3px] shadow-[4px_4px_0px_0px_#1c1c18] border-on-background bg-surface-container-low h-full group hover:-translate-y-1 transition-transform duration-300">
+                <div className="w-full aspect-[4/3] bg-tertiary-container border-b-[3px] border-on-background relative overflow-hidden flex items-center justify-center">
                   <div className="absolute top-4 left-4 w-10 h-10 bg-tertiary border-2 border-on-background flex items-center justify-center text-on-tertiary font-display-md text-xl font-bold shadow-[2px_2px_0px_0px_#1c1c18] z-10">
                     2
                   </div>
@@ -207,8 +208,8 @@ export default function LandingPage() {
               </article>
 
               {/* Step 3 */}
-              <article className="flex flex-col bg-background border-2 border-on-background relative hard-shadow-hover group">
-                <div className="w-full aspect-[4/3] bg-[#ffb4a5] border-b-2 border-on-background relative overflow-hidden flex items-center justify-center">
+              <article className="flex flex-col border-[3px] shadow-[4px_4px_0px_0px_#1c1c18] border-on-background bg-surface-container-low h-full group hover:-translate-y-1 transition-transform duration-300">
+                <div className="w-full aspect-[4/3] bg-[#ffb4a5] border-b-[3px] border-on-background relative overflow-hidden flex items-center justify-center">
                   <div className="absolute top-4 left-4 w-10 h-10 bg-primary border-2 border-on-background flex items-center justify-center text-on-primary font-display-md text-xl font-bold shadow-[2px_2px_0px_0px_#1c1c18] z-10">
                     3
                   </div>
@@ -235,7 +236,7 @@ export default function LandingPage() {
 
         {/* ─── Benefits / Por que KBeca ─── */}
         <section
-          className="py-24 px-4 md:px-20 bg-background border-b border-on-background"
+          className="py-24 px-4 md:px-20 bg-background border-b-[4px] border-on-background"
           id="por-que-kbeca"
           aria-labelledby="benefits-title"
         >
@@ -243,9 +244,12 @@ export default function LandingPage() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6 w-full">
               <h2
                 id="benefits-title"
-                className="font-display-md text-[32px] md:text-[48px] leading-[1.1] font-[700] text-on-background flex-1"
+                className="font-display-md text-[32px] md:text-[48px] leading-[1.1] font-[700] text-on-background flex-1 flex flex-wrap items-baseline gap-x-2 gap-y-2"
               >
-                {t("benefits.title")}
+                <span>Por qué</span>
+                <span className="ml-2 [font-family:var(--font-archivo-black)]">
+                  KBeca
+                </span>
               </h2>
               <Link
                 className="inline-flex items-center gap-2 font-label-bold text-label-bold text-primary hover:text-surface-tint border-b-2 border-primary pb-1 group transition-colors"
@@ -263,11 +267,11 @@ export default function LandingPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {/* Card 1: Privacy */}
-              <div className="group border-2 border-on-background p-8 flex flex-col bg-surface-container-lowest hover:bg-secondary-fixed transition-colors duration-300">
-                <div className="w-12 h-12 mb-6 border-2 border-on-background bg-secondary-container flex items-center justify-center rounded-sm">
+              <div className="group border-[3px] shadow-[4px_4px_0px_0px_#1c1c18] border-on-background p-8 flex flex-col bg-surface-container-lowest hover:bg-secondary-fixed transition-colors duration-300">
+                <div className="w-12 h-12 mb-6 border-[3px] border-on-background bg-secondary flex items-center justify-center rounded-sm">
                   <span
                     aria-hidden="true"
-                    className="material-symbols-outlined text-on-secondary-container text-2xl"
+                    className="material-symbols-outlined text-on-secondary text-2xl"
                   >
                     visibility_off
                   </span>
@@ -281,11 +285,11 @@ export default function LandingPage() {
               </div>
 
               {/* Card 2: Updated Info */}
-              <div className="group border-2 border-on-background p-8 flex flex-col bg-surface-container-lowest hover:bg-tertiary-fixed transition-colors duration-300">
-                <div className="w-12 h-12 mb-6 border-2 border-on-background bg-tertiary-container flex items-center justify-center rounded-sm">
+              <div className="group border-[3px] shadow-[4px_4px_0px_0px_#1c1c18] border-on-background p-8 flex flex-col bg-surface-container-lowest hover:bg-tertiary-fixed transition-colors duration-300">
+                <div className="w-12 h-12 mb-6 border-[3px] border-on-background bg-tertiary flex items-center justify-center rounded-sm">
                   <span
                     aria-hidden="true"
-                    className="material-symbols-outlined text-on-tertiary-container text-2xl"
+                    className="material-symbols-outlined text-on-tertiary text-2xl"
                   >
                     update
                   </span>
@@ -299,11 +303,11 @@ export default function LandingPage() {
               </div>
 
               {/* Card 3: Accessibility */}
-              <div className="group border-2 border-on-background p-8 flex flex-col bg-surface-container-lowest hover:bg-primary-fixed transition-colors duration-300">
-                <div className="w-12 h-12 mb-6 border-2 border-on-background bg-primary-container flex items-center justify-center rounded-sm">
+              <div className="group border-[3px] shadow-[4px_4px_0px_0px_#1c1c18] border-on-background p-8 flex flex-col bg-surface-container-lowest hover:bg-primary-fixed transition-colors duration-300">
+                <div className="w-12 h-12 mb-6 border-[3px] border-on-background bg-primary flex items-center justify-center rounded-sm">
                   <span
                     aria-hidden="true"
-                    className="material-symbols-outlined text-on-primary-container text-2xl"
+                    className="material-symbols-outlined text-on-primary text-2xl"
                   >
                     public
                   </span>
@@ -318,6 +322,9 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
+        {/* ─── Partners Marquee ─── */}
+        <PartnersMarquee />
       </main>
 
       {/* ─── Footer ─── */}

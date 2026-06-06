@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anybody, DM_Sans } from "next/font/google";
+import { Anybody, DM_Sans, Archivo_Black } from "next/font/google";
 import "../globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -12,6 +12,13 @@ const anybody = Anybody({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "600", "700", "800"],
+});
+
+const archivoBlack = Archivo_Black({
+  variable: "--font-archivo-black",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400"],
 });
 
 const dmSans = DM_Sans({
@@ -45,7 +52,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${anybody.variable} ${dmSans.variable} h-full antialiased scroll-smooth`}
+      className={`${anybody.variable} ${dmSans.variable} ${archivoBlack.variable} h-full antialiased scroll-smooth`}
     >
       <head></head>
       <body className="min-h-full flex flex-col bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container">

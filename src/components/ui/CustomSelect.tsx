@@ -68,7 +68,7 @@ export function CustomSelect({
           }
         }}
         aria-haspopup="listbox"
-        aria-expanded={isOpen}
+        aria-expanded={isOpen ? "true" : "false"}
         className={clsx(
           "w-full h-[56px] px-4 py-2 border-2 rounded-lg flex items-center justify-between transition-colors outline-none",
           "bg-surface-container-lowest font-body-lg text-body-lg",
@@ -93,6 +93,7 @@ export function CustomSelect({
       {isOpen && (
         <ul
           role="listbox"
+          aria-label={placeholder || "Opciones disponibles"}
           tabIndex={-1}
           className="absolute z-50 w-full mt-2 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.12)] max-h-60 overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200"
         >
@@ -102,7 +103,7 @@ export function CustomSelect({
               <li
                 key={option.value}
                 role="option"
-                aria-selected={isSelected}
+                aria-selected={isSelected ? "true" : "false"}
                 tabIndex={0}
                 onClick={() => {
                   onChange(option.value);

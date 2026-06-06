@@ -5,38 +5,17 @@ export default function GlobalNotFound() {
   return (
     <html lang="es">
       <head></head>
-      <body
-        style={{
-          fontFamily: "Inter, sans-serif",
-          backgroundColor: "#F0F4F8",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          margin: 0,
-        }}
-      >
-        <div style={{ textAlign: "center" }}>
-          <h1
-            style={{ fontSize: "48px", color: "#1A365D", marginBottom: "16px" }}
-          >
+      <body className="font-body bg-background flex items-center justify-center min-h-screen m-0">
+        <div className="text-center">
+          <h1 className="text-6xl font-headline font-bold text-primary mb-4">
             404
           </h1>
-          <p
-            style={{ fontSize: "18px", color: "#4A5568", marginBottom: "32px" }}
-          >
+          <p className="text-lg text-on-background mb-8">
             La página que buscas no existe o fue movida.
           </p>
           <Link
             href="/es"
-            style={{
-              backgroundColor: "#2563EB",
-              color: "white",
-              padding: "12px 24px",
-              textDecoration: "none",
-              borderRadius: "8px",
-              fontWeight: 600,
-            }}
+            className="bg-primary text-on-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary-container hover:text-on-primary-container transition-colors"
           >
             Volver al Inicio
           </Link>

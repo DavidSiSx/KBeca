@@ -191,7 +191,7 @@ function ResultadosContent() {
                 className="scholarship-card bg-surface-container-lowest rounded-xl border border-outline-variant p-md flex flex-col gap-sm hover:bg-surface-container-low transition-colors relative"
               >
                 <div className="flex justify-between items-start">
-                  <span className="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-full">
+                  <span className="bg-secondary text-on-secondary font-label-bold text-label-sm px-2 py-1 border-[1.5px] border-on-background shadow-[2px_2px_0px_0px_#1c1c18]">
                     {t("statusOpen")}
                   </span>
                 </div>
@@ -205,7 +205,7 @@ function ResultadosContent() {
                   {beca.institutionName}
                 </p>
                 {beca.requiresEnrollment && (
-                  <p className="font-label-sm text-label-sm text-on-tertiary-container bg-tertiary-container px-2 py-1 rounded-md flex items-center gap-xs w-fit">
+                  <p className="font-label-bold text-label-sm text-on-tertiary bg-tertiary px-2 py-1 border-[1.5px] border-on-background shadow-[2px_2px_0px_0px_#1c1c18] flex items-center gap-xs w-fit">
                     <span className="material-symbols-outlined text-[14px]">
                       school
                     </span>
