@@ -59,88 +59,90 @@ export default async function BecaDetallePage({
   const statusText = isOpen ? t("statusOpen") : t("statusClosed");
 
   return (
-    <div className="antialiased min-h-screen flex flex-col font-body-lg bg-background text-on-background">
+    <div className="antialiased min-h-screen flex flex-col font-body-lg bg-background text-on-background pb-16">
       {/* TopAppBar */}
       <TopAppBar title={t("titleDetail")} />
 
       {/* Main Content Canvas */}
-      <main className="flex-grow w-full max-w-[1140px] mx-auto px-gutter py-md pb-xl md:grid md:grid-cols-12 md:gap-gutter">
-        <div className="md:col-span-8 md:col-start-3 flex flex-col gap-lg">
+      <main className="flex-grow w-full max-w-[1140px] mx-auto px-4 py-8 pb-12 md:grid md:grid-cols-12 md:gap-8 relative">
+        <div className="md:col-span-8 md:col-start-3 flex flex-col gap-10 relative z-10">
           {/* Hero / Header Section */}
           <section
             aria-labelledby="scholarship-title"
-            className="flex flex-col gap-sm"
+            className="flex flex-col gap-6"
           >
-            <div className="flex items-center gap-sm">
+            <div className="flex items-center gap-4 flex-wrap">
               <span
-                className={`inline-block font-label-md text-label-md px-3 py-1 rounded-full ${statusClass}`}
+                className={`inline-block font-display-md font-bold text-xs md:text-sm uppercase tracking-wider px-3 py-1 border-[3px] border-on-background shadow-[3px_3px_0px_0px_#1c1c18] -rotate-2 ${isOpen ? "bg-[#3c6b41] text-white" : "bg-surface-variant text-on-surface-variant"}`}
               >
                 {statusText}
               </span>
               {beca.deadline && (
-                <span className="font-label-md text-label-md text-on-surface-variant">
+                <span className="font-display-md font-bold text-xs md:text-sm uppercase tracking-wider text-on-background bg-[#f5d9d9] px-3 py-1 border-[3px] border-on-background shadow-[3px_3px_0px_0px_#1c1c18] rotate-1">
                   Cierre: {new Date(beca.deadline).toLocaleDateString()}
                 </span>
               )}
             </div>
 
             <h1
-              className="font-headline-xl text-headline-xl text-on-background"
+              className="font-display-md text-4xl md:text-5xl leading-[1.1] font-[900] text-on-background uppercase tracking-widest"
               id="scholarship-title"
             >
               {beca.title}
             </h1>
 
-            <div className="flex items-center gap-sm mt-xs">
-              <div className="w-12 h-12 bg-surface-container-high rounded-full overflow-hidden flex items-center justify-center flex-shrink-0">
-                <span className="material-symbols-outlined text-outline text-3xl">
+            <div className="flex items-center gap-4 mt-2">
+              <div className="w-14 h-14 bg-surface-container-lowest border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] flex items-center justify-center flex-shrink-0 -rotate-3">
+                <span className="material-symbols-outlined text-on-background text-3xl stroke-[3]">
                   account_balance
                 </span>
               </div>
               <div>
-                <h2 className="font-body-lg text-body-lg text-on-background font-semibold">
+                <h2 className="font-display-md text-xl font-bold text-on-background uppercase tracking-wide">
                   {beca.institutionName}
                 </h2>
-                <p className="font-body-md text-body-md text-on-surface-variant">
+                <p className="font-body-md text-on-surface-variant font-bold">
                   {beca.academicLevels.join(" / ")}
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Quick Info Cards (Bento Style) */}
+          {/* Quick Info Cards (Bento Style Brutalista) */}
           <section
             aria-label="Información rápida"
-            className="grid grid-cols-2 gap-sm"
+            className="grid grid-cols-2 gap-4 md:gap-6"
           >
-            <div className="bg-surface-container-lowest border border-outline-variant rounded-lg p-sm flex flex-col gap-xs">
-              <div className="flex items-center gap-xs text-secondary">
-                <span aria-hidden="true" className="material-symbols-outlined">
+            <div className="group bg-surface-container-lowest border-[3px] border-on-background rounded-sm p-5 md:p-6 flex flex-col gap-2 shadow-[6px_6px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_#1c1c18] transition-all relative overflow-hidden">
+              <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.08] bg-[radial-gradient(circle,#000_2px,transparent_2px)] bg-[length:8px_8px] pointer-events-none transition-opacity duration-300" />
+              <div className="flex items-center gap-2 text-primary relative z-10">
+                <span aria-hidden="true" className="material-symbols-outlined stroke-[3]">
                   school
                 </span>
-                <h3 className="font-label-md text-label-md">
+                <h3 className="font-display-md font-bold uppercase tracking-wide text-sm md:text-base">
                   {t("targetAudience")}
                 </h3>
               </div>
-              <p className="font-headline-lg-mobile text-headline-lg-mobile text-on-background leading-tight">
+              <p className="font-display-md font-bold text-lg md:text-2xl text-on-background leading-tight relative z-10 mt-1">
                 {beca.targetGroups && beca.targetGroups.length > 0
                   ? beca.targetGroups[0]
                   : t("generalPublic")}
               </p>
-              <p className="font-label-sm text-label-sm text-on-surface-variant">
+              <p className="font-body-sm text-on-surface-variant font-bold mt-auto relative z-10">
                 {t("mainRequirement")}
               </p>
             </div>
-            <div className="bg-surface-container-lowest border border-outline-variant rounded-lg p-sm flex flex-col gap-xs">
-              <div className="flex items-center gap-xs text-secondary">
-                <span aria-hidden="true" className="material-symbols-outlined">
+            <div className="group bg-surface-container-lowest border-[3px] border-on-background rounded-sm p-5 md:p-6 flex flex-col gap-2 shadow-[6px_6px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_#1c1c18] transition-all relative overflow-hidden">
+              <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.08] bg-[radial-gradient(circle,#000_2px,transparent_2px)] bg-[length:8px_8px] pointer-events-none transition-opacity duration-300" />
+              <div className="flex items-center gap-2 text-primary relative z-10">
+                <span aria-hidden="true" className="material-symbols-outlined stroke-[3]">
                   calendar_today
                 </span>
-                <h3 className="font-label-md text-label-md">
+                <h3 className="font-display-md font-bold uppercase tracking-wide text-sm md:text-base">
                   {t("closingDate")}
                 </h3>
               </div>
-              <p className="font-headline-lg-mobile text-headline-lg-mobile text-on-background">
+              <p className="font-display-md font-bold text-lg md:text-2xl text-on-background relative z-10 mt-1">
                 {beca.deadline
                   ? new Date(beca.deadline).toLocaleDateString()
                   : t("notSpecified")}
@@ -152,23 +154,25 @@ export default async function BecaDetallePage({
           {beca.description && (
             <section
               aria-labelledby="accessibility-summary"
-              className="bg-primary-fixed text-on-primary-fixed p-md rounded-xl border border-primary-fixed-dim"
+              className="bg-[#f2e6ff] text-on-background p-6 md:p-8 border-[3px] border-on-background shadow-[6px_6px_0px_0px_#1c1c18] relative overflow-hidden"
             >
-              <div className="flex items-start gap-sm">
+              {/* Detalle cómic sutil */}
+              <div className="absolute inset-0 opacity-[0.1] bg-[radial-gradient(circle,#000_1.5px,transparent_1.5px)] bg-[length:6px_6px] pointer-events-none" />
+              <div className="flex items-start gap-4 relative z-10">
                 <span
                   aria-hidden="true"
-                  className="material-symbols-outlined mt-1 fill-icon"
+                  className="material-symbols-outlined mt-1 text-[28px] stroke-[3]"
                 >
                   record_voice_over
                 </span>
                 <div>
                   <h2
-                    className="font-headline-lg-mobile text-headline-lg-mobile mb-xs"
+                    className="font-display-md font-bold text-xl uppercase tracking-wider mb-2"
                     id="accessibility-summary"
                   >
                     {t("description")}
                   </h2>
-                  <p className="font-body-md text-body-md">
+                  <p className="font-body-lg font-bold leading-relaxed text-on-background/90">
                     {beca.description}
                   </p>
                 </div>
@@ -177,22 +181,18 @@ export default async function BecaDetallePage({
           )}
 
           {/* Primary Action */}
-          <div className="mt-md pb-xl">
+          <div className="mt-4 pb-8">
             <a
               href={beca.url}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${t("apply")}. Este enlace abrirá una nueva pestaña o aplicación externa.`}
-              className={buttonVariants({
-                variant: "filled",
-                size: "lg",
-                className: "w-full rounded-full",
-              })}
+              className="font-display-md text-lg md:text-xl uppercase tracking-wider font-[900] bg-primary text-on-primary border-[3px] border-on-background px-8 py-5 shadow-[6px_6px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_#1c1c18] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all w-full flex items-center justify-center gap-3"
             >
               <span>{t("apply")}</span>
               <span
                 aria-hidden="true"
-                className="material-symbols-outlined ml-2 text-[20px]"
+                className="material-symbols-outlined stroke-[3]"
               >
                 open_in_new
               </span>

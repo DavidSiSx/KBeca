@@ -32,15 +32,15 @@ export function StepNivel() {
       id="academicLevelForm"
     >
       <div className="mb-lg">
-        <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-background mb-base">
+        <h2 className="font-display-md text-[32px] md:text-[40px] leading-[1.1] font-[700] text-on-background mb-base">
           {t("title", { target: t(targetKey) })}
         </h2>
-        <p className="font-body-lg text-body-lg text-on-surface-variant">
+        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-prose">
           {t("description")}
         </p>
       </div>
 
-      <div className="flex flex-col gap-sm flex-grow md:grid md:grid-cols-2 md:gap-gutter content-start">
+      <div className="flex flex-col gap-4 flex-grow md:grid md:grid-cols-2 md:gap-6 content-start mt-2">
         {NIVELES.map((nivel) => (
           <label
             key={nivel.id}
@@ -54,19 +54,27 @@ export function StepNivel() {
               checked={nivelAcademico === nivel.id}
               onChange={() => setNivelAcademico(nivel.id)}
             />
-            <div className="p-gutter rounded-xl border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-200 flex items-center gap-sm peer-checked:border-secondary peer-checked:bg-surface-container-low">
+            <div className={`p-5 md:p-6 rounded-sm border-[3px] border-on-background bg-surface-container-lowest transition-all duration-200 flex items-center gap-4 ${
+                nivelAcademico === nivel.id
+                  ? "bg-primary/10 shadow-none translate-x-[4px] translate-y-[4px]"
+                  : "shadow-[6px_6px_0px_0px_#1c1c18] hover:bg-surface-container-low hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_#1c1c18]"
+              }`}
+            >
+              {/* Halftone texture sutil en hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] bg-[radial-gradient(circle,#000_1px,transparent_1px)] bg-[length:4px_4px] pointer-events-none transition-opacity duration-300" />
+              
               <div
-                className={`w-5 h-5 rounded-full border-2 radio-indicator flex-shrink-0 relative ${nivelAcademico === nivel.id ? "border-secondary" : "border-outline-variant"}`}
+                className={`w-6 h-6 rounded-full border-[3px] flex items-center justify-center flex-shrink-0 bg-background ${nivelAcademico === nivel.id ? "border-primary" : "border-on-background"}`}
               >
                 {nivelAcademico === nivel.id && (
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[10px] h-[10px] bg-secondary rounded-full" />
+                  <div className="w-2.5 h-2.5 bg-primary rounded-full" />
                 )}
               </div>
-              <div className="flex flex-col">
-                <span className="font-label-md text-label-md text-on-surface">
+              <div className="flex flex-col relative z-10">
+                <span className={`font-display-md font-bold text-lg ${nivelAcademico === nivel.id ? "text-primary" : "text-on-background"}`}>
                   {nivel.label}
                 </span>
-                <span className="font-body-md text-label-sm text-on-surface-variant mt-xs">
+                <span className="font-body-md text-sm text-on-surface-variant mt-1 leading-snug">
                   {nivel.desc}
                 </span>
               </div>
@@ -76,13 +84,13 @@ export function StepNivel() {
       </div>
 
       <div className="mt-auto pt-lg pb-safe flex justify-center w-full md:mt-xl md:justify-end">
-        <Button
+        <button
           type="submit"
           disabled={!nivelAcademico}
-          className="w-full md:w-auto shadow-[0_4px_12px_rgba(0,0,0,0.05)] rounded-full"
+          className="w-full md:w-auto font-display-md text-lg uppercase tracking-wider font-bold bg-primary text-on-primary border-[3px] border-on-background px-8 py-4 shadow-[4px_4px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1c1c18] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all disabled:opacity-50 disabled:shadow-none disabled:translate-x-[4px] disabled:translate-y-[4px] disabled:cursor-not-allowed"
         >
           {t("continue")}
-        </Button>
+        </button>
       </div>
     </form>
   );

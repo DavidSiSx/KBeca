@@ -55,17 +55,17 @@ export function StepGrupos() {
       className="flex flex-col flex-grow h-full content-start"
     >
       <div className="mb-lg">
-        <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-background mb-base">
+        <h2 className="font-display-md text-[32px] md:text-[40px] leading-[1.1] font-[700] text-on-background mb-sm">
           {t("title")}
         </h2>
-        <p className="font-body-lg text-body-lg text-on-surface-variant">
+        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-prose">
           {t("description")}
         </p>
       </div>
 
       <fieldset className="flex-grow mb-xl border-0 p-0 m-0">
         <legend className="sr-only">{t("accessibilityDesc")}</legend>
-        <div className="flex flex-col gap-sm flex-grow md:grid md:grid-cols-2 md:gap-gutter content-start">
+        <div className="flex flex-col gap-4 flex-grow md:grid md:grid-cols-2 md:gap-6 content-start mt-2">
           {GRUPOS.map((grupo) => {
             const isChecked = groups.includes(grupo.id);
             return (
@@ -79,17 +79,24 @@ export function StepGrupos() {
                   checked={isChecked}
                   onChange={() => handleToggle(grupo.id)}
                 />
-                <div className="p-gutter rounded-xl border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-200 flex items-center gap-sm peer-checked:border-secondary peer-checked:bg-surface-container-low peer-focus-visible:ring-2 peer-focus-visible:ring-secondary peer-focus-visible:ring-offset-2">
+                <div className={`p-5 md:p-6 rounded-sm border-[3px] border-on-background bg-surface-container-lowest transition-all duration-200 flex items-center gap-4 ${
+                  isChecked 
+                    ? "bg-primary/10 shadow-none translate-x-[4px] translate-y-[4px]" 
+                    : "shadow-[6px_6px_0px_0px_#1c1c18] hover:bg-surface-container-low hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_#1c1c18]"
+                }`}>
+                  {/* Halftone texture sutil en hover */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] bg-[radial-gradient(circle,#000_1px,transparent_1px)] bg-[length:4px_4px] pointer-events-none transition-opacity duration-300" />
+                  
                   <div
-                    className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${isChecked ? "border-secondary bg-secondary text-on-secondary" : "border-outline-variant bg-transparent"}`}
+                    className={`w-6 h-6 border-[3px] flex items-center justify-center flex-shrink-0 transition-colors ${isChecked ? "border-primary bg-primary text-on-primary" : "border-on-background bg-background"}`}
                   >
                     {isChecked && (
-                      <span className="material-symbols-outlined text-[16px] font-bold">
-                        check
-                      </span>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" className="w-4 h-4">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
                     )}
                   </div>
-                  <span className="font-label-md text-label-md text-on-surface">
+                  <span className={`font-display-md font-bold text-lg leading-snug relative z-10 ${isChecked ? "text-primary" : "text-on-background"}`}>
                     {grupo.label}
                   </span>
                 </div>
@@ -104,17 +111,24 @@ export function StepGrupos() {
               checked={groups.length === 0}
               onChange={() => setGroups([])}
             />
-            <div className="p-gutter rounded-xl border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-200 flex items-center gap-sm peer-checked:border-secondary peer-checked:bg-surface-container-low peer-focus-visible:ring-2 peer-focus-visible:ring-secondary peer-focus-visible:ring-offset-2">
+            <div className={`p-5 md:p-6 rounded-sm border-[3px] border-on-background bg-surface-container-lowest transition-all duration-200 flex items-center gap-4 ${
+                  groups.length === 0 
+                    ? "bg-primary/10 shadow-none translate-x-[4px] translate-y-[4px]" 
+                    : "shadow-[6px_6px_0px_0px_#1c1c18] hover:bg-surface-container-low hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_#1c1c18]"
+                }`}>
+              {/* Halftone texture sutil en hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] bg-[radial-gradient(circle,#000_1px,transparent_1px)] bg-[length:4px_4px] pointer-events-none transition-opacity duration-300" />
+              
               <div
-                className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${groups.length === 0 ? "border-secondary bg-secondary text-on-secondary" : "border-outline-variant bg-transparent"}`}
+                className={`w-6 h-6 border-[3px] flex items-center justify-center flex-shrink-0 transition-colors ${groups.length === 0 ? "border-primary bg-primary text-on-primary" : "border-on-background bg-background"}`}
               >
                 {groups.length === 0 && (
-                  <span className="material-symbols-outlined text-[16px] font-bold">
-                    check
-                  </span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" className="w-4 h-4">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
                 )}
               </div>
-              <span className="font-label-md text-label-md text-on-surface">
+              <span className={`font-display-md font-bold text-lg leading-snug relative z-10 ${groups.length === 0 ? "text-primary" : "text-on-background"}`}>
                 {t("noneOption")}
               </span>
             </div>
@@ -123,12 +137,13 @@ export function StepGrupos() {
       </fieldset>
 
       <div className="mt-auto pt-lg pb-safe flex justify-center w-full md:mt-xl md:justify-end">
-        <Button
+        <button
           type="submit"
-          className="w-full md:w-auto shadow-[0_4px_12px_rgba(0,0,0,0.05)] rounded-full"
+          className="w-full md:w-auto font-display-md text-lg uppercase tracking-wider font-bold bg-primary text-on-primary border-[3px] border-on-background px-8 py-4 shadow-[4px_4px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1c1c18] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all disabled:opacity-50 disabled:shadow-none disabled:translate-x-[4px] disabled:translate-y-[4px] disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {t("continue")}
-        </Button>
+          <ArrowRight className="w-6 h-6 stroke-[3]" />
+        </button>
       </div>
     </form>
   );

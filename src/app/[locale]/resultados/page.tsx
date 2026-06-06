@@ -148,89 +148,94 @@ function ResultadosContent() {
               </span>
             )}
           </h2>
-          <Button
-            variant="tonal"
+          <button
             aria-expanded={isFilterOpen}
             aria-controls="filter-modal"
-            className="gap-xs"
+            className="font-display-md text-sm md:text-base uppercase tracking-wider font-bold bg-surface-variant text-on-surface border-[3px] border-on-background px-4 py-2 shadow-[4px_4px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1c1c18] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all flex items-center gap-2"
             onClick={() => setIsFilterOpen(true)}
           >
-            <span className="material-symbols-outlined">tune</span>
+            <span className="material-symbols-outlined stroke-[3]">tune</span>
             {t("filter")}
-          </Button>
+          </button>
         </div>
 
         {isSearching ? (
-          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <li
                 key={i}
-                className="bg-surface-container-lowest rounded-xl border border-outline-variant p-md flex flex-col gap-sm animate-pulse"
+                className="bg-surface-container-lowest border-[3px] border-on-background p-6 flex flex-col gap-4 animate-pulse shadow-[6px_6px_0px_0px_#1c1c18]"
               >
                 <div className="flex justify-between items-start">
-                  <div className="w-20 h-6 bg-surface-container-high rounded-full" />
-                  <div className="w-8 h-8 bg-surface-container-high rounded-full" />
+                  <div className="w-20 h-8 bg-surface-container-high border-[2px] border-on-background" />
                 </div>
-                <div className="w-3/4 h-6 bg-surface-container-high rounded mt-xs" />
-                <div className="w-1/2 h-4 bg-surface-container-high rounded" />
+                <div className="w-3/4 h-8 bg-surface-container-high border-[2px] border-on-background mt-2" />
+                <div className="w-1/2 h-5 bg-surface-container-high border-[2px] border-on-background" />
                 <div className="flex gap-2 mt-2">
-                  <div className="w-24 h-6 bg-surface-container-high rounded-md" />
+                  <div className="w-24 h-8 bg-surface-container-high border-[2px] border-on-background" />
                 </div>
-                <div className="mt-auto pt-sm border-t border-outline-variant flex flex-col gap-xs">
-                  <div className="w-1/3 h-4 bg-surface-container-high rounded" />
-                  <div className="w-full h-12 bg-surface-container-high rounded-lg mt-xs" />
+                <div className="mt-auto pt-4 border-t-[3px] border-on-background flex flex-col gap-2">
+                  <div className="w-1/3 h-5 bg-surface-container-high border-[2px] border-on-background" />
+                  <div className="w-full h-12 bg-surface-container-high border-[2px] border-on-background mt-2" />
                 </div>
               </li>
             ))}
           </ul>
         ) : !error && filteredResults.length > 0 ? (
-          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredResults.map((beca) => (
               <li
                 key={beca.id}
-                className="scholarship-card bg-surface-container-lowest rounded-xl border border-outline-variant p-md flex flex-col gap-sm hover:bg-surface-container-low transition-colors relative"
+                className="group scholarship-card bg-surface-container-lowest border-[3px] border-on-background p-6 flex flex-col gap-4 hover:bg-surface-container-low transition-all relative shadow-[6px_6px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_#1c1c18]"
               >
-                <div className="flex justify-between items-start">
-                  <span className="bg-secondary text-on-secondary font-label-bold text-label-sm px-2 py-1 border-[1.5px] border-on-background shadow-[2px_2px_0px_0px_#1c1c18]">
+                {/* Comic Detail: Halftone background on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] bg-[radial-gradient(circle,#000_1.5px,transparent_1.5px)] bg-[length:6px_6px] pointer-events-none transition-opacity duration-300" />
+                
+                <div className="flex justify-between items-start relative z-10">
+                  <span className="bg-[#3c6b41] text-white font-display-md font-bold text-xs md:text-sm px-3 py-1 border-[3px] border-on-background shadow-[3px_3px_0px_0px_#1c1c18] uppercase tracking-wider -rotate-2">
                     {t("statusOpen")}
                   </span>
                 </div>
-                <h3 className="font-headline-lg-mobile text-headline-lg-mobile text-primary mt-xs">
+                
+                <h3 className="font-display-md text-2xl md:text-3xl leading-[1.1] font-[900] text-on-background mt-2 relative z-10">
                   {beca.title}
                 </h3>
-                <p className="font-body-md text-body-md text-on-surface flex items-center gap-xs">
-                  <span className="material-symbols-outlined text-[18px]">
+                
+                <p className="font-body-lg font-bold text-on-surface-variant flex items-center gap-2 relative z-10">
+                  <span className="material-symbols-outlined stroke-[3]">
                     account_balance
                   </span>
                   {beca.institutionName}
                 </p>
+                
                 {beca.requiresEnrollment && (
-                  <p className="font-label-bold text-label-sm text-on-tertiary bg-tertiary px-2 py-1 border-[1.5px] border-on-background shadow-[2px_2px_0px_0px_#1c1c18] flex items-center gap-xs w-fit">
-                    <span className="material-symbols-outlined text-[14px]">
+                  <p className="font-display-md font-bold text-xs uppercase tracking-wide text-on-background bg-[#e8a341] px-2 py-1 border-[3px] border-on-background shadow-[3px_3px_0px_0px_#1c1c18] flex items-center gap-2 w-fit relative z-10">
+                    <span className="material-symbols-outlined text-[16px] stroke-[3]">
                       school
                     </span>
-                    Solo para alumnos inscritos
+                    Solo inscritos
                   </p>
                 )}
-                <div className="flex flex-wrap gap-2 mt-2">
+                
+                <div className="flex flex-wrap gap-2 mt-2 relative z-10">
                   {beca.academicLevels?.map((lvl: string) => (
                     <p
                       key={lvl}
-                      className="font-label-md text-label-md text-on-surface-variant bg-surface-container px-2 py-1 rounded-md inline-block self-start"
+                      className="font-display-md font-bold text-xs uppercase tracking-wide text-on-background bg-surface-variant px-2 py-1 border-[2px] border-on-background shadow-[2px_2px_0px_0px_#1c1c18] inline-block self-start"
                     >
                       {lvl}
                     </p>
                   ))}
                 </div>
 
-                <div className="mt-auto pt-sm border-t border-outline-variant flex flex-col gap-xs">
+                <div className="mt-auto pt-4 border-t-[3px] border-on-background flex flex-col gap-3 relative z-10">
                   {beca.deadline && (
-                    <p className="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-xs">
-                      <span className="material-symbols-outlined text-[16px]">
+                    <p className="font-display-md text-sm font-bold text-on-surface-variant flex items-center gap-2 uppercase">
+                      <span className="material-symbols-outlined text-[18px] stroke-[3]">
                         calendar_today
                       </span>
-                      {t("closingDate")}
-                      <strong className="text-error">
+                      {t("closingDate")}{" "}
+                      <strong className="text-error bg-[#f5d9d9] px-2 py-0.5 border-[2px] border-error ml-1 -rotate-1 shadow-[2px_2px_0px_0px_#ba1a1a]">
                         {new Date(beca.deadline).toLocaleDateString()}
                       </strong>
                     </p>
@@ -238,14 +243,10 @@ function ResultadosContent() {
                   <Link
                     href={`/beca/${beca.id}`}
                     aria-label={`${t("viewDetails")} ${beca.title}`}
-                    className={buttonVariants({
-                      variant: "filled",
-                      className:
-                        "w-full mt-xs gap-xs after:absolute after:inset-0",
-                    })}
+                    className="font-display-md font-bold text-lg uppercase tracking-wider text-center bg-primary text-on-primary border-[3px] border-on-background px-4 py-3 shadow-[4px_4px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1c1c18] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all w-full flex justify-center items-center gap-2 mt-2"
                   >
                     {t("viewDetails")}
-                    <span className="material-symbols-outlined text-[18px]">
+                    <span className="material-symbols-outlined stroke-[3]">
                       arrow_forward
                     </span>
                   </Link>
@@ -301,36 +302,38 @@ function ResultadosContent() {
       {isFilterOpen && (
         <dialog
           open
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm bg-transparent border-none w-full h-full m-0 max-w-none max-h-none"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm bg-transparent border-none w-full h-full m-0 max-w-none max-h-none"
           id="filter-modal"
           aria-labelledby="filter-modal-title"
         >
-          <div className="bg-surface-container-lowest dark:bg-on-background rounded-3xl p-lg w-full max-w-[448px] shadow-3xl animate-in fade-in zoom-in duration-200">
-            <div className="flex justify-between items-center mb-md border-b border-outline-variant dark:border-outline pb-sm">
+          {/* Halftone pattern en el fondo del modal (detalle cómic) */}
+          <div className="absolute inset-0 opacity-[0.2] bg-[radial-gradient(circle,#000_2px,transparent_2px)] bg-[length:8px_8px] pointer-events-none" />
+
+          <div className="bg-surface-container-lowest border-[3px] border-on-background rounded-sm p-8 w-full max-w-[448px] shadow-[8px_8px_0px_0px_#1c1c18] animate-in fade-in zoom-in duration-200 relative z-10">
+            <div className="flex justify-between items-center mb-6 border-b-[3px] border-on-background pb-4">
               <h2
                 id="filter-modal-title"
-                className="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed"
+                className="font-display-md text-3xl font-[900] text-on-background uppercase tracking-widest"
               >
                 {t("filterTitle")}
               </h2>
-              <Button
-                variant="icon"
-                size="icon"
+              <button
                 onClick={() => setIsFilterOpen(false)}
                 aria-label={t("close")}
+                className="w-10 h-10 border-[3px] border-on-background bg-error text-on-error flex items-center justify-center shadow-[2px_2px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
               >
-                <span className="material-symbols-outlined">close</span>
-              </Button>
+                <span className="material-symbols-outlined stroke-[3]">close</span>
+              </button>
             </div>
 
-            <div className="flex flex-col gap-lg max-h-[60vh] overflow-y-auto pr-2">
+            <div className="flex flex-col gap-8 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
               {/* Sección Ordenar */}
               <section>
-                <h3 className="font-title-md text-title-md text-on-surface dark:text-inverse-on-surface mb-sm">
+                <h3 className="font-display-md text-xl font-bold text-on-background uppercase tracking-wide mb-4">
                   {t("sortBy")}
                 </h3>
-                <div className="flex flex-col gap-sm">
-                  <label className="relative flex items-center cursor-pointer gap-3 group py-1">
+                <div className="flex flex-col gap-3">
+                  <label className="relative flex items-center cursor-pointer gap-4 group py-1">
                     <input
                       type="radio"
                       name="sortBy"
@@ -340,17 +343,17 @@ function ResultadosContent() {
                       className="peer sr-only"
                     />
                     <div
-                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === "relevance" ? "border-primary" : "border-outline-variant group-hover:border-primary"}`}
+                      className={`w-6 h-6 border-[3px] flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === "relevance" ? "border-primary bg-primary" : "border-on-background bg-background"}`}
                     >
                       {sortBy === "relevance" && (
-                        <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+                        <div className="w-2.5 h-2.5 bg-on-primary" />
                       )}
                     </div>
-                    <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors">
+                    <span className={`font-body-lg font-bold transition-colors ${sortBy === "relevance" ? "text-primary" : "text-on-background"}`}>
                       {t("relevance")}
                     </span>
                   </label>
-                  <label className="relative flex items-center cursor-pointer gap-3 group py-1">
+                  <label className="relative flex items-center cursor-pointer gap-4 group py-1">
                     <input
                       type="radio"
                       name="sortBy"
@@ -360,17 +363,17 @@ function ResultadosContent() {
                       className="peer sr-only"
                     />
                     <div
-                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === "deadline" ? "border-primary" : "border-outline-variant group-hover:border-primary"}`}
+                      className={`w-6 h-6 border-[3px] flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === "deadline" ? "border-primary bg-primary" : "border-on-background bg-background"}`}
                     >
                       {sortBy === "deadline" && (
-                        <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+                        <div className="w-2.5 h-2.5 bg-on-primary" />
                       )}
                     </div>
-                    <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors">
+                    <span className={`font-body-lg font-bold transition-colors ${sortBy === "deadline" ? "text-primary" : "text-on-background"}`}>
                       {t("closingSoon")}
                     </span>
                   </label>
-                  <label className="relative flex items-center cursor-pointer gap-3 group py-1">
+                  <label className="relative flex items-center cursor-pointer gap-4 group py-1">
                     <input
                       type="radio"
                       name="sortBy"
@@ -380,13 +383,13 @@ function ResultadosContent() {
                       className="peer sr-only"
                     />
                     <div
-                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === "recent" ? "border-primary" : "border-outline-variant group-hover:border-primary"}`}
+                      className={`w-6 h-6 border-[3px] flex items-center justify-center flex-shrink-0 transition-colors ${sortBy === "recent" ? "border-primary bg-primary" : "border-on-background bg-background"}`}
                     >
                       {sortBy === "recent" && (
-                        <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+                        <div className="w-2.5 h-2.5 bg-on-primary" />
                       )}
                     </div>
-                    <span className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors">
+                    <span className={`font-body-lg font-bold transition-colors ${sortBy === "recent" ? "text-primary" : "text-on-background"}`}>
                       {t("recent")}
                     </span>
                   </label>
@@ -396,16 +399,16 @@ function ResultadosContent() {
               {/* Sección Instituciones */}
               {uniqueInstitutions.length > 0 && (
                 <section>
-                  <h3 className="font-title-md text-title-md text-on-surface dark:text-inverse-on-surface mb-sm">
+                  <h3 className="font-display-md text-xl font-bold text-on-background uppercase tracking-wide mb-4">
                     {t("institutions")}
                   </h3>
-                  <div className="flex flex-col gap-sm">
+                  <div className="flex flex-col gap-3">
                     {uniqueInstitutions.map((inst) => {
                       const isChecked = selectedInstitutions.includes(inst);
                       return (
                         <label
                           key={inst}
-                          className="relative flex items-center cursor-pointer gap-3 group py-1"
+                          className="relative flex items-center cursor-pointer gap-4 group py-1"
                         >
                           <input
                             type="checkbox"
@@ -414,16 +417,16 @@ function ResultadosContent() {
                             className="peer sr-only"
                           />
                           <div
-                            className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${isChecked ? "border-primary bg-primary text-on-primary" : "border-outline-variant group-hover:border-primary"}`}
+                            className={`w-6 h-6 border-[3px] flex items-center justify-center flex-shrink-0 transition-colors ${isChecked ? "border-primary bg-primary text-on-primary" : "border-on-background bg-background"}`}
                           >
                             {isChecked && (
-                              <span className="material-symbols-outlined text-[16px] font-bold">
-                                check
-                              </span>
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" className="w-4 h-4">
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
                             )}
                           </div>
                           <span
-                            className="font-body-md text-on-surface dark:text-inverse-on-surface transition-colors line-clamp-1"
+                            className={`font-body-lg font-bold transition-colors line-clamp-1 ${isChecked ? "text-primary" : "text-on-background"}`}
                             title={inst}
                           >
                             {inst}
@@ -436,14 +439,13 @@ function ResultadosContent() {
               )}
             </div>
 
-            <div className="mt-xl pt-sm border-t border-outline-variant flex justify-end">
-              <Button
-                variant="filled"
-                className="w-full sm:w-auto"
+            <div className="mt-8 pt-6 border-t-[3px] border-on-background flex justify-end">
+              <button
+                className="w-full sm:w-auto font-display-md text-lg uppercase tracking-wider font-bold bg-primary text-on-primary border-[3px] border-on-background px-8 py-4 shadow-[4px_4px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1c1c18] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all flex items-center justify-center gap-2"
                 onClick={() => setIsFilterOpen(false)}
               >
                 {t("applyFilters")}
-              </Button>
+              </button>
             </div>
           </div>
         </dialog>

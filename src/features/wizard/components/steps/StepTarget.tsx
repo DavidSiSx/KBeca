@@ -37,28 +37,33 @@ export function StepTarget() {
   return (
     <div className="flex flex-col flex-grow h-full content-start">
       <div className="mb-lg text-center md:text-left">
-        <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-background mb-base">
+        <h2 className="font-display-md text-[32px] md:text-[40px] leading-[1.1] font-[700] text-on-background mb-base">
           {t("title")}
         </h2>
-        <p className="font-body-lg text-body-lg text-on-surface-variant">
+        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-prose mx-auto md:mx-0">
           {t("description")}
         </p>
       </div>
 
-      <div className="flex-grow flex flex-col gap-base md:flex-row md:justify-center md:gap-gutter pt-md">
+      <div className="flex-grow flex flex-col gap-4 md:flex-row md:justify-center md:gap-6 pt-4">
         {options.map((option) => (
           <button
             type="button"
             key={option.id}
             onClick={() => handleSelect(option.id)}
-            className={`flex flex-col items-center justify-center p-xl md:p-2xl border-2 rounded-2xl transition-all duration-200 flex-1 w-full md:max-w-[280px] hover:bg-surface-container-low hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary ${
+            className={`group relative flex flex-col items-center justify-center p-6 md:p-8 border-[3px] border-on-background rounded-sm transition-all duration-200 flex-1 w-full md:max-w-[280px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary ${
               target === option.id
-                ? "border-primary bg-primary/5 shadow-sm"
-                : "border-outline-variant bg-surface-container-lowest"
+                ? "bg-primary text-on-primary shadow-none translate-x-[4px] translate-y-[4px]"
+                : "bg-surface-container-lowest text-on-background shadow-[6px_6px_0px_0px_#1c1c18] hover:bg-primary hover:text-on-primary hover:shadow-[2px_2px_0px_0px_#1c1c18] hover:translate-x-[4px] hover:translate-y-[4px]"
             }`}
           >
-            {option.icon}
-            <span className="font-label-lg text-label-lg text-on-surface mt-xs text-center">
+            {/* Halftone texture sutil en hover */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.1] bg-[radial-gradient(circle,#fff_1px,transparent_1px)] bg-[length:4px_4px] pointer-events-none transition-opacity duration-300" />
+            
+            <div className={`transition-colors duration-200 ${target === option.id ? "text-on-primary" : "text-primary group-hover:text-on-primary"}`}>
+              {option.icon}
+            </div>
+            <span className="font-display-md text-lg md:text-xl uppercase tracking-wider mt-4 text-center font-bold relative z-10">
               {option.label}
             </span>
           </button>

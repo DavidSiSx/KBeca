@@ -26,12 +26,12 @@ export function StepEstado() {
     <form onSubmit={handleSubmit} className="flex flex-col flex-grow h-full">
       <div className="mb-lg">
         <h2
-          className="font-headline-lg-mobile text-headline-lg-mobile text-on-background mb-sm"
+          className="font-display-md text-[32px] md:text-[40px] leading-[1.1] font-[700] text-on-background mb-sm"
           id="estado-heading"
         >
           {t("title", { target: t(targetKey) })}
         </h2>
-        <p className="font-body-md text-body-md text-on-surface-variant">
+        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-prose">
           {t("description")}
         </p>
       </div>
@@ -41,29 +41,32 @@ export function StepEstado() {
         className="border-0 p-0 m-0 mb-xl flex-grow"
       >
         <legend className="sr-only">{t("listTitle")}</legend>
-        <div className="relative">
-          <CustomSelect
-            options={ESTADOS}
-            value={estado}
-            onChange={setEstado}
-            placeholder={t("placeholder")}
-          />
+        <div className="relative max-w-md">
+          {/* Le daremos estilo brutalista al CustomSelect pasándole className, asumiendo que lo soporta o modificando su padre */}
+          <div className="p-1 border-[3px] border-on-background bg-surface-container-lowest shadow-[6px_6px_0px_0px_#1c1c18]">
+            <CustomSelect
+              options={ESTADOS}
+              value={estado}
+              onChange={setEstado}
+              placeholder={t("placeholder")}
+            />
+          </div>
           <div id="estado-desc" className="sr-only">
             {t("accessibilityDesc")}
           </div>
         </div>
       </fieldset>
 
-      <div className="fixed md:static bottom-0 left-0 w-full p-gutter bg-surface md:bg-transparent border-t border-outline-variant md:border-0 z-30 pb-safe md:pb-0">
-        <Button
+      <div className="mt-auto pt-lg pb-safe flex justify-center w-full md:mt-xl md:justify-end">
+        <button
           type="submit"
           disabled={!estado}
           aria-disabled={!estado}
-          className="w-full md:w-auto md:min-w-[200px] md:ml-auto h-[56px] shadow-[0_4px_12px_rgba(0,0,0,0.05)] rounded-full"
+          className="w-full md:w-auto font-display-md text-lg uppercase tracking-wider font-bold bg-primary text-on-primary border-[3px] border-on-background px-8 py-4 shadow-[4px_4px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1c1c18] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all disabled:opacity-50 disabled:shadow-none disabled:translate-x-[4px] disabled:translate-y-[4px] disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {t("continue")}
-          <ArrowRight className="ml-2 w-5 h-5" />
-        </Button>
+          <ArrowRight className="w-6 h-6 stroke-[3]" />
+        </button>
       </div>
     </form>
   );
