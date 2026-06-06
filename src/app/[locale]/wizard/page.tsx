@@ -63,8 +63,10 @@ export default function WizardPage() {
               <div className="absolute inset-0 opacity-[0.2] bg-[radial-gradient(circle,#fff_1px,transparent_1px)] bg-[length:4px_4px]" />
             </div>
             
-            <div className="absolute inset-0 flex items-center justify-center font-display-md font-black text-sm md:text-base tracking-widest mix-blend-difference text-white pointer-events-none">
-              {step} DE 5
+            <div className="absolute inset-0 flex items-center justify-center font-display-md font-black text-sm md:text-base tracking-widest pointer-events-none">
+              <span className="bg-background text-on-background px-3 py-0.5 border-[2px] border-on-background shadow-[2px_2px_0px_0px_#1c1c18]">
+                {step} DE 5
+              </span>
             </div>
           </div>
         </div>

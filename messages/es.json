@@ -108,6 +108,7 @@
       "agePlaceholder": "Ej. 18",
       "ageApprox": "Edad aproximada",
       "ageUnknown": "No se la edad exacta",
+      "ageError": "La edad debe ser entre 10 y 99 años",
       "hasChildren": "{target}?",
       "hasChildren_myself": "Tienes hijos",
       "hasChildren_child": "Tu hijo/a tiene hijos",

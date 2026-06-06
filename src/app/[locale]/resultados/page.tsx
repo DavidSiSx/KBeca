@@ -24,6 +24,7 @@ function ResultadosContent() {
 
   // Estados del filtro Client-Side
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(9);
   const [sortBy, setSortBy] = useState<"relevance" | "deadline" | "recent">(
     "relevance",
   );
@@ -183,7 +184,7 @@ function ResultadosContent() {
           </ul>
         ) : !error && filteredResults.length > 0 ? (
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredResults.map((beca) => (
+            {filteredResults.slice(0, visibleCount).map((beca) => (
               <li
                 key={beca.id}
                 className="group scholarship-card bg-surface-container-lowest border-[3px] border-on-background p-6 flex flex-col gap-4 hover:bg-surface-container-low transition-all relative shadow-[6px_6px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_#1c1c18]"
@@ -291,9 +292,11 @@ function ResultadosContent() {
           </div>
         )}
 
-        {filteredResults.length > 9 && (
+        {filteredResults.length > visibleCount && (
           <div className="mt-lg flex justify-center pb-xl">
-            <Button variant="ghost">{t("loadMore")}</Button>
+            <Button variant="ghost" onClick={() => setVisibleCount((prev) => prev + 9)}>
+              {t("loadMore")}
+            </Button>
           </div>
         )}
       </main>

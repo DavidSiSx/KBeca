@@ -78,7 +78,7 @@ export function StepDatosPersonales() {
           >
             {t("gender")}
           </label>
-          <div className="p-1 border-[3px] border-on-background bg-surface-container-lowest shadow-[6px_6px_0px_0px_#1c1c18]">
+          <div className="relative w-full sm:w-[400px] z-20">
             <CustomSelect
               id="gender-select"
               options={genderOptions}
@@ -119,8 +119,13 @@ export function StepDatosPersonales() {
             value={age || ""}
             onChange={(e) => setAge(parseInt(e.target.value))}
             placeholder={t("agePlaceholder")}
-            className="w-[140px] h-[56px] px-4 py-2 border-[3px] border-on-background rounded-sm shadow-[4px_4px_0px_0px_#1c1c18] font-display-md font-bold text-xl text-on-surface bg-surface-container-lowest placeholder-on-surface-variant outline-none focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1c1c18] transition-all"
+            className="w-full sm:w-[400px] h-[56px] px-4 py-2 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] font-display-md font-bold text-xl text-on-surface bg-surface-container-lowest placeholder-on-surface-variant outline-none focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1c1c18] transition-all"
           />
+          {age !== null && (age < 10 || age > 99) && (
+            <span className="text-error font-body-md font-bold mt-1 bg-[#f5d9d9] px-2 py-1 border-[2px] border-error w-fit shadow-[2px_2px_0px_0px_#ba1a1a]">
+              {t("ageError")}
+            </span>
+          )}
         </div>
 
         <div className="flex flex-col gap-2">
@@ -131,30 +136,34 @@ export function StepDatosPersonales() {
               ),
             })}
           </span>
-          <div className="flex gap-6 mt-2">
-            <label className="relative flex items-center cursor-pointer gap-3">
+          <div className="flex gap-4 mt-2 w-full sm:w-[400px]">
+            <label className="relative flex-1 cursor-pointer">
               <input
                 type="radio"
                 name="hasChildren"
                 checked={hasChildren === true}
                 onChange={() => setHasChildren(true)}
-                className="w-6 h-6 text-primary border-[3px] border-on-background focus:ring-primary focus:ring-offset-2"
+                className="peer sr-only"
               />
-              <span className="font-body-lg font-bold text-on-surface">
-                {t("yes")}
-              </span>
+              <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-surface-container-lowest text-on-surface peer-checked:bg-primary peer-checked:text-on-primary transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
+                <span className="font-display-md font-bold uppercase tracking-wider">
+                  {t("yes")}
+                </span>
+              </div>
             </label>
-            <label className="relative flex items-center cursor-pointer gap-3">
+            <label className="relative flex-1 cursor-pointer">
               <input
                 type="radio"
                 name="hasChildren"
                 checked={hasChildren === false}
                 onChange={() => setHasChildren(false)}
-                className="w-6 h-6 text-primary border-[3px] border-on-background focus:ring-primary focus:ring-offset-2"
+                className="peer sr-only"
               />
-              <span className="font-body-lg font-bold text-on-surface">
-                {t("no")}
-              </span>
+              <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-surface-container-lowest text-on-surface peer-checked:bg-primary peer-checked:text-on-primary transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
+                <span className="font-display-md font-bold uppercase tracking-wider">
+                  {t("no")}
+                </span>
+              </div>
             </label>
           </div>
         </div>
@@ -170,30 +179,34 @@ export function StepDatosPersonales() {
                 ),
               })}
             </span>
-            <div className="flex gap-6 mt-2 relative z-10">
-              <label className="relative flex items-center cursor-pointer gap-3">
+            <div className="flex gap-4 mt-4 relative z-10 w-full sm:w-[400px]">
+              <label className="relative flex-1 cursor-pointer">
                 <input
                   type="radio"
                   name="isPregnant"
                   checked={isPregnant === true}
                   onChange={() => setIsPregnant(true)}
-                  className="w-6 h-6 text-on-background border-[3px] border-on-background focus:ring-on-background focus:ring-offset-2"
+                  className="peer sr-only"
                 />
-                <span className="font-body-lg font-bold">
-                  {t("yes")}
-                </span>
+                <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-background text-on-background peer-checked:bg-on-background peer-checked:text-background transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
+                  <span className="font-display-md font-bold uppercase tracking-wider">
+                    {t("yes")}
+                  </span>
+                </div>
               </label>
-              <label className="relative flex items-center cursor-pointer gap-3">
+              <label className="relative flex-1 cursor-pointer">
                 <input
                   type="radio"
                   name="isPregnant"
                   checked={isPregnant === false}
                   onChange={() => setIsPregnant(false)}
-                  className="w-6 h-6 text-on-background border-[3px] border-on-background focus:ring-on-background focus:ring-offset-2"
+                  className="peer sr-only"
                 />
-                <span className="font-body-lg font-bold">
-                  {t("no")}
-                </span>
+                <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-background text-on-background peer-checked:bg-on-background peer-checked:text-background transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
+                  <span className="font-display-md font-bold uppercase tracking-wider">
+                    {t("no")}
+                  </span>
+                </div>
               </label>
             </div>
             <p className="font-body-md font-bold text-sm mt-2 relative z-10 opacity-90">
