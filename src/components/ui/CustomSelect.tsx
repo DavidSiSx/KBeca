@@ -59,8 +59,8 @@ export function CustomSelect({
             setIsOpen(true);
             setTimeout(() => {
               const firstOption = containerRef.current?.querySelector(
-                'div[role="option"]',
-              ) as HTMLDivElement;
+                'li[role="option"]',
+              ) as HTMLLIElement;
               if (firstOption) firstOption.focus();
             }, 50);
           } else if (e.key === "Escape" && isOpen) {
@@ -91,7 +91,7 @@ export function CustomSelect({
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div
+        <ul
           role="listbox"
           tabIndex={-1}
           className="absolute z-50 w-full mt-2 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.12)] max-h-60 overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200"
@@ -99,7 +99,7 @@ export function CustomSelect({
           {options.map((option, index) => {
             const isSelected = option.value === value;
             return (
-              <div
+              <li
                 key={option.value}
                 role="option"
                 aria-selected={isSelected}
@@ -118,12 +118,12 @@ export function CustomSelect({
                   } else if (e.key === "ArrowDown") {
                     e.preventDefault();
                     const nextItem = e.currentTarget
-                      .nextElementSibling as HTMLDivElement;
+                      .nextElementSibling as HTMLLIElement;
                     if (nextItem) nextItem.focus();
                   } else if (e.key === "ArrowUp") {
                     e.preventDefault();
                     const prevItem = e.currentTarget
-                      .previousElementSibling as HTMLDivElement;
+                      .previousElementSibling as HTMLLIElement;
                     if (prevItem) prevItem.focus();
                   } else if (e.key === "Escape") {
                     e.preventDefault();
@@ -147,10 +147,10 @@ export function CustomSelect({
                   )}
                 </div>
                 {isSelected && <Check className="w-5 h-5 text-primary" />}
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       )}
     </div>
   );

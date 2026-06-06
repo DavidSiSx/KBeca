@@ -23,53 +23,67 @@ export default function LandingPage() {
   const t = useTranslations("Landing");
 
   return (
-    <div className="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
+    <div className="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col overflow-x-hidden">
       {/* ─── Header / Nav ─── */}
-      <header className="flex justify-between items-center px-4 md:px-20 py-6 w-full border-b-4 border-on-background bg-background z-50">
+      <header className="flex justify-between items-center px-4 md:px-12 h-[72px] md:h-[84px] w-full border-b-[4px] border-on-background bg-background z-50 sticky top-0 box-border">
+        
+        {/* Logo Completo SVG (Izquierda) */}
         <Link
           href="/"
-          className="flex items-center gap-2 font-display-lg text-headline-xl text-on-background font-black tracking-tighter"
+          className="flex items-center z-10"
           aria-label="KBeca - Inicio"
         >
-          <Image src="/kbeca-logo-clean.svg" alt="KBeca Logo" width={40} height={40} className="w-10 h-10 object-contain" priority />
-          KBeca
+          <Image 
+            src="/Kbeca_full_b_Logo.svg" 
+            alt="KBeca Logo" 
+            width={300} 
+            height={80} 
+            className="w-[140px] md:w-[200px] h-auto object-contain" 
+            priority 
+          />
         </Link>
 
-        <div className="hidden md:flex items-center gap-gutter">
+        {/* Enlaces de anclaje (Centro absoluto) */}
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 z-0">
           <a
-            className="text-on-surface font-label-bold text-label-bold hover:text-secondary transition-colors duration-200"
+            className="text-on-background font-body-md text-lg font-medium hover:text-primary transition-colors"
             href="#como-funciona"
           >
             {t("nav.howItWorks")}
           </a>
           <a
-            className="text-on-surface font-label-bold text-label-bold hover:text-secondary transition-colors duration-200"
+            className="text-on-background font-body-md text-lg font-medium hover:text-primary transition-colors"
             href="#por-que-kbeca"
           >
             {t("nav.benefits")}
           </a>
         </div>
 
-        <Link
-          className="hidden md:inline-flex items-center justify-center bg-primary text-on-primary font-label-bold text-label-bold px-6 py-3 min-h-[48px] border-2 border-on-background hover:bg-surface-tint transition-colors"
-          href="/wizard"
-        >
-          {t("nav.startSearch")}
-        </Link>
-
-        {/* Mobile Menu Button */}
-        <Link
-          href="/wizard"
-          className="md:hidden p-2 text-on-background min-h-[48px] min-w-[48px] flex items-center justify-center"
-          aria-label={t("nav.startSearch")}
-        >
-          <span
-            className="material-symbols-outlined text-[24px]"
-            aria-hidden="true"
+        {/* Controles de la Derecha */}
+        <div className="flex items-center z-10">
+          
+          {/* Botón Figma "Buscar mi beca" (Derecha) */}
+          <Link
+            className="hidden md:inline-flex items-center justify-center bg-[#b83b22] text-white font-body-md text-[17px] font-semibold px-6 py-2 border-[3px] border-on-background hover:bg-[#9c301b] transition-colors"
+            href="/wizard"
           >
-            search
-          </span>
-        </Link>
+            {t("nav.startSearch")}
+          </Link>
+
+          {/* Mobile Menu Button */}
+          <Link
+            href="/wizard"
+            className="md:hidden p-2 text-on-background min-h-[44px] min-w-[44px] flex items-center justify-center border-[3px] border-on-background bg-background"
+            aria-label={t("nav.startSearch")}
+          >
+            <span
+              className="material-symbols-outlined text-[24px]"
+              aria-hidden="true"
+            >
+              search
+            </span>
+          </Link>
+        </div>
       </header>
 
       {/* ─── Main Content ─── */}

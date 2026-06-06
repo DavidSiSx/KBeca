@@ -3,7 +3,7 @@
 import { useWizardStore } from "@/features/wizard/store/wizard-store";
 import { TopAppBar } from "@/components/ui/TopAppBar";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, redirect } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState, Suspense, useMemo } from "react";
 import { fetchMatches } from "@/app/actions/getMatches";
@@ -31,11 +31,9 @@ function ResultadosContent() {
     [],
   );
 
-  useEffect(() => {
-    if (!estado || !nivelAcademico) {
-      router.push("/wizard");
-    }
-  }, [estado, nivelAcademico, router]);
+  if (!estado || !nivelAcademico) {
+    redirect("/wizard");
+  }
 
   useEffect(() => {
     async function loadMatches() {
@@ -191,7 +189,6 @@ function ResultadosContent() {
               <li
                 key={beca.id}
                 className="scholarship-card bg-surface-container-lowest rounded-xl border border-outline-variant p-md flex flex-col gap-sm hover:bg-surface-container-low transition-colors relative"
-                tabIndex={0}
               >
                 <div className="flex justify-between items-start">
                   <span className="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-full">

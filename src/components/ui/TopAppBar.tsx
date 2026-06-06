@@ -33,6 +33,7 @@ export function TopAppBar({
         <div className="w-12 flex justify-start">
           {showBackButton && (
             <button
+              type="button"
               className="w-12 h-12 flex items-center justify-center bg-background border-2 border-on-background shadow-[2px_2px_0px_0px_#1c1c18] hover:bg-surface-variant active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all cursor-pointer"
               onClick={onBackClick || (() => router.back())}
               aria-label={t("backButton")}
@@ -51,6 +52,7 @@ export function TopAppBar({
         <div className="w-12 flex justify-end">
           {showHelpButton && (
             <button
+              type="button"
               className="w-12 h-12 flex items-center justify-center bg-background border-2 border-on-background shadow-[2px_2px_0px_0px_#1c1c18] hover:bg-surface-variant active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all cursor-pointer"
               onClick={onHelpClick || defaultHelpClick}
               aria-label="Ayuda"
