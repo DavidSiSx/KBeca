@@ -2,7 +2,7 @@
 
 import { useWizardStore } from "@/features/wizard/store/wizard-store";
 import { TopAppBar } from "@/components/ui/TopAppBar";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants, cn } from "@/components/ui/button";
 import { useRouter, useSearchParams, redirect } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState, Suspense, useMemo } from "react";
@@ -121,11 +121,7 @@ function ResultadosContent() {
       <TopAppBar
         title={t("title")}
         onBackClick={() => router.push("/wizard")}
-        onHelpClick={() =>
-          alert(
-            "Los resultados mostrados se basan en la coincidencia entre tu perfil y los requisitos de cada convocatoria.",
-          )
-        }
+        helpText="Los resultados mostrados se basan en la coincidencia entre tu perfil y los requisitos de cada convocatoria."
       />
 
       <main className="flex-1 w-full max-w-[1140px] mx-auto px-container-margin md:px-gutter mt-lg">
@@ -149,15 +145,17 @@ function ResultadosContent() {
               </span>
             )}
           </h2>
-          <button
+          <Button
             aria-expanded={isFilterOpen}
             aria-controls="filter-modal"
-            className="font-display-md text-sm md:text-base uppercase tracking-wider font-bold bg-surface-variant text-on-surface border-[3px] border-on-background px-4 py-2 shadow-[4px_4px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1c1c18] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all flex items-center gap-2"
+            variant="tonal"
+            size="sm"
+            className="md:text-base flex items-center gap-2"
             onClick={() => setIsFilterOpen(true)}
           >
             <span className="material-symbols-outlined stroke-[3]">tune</span>
             {t("filter")}
-          </button>
+          </Button>
         </div>
 
         {isSearching ? (
@@ -249,7 +247,7 @@ function ResultadosContent() {
                   <Link
                     href={`/beca/${beca.id}`}
                     aria-label={`${t("viewDetails")} ${beca.title}`}
-                    className="font-display-md font-bold text-lg uppercase tracking-wider text-center bg-primary text-on-primary border-[3px] border-on-background px-4 py-3 shadow-[4px_4px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1c1c18] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all w-full flex justify-center items-center gap-2 mt-2"
+                    className={cn(buttonVariants({ variant: "filled", size: "default" }), "w-full gap-2 mt-2")}
                   >
                     {t("viewDetails")}
                     <span className="material-symbols-outlined stroke-[3]">
@@ -448,12 +446,14 @@ function ResultadosContent() {
             </div>
 
             <div className="mt-8 pt-6 border-t-[3px] border-on-background flex justify-end">
-              <button
-                className="w-full sm:w-auto font-display-md text-lg uppercase tracking-wider font-bold bg-primary text-on-primary border-[3px] border-on-background px-8 py-4 shadow-[4px_4px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1c1c18] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all flex items-center justify-center gap-2"
+              <Button
+                variant="filled"
+                size="lg"
+                className="w-full sm:w-auto flex items-center justify-center gap-2"
                 onClick={() => setIsFilterOpen(false)}
               >
                 {t("applyFilters")}
-              </button>
+              </Button>
             </div>
           </div>
         </dialog>

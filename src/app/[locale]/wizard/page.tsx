@@ -35,11 +35,7 @@ export default function WizardPage() {
       <TopAppBar
         title="KBeca"
         onBackClick={handleBack}
-        onHelpClick={() =>
-          alert(
-            "KBeca te guía paso a paso para encontrar becas compatibles con tu perfil. Asegúrate de contestar con honestidad."
-          )
-        }
+        helpText="KBeca te guía paso a paso para encontrar becas compatibles con tu perfil. Asegúrate de contestar con honestidad."
       />
 
       <main className="flex-grow px-4 md:px-8 py-8 md:py-12 max-w-[1140px] mx-auto w-full flex flex-col gap-6 md:gap-10">
@@ -56,8 +52,7 @@ export default function WizardPage() {
             
             {/* Relleno de progreso */}
             <div 
-              className="h-full bg-primary border-r-[3px] border-on-background transition-all duration-500 ease-out relative"
-              style={{ width: `${(step / 5) * 100}%` }}
+              className={`h-full bg-primary border-r-[3px] border-on-background transition-all duration-500 ease-out relative ${step === 1 ? 'w-1/5' : step === 2 ? 'w-2/5' : step === 3 ? 'w-3/5' : step === 4 ? 'w-4/5' : 'w-full'}`}
             >
               {/* Halftone sobre el relleno para darle textura */}
               <div className="absolute inset-0 opacity-[0.2] bg-[radial-gradient(circle,#fff_1px,transparent_1px)] bg-[length:4px_4px]" />

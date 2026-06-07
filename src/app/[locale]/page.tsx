@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants, cn } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { HeroScene } from "@/components/ui/HeroScene";
 import { Footer } from "@/components/ui/Footer";
@@ -47,13 +47,13 @@ export default function LandingPage() {
         {/* Enlaces de anclaje (Centro absoluto) */}
         <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 z-0">
           <a
-            className="text-on-background font-body-md text-lg font-medium hover:text-primary transition-colors"
+            className="text-on-background font-display-md text-base font-bold uppercase tracking-wider hover:text-primary hover:-translate-y-1 transition-all"
             href="#como-funciona"
           >
             {t("nav.howItWorks")}
           </a>
           <a
-            className="text-on-background font-body-md text-lg font-medium hover:text-primary transition-colors"
+            className="text-on-background font-display-md text-base font-bold uppercase tracking-wider hover:text-primary hover:-translate-y-1 transition-all"
             href="#por-que-kbeca"
           >
             {t("nav.benefits")}
@@ -65,7 +65,7 @@ export default function LandingPage() {
           
           {/* Botón Figma "Buscar mi beca" (Derecha) */}
           <Link
-            className="hidden md:inline-flex items-center justify-center bg-[#b83b22] text-white font-body-md text-[17px] font-semibold px-6 py-2 border-[3px] border-on-background hover:bg-[#9c301b] transition-colors"
+            className={cn(buttonVariants({ variant: "filled", size: "sm" }), "hidden md:inline-flex")}
             href="/wizard"
           >
             {t("nav.startSearch")}
@@ -74,7 +74,7 @@ export default function LandingPage() {
           {/* Mobile Menu Button */}
           <Link
             href="/wizard"
-            className="md:hidden p-2 text-on-background min-h-[44px] min-w-[44px] flex items-center justify-center border-[3px] border-on-background bg-background"
+            className={cn(buttonVariants({ variant: "outline", size: "icon" }), "md:hidden rounded-none min-h-[44px] min-w-[44px] bg-background")}
             aria-label={t("nav.startSearch")}
           >
             <span
@@ -117,7 +117,7 @@ export default function LandingPage() {
 
               <div className="flex flex-col sm:flex-row items-stretch gap-4 w-full sm:w-auto mt-2">
                 <Link
-                  className="w-full sm:w-auto inline-flex items-center justify-center bg-primary text-on-primary font-label-bold text-label-bold px-8 py-4 min-h-[48px] border-2 border-on-background hover:bg-surface-tint transition-colors shadow-[4px_4px_0px_0px_#1c1c18] active:shadow-[0px_0px_0px_0px_#1c1c18] active:translate-y-1 active:translate-x-1"
+                  className={cn(buttonVariants({ variant: "filled", size: "lg" }), "w-full sm:w-auto")}
                   href="/wizard"
                 >
                   {t("hero.startSearch")}

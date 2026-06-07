@@ -47,6 +47,7 @@ export function CustomSelect({
   return (
     <div className="relative w-full" ref={containerRef} id={id}>
       {/* Trigger Button */}
+      { }
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -67,8 +68,7 @@ export function CustomSelect({
             setIsOpen(false);
           }
         }}
-        aria-haspopup="listbox"
-        aria-expanded={isOpen ? "true" : "false"}
+        {...{ "aria-haspopup": "listbox", "aria-expanded": isOpen }}
         className={clsx(
           "w-full h-[56px] px-4 py-2 border-[3px] border-on-background flex items-center justify-between transition-all outline-none",
           "focus-visible:ring-4 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
@@ -104,7 +104,7 @@ export function CustomSelect({
               <li
                 key={option.value}
                 role="option"
-                aria-selected={isSelected ? "true" : "false"}
+                {...{ "aria-selected": isSelected }}
                 tabIndex={0}
                 onClick={() => {
                   onChange(option.value);

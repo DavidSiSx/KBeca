@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, HelpCircle } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { TopAppBar } from "@/components/ui/TopAppBar";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants, cn } from "@/components/ui/button";
 
 export async function generateMetadata({
   params,
@@ -187,7 +187,7 @@ export default async function BecaDetallePage({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${t("apply")}. Este enlace abrirá una nueva pestaña o aplicación externa.`}
-              className="font-display-md text-lg md:text-xl uppercase tracking-wider font-[900] bg-primary text-on-primary border-[3px] border-on-background px-8 py-5 shadow-[6px_6px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_#1c1c18] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all w-full flex items-center justify-center gap-3"
+              className={cn(buttonVariants({ variant: "filled", size: "lg" }), "w-full gap-3 md:text-xl")}
             >
               <span>{t("apply")}</span>
               <span

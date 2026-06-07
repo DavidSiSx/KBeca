@@ -84,13 +84,15 @@ export function StepNivel() {
       </div>
 
       <div className="mt-auto pt-lg pb-safe flex justify-center w-full md:mt-xl md:justify-end">
-        <button
+        <Button
           type="submit"
           disabled={!nivelAcademico}
-          className="w-full md:w-auto font-display-md text-lg uppercase tracking-wider font-bold bg-primary text-on-primary border-[3px] border-on-background px-8 py-4 shadow-[4px_4px_0px_0px_#1c1c18] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1c1c18] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all disabled:opacity-50 disabled:shadow-none disabled:translate-x-[4px] disabled:translate-y-[4px] disabled:cursor-not-allowed"
+          variant="filled"
+          size="lg"
+          className="w-full md:w-auto"
         >
           {t("continue")}
-        </button>
+        </Button>
       </div>
     </form>
   );

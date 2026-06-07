@@ -43,7 +43,7 @@ function generateRandomProfile(): UserFormResponses {
   let age = Math.floor(Math.random() * 50) + 15; // 15 a 65
   let hasChildren = Math.random() < 0.3;
   let isPregnant = Math.random() < 0.1;
-  let academicLevel = getRandomItem(REAL_LEVELS);
+  const academicLevel = getRandomItem(REAL_LEVELS);
 
   // Intentar hacer perfiles lógicos para los grupos seleccionados (a menos que queramos probar la validación intencionalmente en los chaotic)
   if (groups.includes('Madres o padres solteros')) {
