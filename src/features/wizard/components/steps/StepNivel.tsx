@@ -1,4 +1,4 @@
-import { useWizardStore } from "@/features/wizard/store/wizard-store";
+import { useWizardUrl } from "@/features/wizard/hooks/useWizardUrl";
 import { RadioCard } from "../RadioCard";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -8,7 +8,7 @@ import { NIVELES } from "@/config/niveles";
 
 export function StepNivel() {
   const { nivelAcademico, setNivelAcademico, prevStep, nextStep, target } =
-    useWizardStore();
+    useWizardUrl();
   const t = useTranslations("Wizard.StepNivel");
 
   const handleSubmit = (e: React.FormEvent) => {

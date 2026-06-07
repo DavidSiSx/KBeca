@@ -1,9 +1,9 @@
-import { useWizardStore } from "@/features/wizard/store/wizard-store";
+import { useWizardUrl } from "@/features/wizard/hooks/useWizardUrl";
 import { UserCircle, Users, UserPlus } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export function StepTarget() {
-  const { target, setTarget, nextStep } = useWizardStore();
+  const { target, setTarget, nextStep } = useWizardUrl();
   const t = useTranslations("Wizard.StepTarget");
 
   const handleSelect = (selectedTarget: "myself" | "child" | "other") => {

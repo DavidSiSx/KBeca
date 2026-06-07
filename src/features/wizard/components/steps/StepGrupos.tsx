@@ -1,4 +1,4 @@
-import { useWizardStore } from "@/features/wizard/store/wizard-store";
+import { useWizardUrl } from "@/features/wizard/hooks/useWizardUrl";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -16,7 +16,7 @@ export function StepGrupos() {
     groups,
     setGroups,
     prevStep,
-  } = useWizardStore();
+  } = useWizardUrl();
   const t = useTranslations("Wizard.StepGrupos");
 
   const router = useRouter();

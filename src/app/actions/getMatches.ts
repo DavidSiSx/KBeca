@@ -20,7 +20,7 @@ export async function fetchMatches(responses: UserFormResponses) {
       return {
         success: false,
         data: null,
-        error: firstError || 'La información proporcionada contiene errores lógicos o está incompleta.',
+        error: (firstError && firstError !== "Required") ? firstError : 'La información en la URL parece estar incompleta o corrupta. Por favor, revisa tus datos.',
         validationErrors: validationResult.error?.issues
       };
     }

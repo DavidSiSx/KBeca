@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useWizardStore } from "@/features/wizard/store/wizard-store";
+import { useWizardUrl } from "@/features/wizard/hooks/useWizardUrl";
 import { StepTarget } from "@/features/wizard/components/steps/StepTarget";
 import { StepEstado } from "@/features/wizard/components/steps/StepEstado";
 import { StepNivel } from "@/features/wizard/components/steps/StepNivel";
@@ -13,14 +13,38 @@ import { useTranslations } from "next-intl";
 import { TopAppBar } from "@/components/ui/TopAppBar";
 
 export default function WizardPage() {
-  const { step, prevStep, reset } = useWizardStore();
+  const { step, prevStep, reset, target, estado, nivelAcademico, gender, age, hasChildren, isPregnant } = useWizardUrl();
   const t = useTranslations("Wizard.page");
 
   useEffect(() => {
-    // Si el wizard se monta (el usuario entra), nos aseguramos de que inicie limpio.
-    reset();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // Determinar el paso más avanzado posible basado en los parámetros
+    let maxStep = 1;
+    if (target) {
+      maxStep = 2;
+      if (estado) {
+        maxStep = 3;
+        if (nivelAcademico) {
+          maxStep = 4;
+          const personalDataComplete = age !== null && gender !== null && hasChildren !== null && (gender !== 'Femenino' || isPregnant !== null);
+          if (personalDataComplete) {
+            maxStep = 5;
+          }
+        }
+      }
+    }
+
+    // Si el usuario llega a un paso sin tener los requisitos de los pasos anteriores,
+    // o llega sin paso especificado pero con progreso guardado, lo movemos al correcto.
+    const searchParams = new URLSearchParams(window.location.search);
+    const urlStep = parseInt(searchParams.get('step') || '1', 10);
+    
+    if (urlStep > maxStep || !searchParams.has('step')) {
+      const params = new URLSearchParams(window.location.search);
+      params.set('step', Math.min(maxStep, urlStep > maxStep ? maxStep : maxStep).toString());
+      window.history.replaceState(null, '', `?${params.toString()}`);
+    }
+     
+  }, [target, estado, nivelAcademico, age, gender, hasChildren, isPregnant]);
 
   const handleBack = () => {
     if (step > 1) {

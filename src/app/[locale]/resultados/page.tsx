@@ -1,6 +1,6 @@
 "use client";
 
-import { useWizardStore } from "@/features/wizard/store/wizard-store";
+
 import { TopAppBar } from "@/components/ui/TopAppBar";
 import { Button, buttonVariants, cn } from "@/components/ui/button";
 import { useRouter, useSearchParams, redirect } from "next/navigation";
@@ -19,17 +19,17 @@ function ResultadosContent() {
   const nivelAcademico = searchParams.get("level") || "";
 
   const [isSearching, setIsSearching] = useState(true);
-  const [results, setResults] = useState<Record<string, any>[]>([]);
+  const [results, setResults] = useState<Record<string, unknown>[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   // Estados del filtro Client-Side
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(9);
   const [sortBy, setSortBy] = useState<"relevance" | "deadline" | "recent">(
-    "relevance",
+    (searchParams.get("sort") as "relevance" | "deadline" | "recent") || "relevance",
   );
   const [selectedInstitutions, setSelectedInstitutions] = useState<string[]>(
-    [],
+    searchParams.getAll("inst"),
   );
 
   if (!estado || !nivelAcademico) {
@@ -271,6 +271,10 @@ function ResultadosContent() {
                   onClick={() => {
                     setSelectedInstitutions([]);
                     setSortBy("relevance");
+                    const params = new URLSearchParams(searchParams.toString());
+                    params.delete("sort");
+                    params.delete("inst");
+                    router.replace(`?${params.toString()}`);
                   }}
                 >
                   {t("removeFilters")}
@@ -279,13 +283,14 @@ function ResultadosContent() {
             ) : (
               <>
                 <p className="text-on-surface-variant font-body-lg">
-                  {t("noResultsProfile")}
+                  {error ? error : t("noResultsProfile")}
                 </p>
                 <Button
                   variant="filled"
                   className="mt-md"
                   onClick={() => {
-                    window.location.href = `/${locale}`;
+                    const params = new URLSearchParams(searchParams.toString());
+                    router.push(`/${locale}/wizard?${params.toString()}`);
                   }}
                 >
                   {t("modifyProfile")}
@@ -345,7 +350,7 @@ function ResultadosContent() {
                       name="sortBy"
                       value="relevance"
                       checked={sortBy === "relevance"}
-                      onChange={(e) => setSortBy(e.target.value as any)}
+                      onChange={(e) => setSortBy(e.target.value as "relevance" | "deadline" | "recent")}
                       className="peer sr-only"
                     />
                     <div
@@ -365,7 +370,7 @@ function ResultadosContent() {
                       name="sortBy"
                       value="deadline"
                       checked={sortBy === "deadline"}
-                      onChange={(e) => setSortBy(e.target.value as any)}
+                      onChange={(e) => setSortBy(e.target.value as "relevance" | "deadline" | "recent")}
                       className="peer sr-only"
                     />
                     <div
@@ -385,7 +390,7 @@ function ResultadosContent() {
                       name="sortBy"
                       value="recent"
                       checked={sortBy === "recent"}
-                      onChange={(e) => setSortBy(e.target.value as any)}
+                      onChange={(e) => setSortBy(e.target.value as "relevance" | "deadline" | "recent")}
                       className="peer sr-only"
                     />
                     <div
@@ -450,7 +455,18 @@ function ResultadosContent() {
                 variant="filled"
                 size="lg"
                 className="w-full sm:w-auto flex items-center justify-center gap-2"
-                onClick={() => setIsFilterOpen(false)}
+                onClick={() => {
+                  const params = new URLSearchParams(searchParams.toString());
+                  if (sortBy !== "relevance") {
+                    params.set("sort", sortBy);
+                  } else {
+                    params.delete("sort");
+                  }
+                  params.delete("inst");
+                  selectedInstitutions.forEach(inst => params.append("inst", inst));
+                  router.replace(`?${params.toString()}`);
+                  setIsFilterOpen(false);
+                }}
               >
                 {t("applyFilters")}
               </Button>

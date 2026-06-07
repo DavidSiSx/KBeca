@@ -1,4 +1,4 @@
-import { useWizardStore } from "@/features/wizard/store/wizard-store";
+import { useWizardUrl } from "@/features/wizard/hooks/useWizardUrl";
 import { ArrowRight } from "lucide-react";
 import { CustomSelect } from "@/components/ui/CustomSelect";
 import { useTranslations } from "next-intl";
@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ESTADOS } from "@/config/estados";
 
 export function StepEstado() {
-  const { estado, setEstado, nextStep, target } = useWizardStore();
+  const { estado, setEstado, nextStep, target } = useWizardUrl();
   const t = useTranslations("Wizard.StepEstado");
 
   const handleSubmit = (e: React.FormEvent) => {

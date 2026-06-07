@@ -1,4 +1,4 @@
-import { useWizardStore } from "@/features/wizard/store/wizard-store";
+import { useWizardUrl } from "@/features/wizard/hooks/useWizardUrl";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { CustomSelect } from "@/components/ui/CustomSelect";
 import { useTranslations } from "next-intl";
@@ -23,7 +23,7 @@ export function StepDatosPersonales() {
     prevStep,
     nextStep,
     target,
-  } = useWizardStore();
+  } = useWizardUrl();
   const t = useTranslations("Wizard.StepDatosPersonales");
   const [isAgeApprox, setIsAgeApprox] = useState(false);
   const isMyself = target === "myself";
