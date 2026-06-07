@@ -1,4 +1,4 @@
-import { pgTable, serial, text, timestamp, index, varchar, customType, boolean } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, timestamp, index, varchar, customType, boolean, integer } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 
 // Definir tipo customizado para pgvector
@@ -25,7 +25,11 @@ export const scholarships = pgTable(
     description: text('description'),
     url: text('url').notNull(),
     targetStates: text('target_states').array(), // Arrays for fast matching
+    isNational: boolean('is_national').default(false), // Flag para becas de alcance nacional
     targetGroups: text('target_groups').array(), // Ej: adultos mayores, enfermedades, indígenas, etc.
+    targetGenders: text('target_genders').array(), // Ej: Femenino, Masculino. Null = todos
+    minAge: integer('min_age'),
+    maxAge: integer('max_age'),
     academicLevels: text('academic_levels').array().notNull(),
     status: varchar('status', { length: 50 }).notNull().default('active'), // active, pending, expired
     requiresEnrollment: boolean('requires_enrollment').default(false), // true si requiere estar inscrito en la institucion

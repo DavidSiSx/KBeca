@@ -70,25 +70,74 @@ export function StepDatosPersonales() {
         </p>
       </div>
 
-      <fieldset className="flex-grow mb-xl border-0 p-0 m-0 flex flex-col gap-8 max-w-lg">
-        <div className="flex flex-col gap-2">
-          <label
-            className="font-display-md text-lg font-bold text-on-surface uppercase tracking-wide"
-            htmlFor="gender-select"
-          >
-            {t("gender")}
-          </label>
-          <div className="relative w-full sm:w-[400px] z-20">
-            <CustomSelect
-              id="gender-select"
-              options={genderOptions}
-              value={gender}
-              onChange={(val) =>
-                setGender(val as "Femenino" | "Masculino" | "Otro")
-              }
-              placeholder={t("genderPlaceholder")}
-            />
+      <fieldset className="flex-grow mb-xl border-0 p-0 m-0 flex flex-col gap-8 max-w-4xl">
+        <div className="flex flex-col md:flex-row gap-8 items-start w-full">
+          <div className="flex flex-col gap-2 w-full sm:w-[400px] md:pt-[23px]">
+            <label
+              className="font-display-md text-lg font-bold text-on-surface uppercase tracking-wide"
+              htmlFor="gender-select"
+            >
+              {t("gender")}
+            </label>
+            <div className="relative w-full z-20">
+              <CustomSelect
+                id="gender-select"
+                options={genderOptions}
+                value={gender}
+                onChange={(val) =>
+                  setGender(val as "Femenino" | "Masculino" | "Otro")
+                }
+                placeholder={t("genderPlaceholder")}
+              />
+            </div>
           </div>
+
+          {gender === "Femenino" && (
+            <div className="flex flex-col gap-2 animate-in fade-in slide-in-from-left-8 duration-500 ease-out bg-secondary-container text-on-secondary-container border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] p-5 rounded-sm relative max-w-full">
+              {/* Comic detail on the extra box */}
+              <div className="absolute inset-0 opacity-[0.1] bg-[radial-gradient(circle,#000_1px,transparent_1px)] bg-[length:4px_4px] pointer-events-none" />
+              <span className="font-display-md text-lg font-bold uppercase tracking-wide relative z-10">
+                {t("pregnant", {
+                  target: t(
+                    `pregnant_${target === "myself" ? "myself" : target === "child" ? "child" : "other"}`,
+                  ),
+                })}
+              </span>
+              <div className="flex gap-4 mt-4 relative z-10 w-full sm:w-[400px]">
+                <label className="relative flex-1 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="isPregnant"
+                    checked={isPregnant === true}
+                    onChange={() => setIsPregnant(true)}
+                    className="peer sr-only"
+                  />
+                  <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-background text-on-background peer-checked:bg-on-background peer-checked:text-background peer-focus-visible:ring-4 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
+                    <span className="font-display-md font-bold uppercase tracking-wider">
+                      {t("yes")}
+                    </span>
+                  </div>
+                </label>
+                <label className="relative flex-1 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="isPregnant"
+                    checked={isPregnant === false}
+                    onChange={() => setIsPregnant(false)}
+                    className="peer sr-only"
+                  />
+                  <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-background text-on-background peer-checked:bg-on-background peer-checked:text-background peer-focus-visible:ring-4 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
+                    <span className="font-display-md font-bold uppercase tracking-wider">
+                      {t("no")}
+                    </span>
+                  </div>
+                </label>
+              </div>
+              <p className="font-body-md font-bold text-sm mt-2 relative z-10 opacity-90">
+                {t("maternitySupport")}
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col gap-2">
@@ -167,53 +216,6 @@ export function StepDatosPersonales() {
             </label>
           </div>
         </div>
-
-        {gender === "Femenino" && (
-          <div className="flex flex-col gap-2 animate-in fade-in slide-in-from-top-4 duration-300 bg-secondary-container text-on-secondary-container border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] p-5 rounded-sm mt-2 relative">
-            {/* Comic detail on the extra box */}
-            <div className="absolute inset-0 opacity-[0.1] bg-[radial-gradient(circle,#000_1px,transparent_1px)] bg-[length:4px_4px] pointer-events-none" />
-            <span className="font-display-md text-lg font-bold uppercase tracking-wide relative z-10">
-              {t("pregnant", {
-                target: t(
-                  `pregnant_${target === "myself" ? "myself" : target === "child" ? "child" : "other"}`,
-                ),
-              })}
-            </span>
-            <div className="flex gap-4 mt-4 relative z-10 w-full sm:w-[400px]">
-              <label className="relative flex-1 cursor-pointer">
-                <input
-                  type="radio"
-                  name="isPregnant"
-                  checked={isPregnant === true}
-                  onChange={() => setIsPregnant(true)}
-                  className="peer sr-only"
-                />
-                <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-background text-on-background peer-checked:bg-on-background peer-checked:text-background peer-focus-visible:ring-4 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
-                  <span className="font-display-md font-bold uppercase tracking-wider">
-                    {t("yes")}
-                  </span>
-                </div>
-              </label>
-              <label className="relative flex-1 cursor-pointer">
-                <input
-                  type="radio"
-                  name="isPregnant"
-                  checked={isPregnant === false}
-                  onChange={() => setIsPregnant(false)}
-                  className="peer sr-only"
-                />
-                <div className="flex items-center justify-center py-3 border-[3px] border-on-background shadow-[4px_4px_0px_0px_#1c1c18] bg-background text-on-background peer-checked:bg-on-background peer-checked:text-background peer-focus-visible:ring-4 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background transition-all peer-checked:translate-x-[2px] peer-checked:translate-y-[2px] peer-checked:shadow-[2px_2px_0px_0px_#1c1c18]">
-                  <span className="font-display-md font-bold uppercase tracking-wider">
-                    {t("no")}
-                  </span>
-                </div>
-              </label>
-            </div>
-            <p className="font-body-md font-bold text-sm mt-2 relative z-10 opacity-90">
-              {t("maternitySupport")}
-            </p>
-          </div>
-        )}
       </fieldset>
 
       <div className="mt-auto pt-lg pb-safe flex flex-col md:flex-row gap-4 w-full md:mt-xl md:justify-end">

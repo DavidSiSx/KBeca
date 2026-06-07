@@ -48,6 +48,8 @@ next-env.d.ts
 # ══ TESTING Y REPORTES ════════════════════════════════════
 coverage/
 mass-test-report.json
+100_requests_report.md
+scripts/generate_100.ts
 test_models.py
 test-results*/
 playwright-report/
@@ -74,3 +76,6 @@ Thumbs.db
 
 # ══ ASSETS TEMPORALES ══════════════════════════════════════
 stitch_assets/
+
+# -- ARCHIVO DE SCRIPTS INACTIVOS --------------------
+_archive/

@@ -25,7 +25,11 @@ class ScholarshipExtraction(BaseModel):
     title: str = Field(description="Nombre oficial de la convocatoria.")
     institution_name: str = Field(description="Entidad gubernamental o privada que la emite. Si no se especifica en el texto, dedúcela obligatoriamente a partir de la URL de origen.")
     target_states: Optional[List[str]] = Field(
-        description="Lista de estados exactos si es regional. Si dice 'Nacional' o 'Todo el país', retorna null."
+        description="Lista de estados exactos si es regional. Si la beca es de una universidad estatal (ej. UANL, BUAP), NUNCA ES NACIONAL, debe tener el estado (ej. 'Nuevo León')."
+    )
+    is_national: bool = Field(
+        default=False, 
+        description="True SÓLO si la beca es de alcance explícitamente nacional para todo México o es un programa federal (ej. CONAHCYT, Bienestar). False para instituciones locales/estatales."
     )
     target_groups: Optional[List[Literal[
         "Excelencia académica",
@@ -40,8 +44,13 @@ class ScholarshipExtraction(BaseModel):
     ]]] = Field(
         description="Grupos poblacionales a los que va dirigida. Elige EXCLUSIVAMENTE de las opciones dadas. Null si es para el público en general."
     )
+    target_genders: Optional[List[Literal["Femenino", "Masculino"]]] = Field(
+        description="Género requerido. Solo llenar si la beca es exclusiva para mujeres (Femenino) o para hombres (Masculino). Null si aplica a ambos."
+    )
+    min_age: Optional[int] = Field(description="Edad mínima requerida en años. Null si no hay límite inferior.")
+    max_age: Optional[int] = Field(description="Edad máxima requerida en años. Null si no hay límite superior.")
     academic_levels: List[str] = Field(
-        description="Debe ser estrictamente una lista con valores: 'Básica', 'Media Superior', 'Superior', 'Posgrado'."
+        description="Debe ser estrictamente una lista con valores: 'Básica', 'Media Superior', 'Superior', 'Posgrado', 'Ninguno'. ADVERTENCIA: Si requiere estudios de posgrado JAMÁS pongas 'Ninguno'. 'Ninguno' se usa SOLO si es un programa social que no pide estudios."
     )
     call_date: Optional[str] = Field(description="Fecha de apertura de la convocatoria o fecha de publicación en formato YYYY-MM-DD. Null si no se especifica.")
     deadline: Optional[str] = Field(description="Fecha límite o cierre en formato YYYY-MM-DD. Null si no se especifica.")
@@ -156,6 +165,10 @@ def upsert_scholarship(data: ScholarshipExtraction, url: str):
         # Manejo correcto de arreglos PostgreSQL
         target_states = data.target_states if data.target_states else None
         target_groups = data.target_groups if data.target_groups else None
+        target_genders = data.target_genders if data.target_genders else None
+        min_age = data.min_age
+        max_age = data.max_age
+        is_national = data.is_national
         requires_enrollment = data.requires_enrollment if hasattr(data, 'requires_enrollment') else False
         academic_levels = data.academic_levels
         
@@ -176,8 +189,8 @@ def upsert_scholarship(data: ScholarshipExtraction, url: str):
 
         # Sentencia UPSERT (ON CONFLICT)
         query = """
-            INSERT INTO scholarships (hash_id, title, institution_name, description, url, target_states, target_groups, academic_levels, call_date, deadline, status, requires_enrollment, embedding)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO scholarships (hash_id, title, institution_name, description, url, target_states, target_groups, academic_levels, call_date, deadline, status, requires_enrollment, embedding, is_national, target_genders, min_age, max_age)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ON CONFLICT (hash_id) DO UPDATE SET 
                 title = EXCLUDED.title,
                 target_states = EXCLUDED.target_states,
@@ -188,12 +201,17 @@ def upsert_scholarship(data: ScholarshipExtraction, url: str):
                 status = EXCLUDED.status,
                 requires_enrollment = EXCLUDED.requires_enrollment,
                 embedding = EXCLUDED.embedding,
+                is_national = EXCLUDED.is_national,
+                target_genders = EXCLUDED.target_genders,
+                min_age = EXCLUDED.min_age,
+                max_age = EXCLUDED.max_age,
                 updated_at = NOW();
         """
         
         cur.execute(query, (
             hash_id, data.title, data.institution_name, data.description, url,
-            target_states, target_groups, academic_levels, call_date, deadline, status, requires_enrollment, embedding_str
+            target_states, target_groups, academic_levels, call_date, deadline, status, requires_enrollment, embedding_str,
+            is_national, target_genders, min_age, max_age
         ))
         
         conn.commit()

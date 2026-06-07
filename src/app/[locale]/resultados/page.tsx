@@ -192,10 +192,15 @@ function ResultadosContent() {
                 {/* Comic Detail: Halftone background on hover */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] bg-[radial-gradient(circle,#000_1.5px,transparent_1.5px)] bg-[length:6px_6px] pointer-events-none transition-opacity duration-300" />
                 
-                <div className="flex justify-between items-start relative z-10">
+                <div className="flex justify-between items-start relative z-10 w-full">
                   <span className="bg-[#3c6b41] text-white font-display-md font-bold text-xs md:text-sm px-3 py-1 border-[3px] border-on-background shadow-[3px_3px_0px_0px_#1c1c18] uppercase tracking-wider -rotate-2">
                     {t("statusOpen")}
                   </span>
+                  {beca.isNational && (
+                    <span className="bg-[#8b3d68] text-white font-display-md font-bold text-xs md:text-sm px-3 py-1 border-[3px] border-on-background shadow-[3px_3px_0px_0px_#1c1c18] uppercase tracking-wider rotate-2 ml-auto">
+                      Nacional
+                    </span>
+                  )}
                 </div>
                 
                 <h3 className="font-display-md text-2xl md:text-3xl leading-[1.1] font-[900] text-on-background mt-2 relative z-10">

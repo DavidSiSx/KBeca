@@ -28,7 +28,7 @@ const PARTNERS_ROW_3 = [
   { name: "OEA", domain: "oas.org" },
   { name: "AMEXCID", domain: "gob.mx" },
   { name: "Iberdrola", domain: "iberdrolamexico.com" },
-  { name: "Fundación Lideres", domain: "lideresdelmanana.itesm.mx" },
+  { name: "Fundación Líderes", domain: "lideresdelmanana.itesm.mx" },
   { name: "BBVA", domain: "bbva.mx" },
 ];
 

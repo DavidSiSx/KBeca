@@ -1,6 +1,6 @@
 import { db } from '@/db/client';
 import { scholarships } from '@/db/schema';
-import { and, or, isNull, gt, arrayContains, eq, arrayOverlaps, sql } from 'drizzle-orm';
+import { and, or, isNull, gt, arrayContains, eq, arrayOverlaps, sql, lte, gte } from 'drizzle-orm';
 
 import { UserFormResponses } from '@/lib/validations';
 
@@ -16,23 +16,29 @@ export async function findMatchingScholarships(responses: UserFormResponses, sea
     gt(scholarships.deadline, now)
   );
 
-  // Condición 3: Filtro de estado geográfico
-  // Es nacional (NULL o vacío) o contiene el estado del usuario
-  const isNationalScholarship = or(
-    isNull(scholarships.targetStates),
-    sql`cardinality(${scholarships.targetStates}) = 0`
-  );
-
+  // Condición 3: Filtro de estado geográfico ESTRICTO
   const stateCondition = or(
-    isNationalScholarship,
+    eq(scholarships.isNational, true),
     arrayContains(scholarships.targetStates, [responses.state])
   );
 
-  // Condición 4: Filtro de nivel académico (Estricto, no debe ser nulo en DB)
+  // Condición 4: Filtro de nivel académico ESTRICTO
   const academicCondition = arrayContains(scholarships.academicLevels, [responses.academicLevel]);
 
-  // Condición 5: Filtro de grupos vulnerables/específicos
-  // Es general (NULL o vacío) o los grupos de la beca coinciden (se solapan) con los del usuario
+  // Condición 5: Filtro de edad ESTRICTO
+  const ageCondition = and(
+    or(isNull(scholarships.minAge), lte(scholarships.minAge, responses.age)),
+    or(isNull(scholarships.maxAge), gte(scholarships.maxAge, responses.age))
+  );
+
+  // Condición 6: Filtro de género ESTRICTO
+  const genderCondition = or(
+    isNull(scholarships.targetGenders),
+    sql`cardinality(${scholarships.targetGenders}) = 0`,
+    arrayContains(scholarships.targetGenders, [responses.gender])
+  );
+
+  // Condición 7: Filtro de grupos vulnerables/específicos
   const isGeneralScholarship = or(
     isNull(scholarships.targetGroups),
     sql`cardinality(${scholarships.targetGroups}) = 0`
@@ -82,6 +88,8 @@ export async function findMatchingScholarships(responses: UserFormResponses, sea
         deadlineCondition,
         stateCondition,
         academicCondition,
+        ageCondition,
+        genderCondition,
         groupsCondition
       )
     )

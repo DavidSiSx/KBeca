@@ -9,8 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
-    "db:generate": "drizzle-kit generate",
-    "db:seed": "tsx src/db/seed.ts"
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
     "@google/genai": "^2.7.0",
