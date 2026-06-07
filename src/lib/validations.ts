@@ -5,7 +5,7 @@ export const UserFormSchema = z.object({
   academicLevel: z.string(),
   groups: z.array(z.string()),
   gender: z.enum(['Femenino', 'Masculino', 'Otro'], {
-    errorMap: () => ({ message: 'El género proporcionado no es válido.' })
+    message: 'El género proporcionado no es válido.'
   }),
   age: z.number().int().min(1).max(120),
   hasChildren: z.boolean(),

@@ -9,6 +9,17 @@ import { useEffect, useState, Suspense, useMemo } from "react";
 import { fetchMatches } from "@/app/actions/getMatches";
 import { useTranslations, useLocale } from "next-intl";
 
+interface ScholarshipResult {
+  id: number;
+  title: string;
+  institutionName: string;
+  requiresEnrollment: boolean | null;
+  academicLevels: string[] | null;
+  deadline: string | Date | null;
+  callDate: string | Date | null;
+  isNational: boolean | null;
+}
+
 function ResultadosContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -19,7 +30,7 @@ function ResultadosContent() {
   const nivelAcademico = searchParams.get("level") || "";
 
   const [isSearching, setIsSearching] = useState(true);
-  const [results, setResults] = useState<Record<string, unknown>[]>([]);
+  const [results, setResults] = useState<ScholarshipResult[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   // Estados del filtro Client-Side
