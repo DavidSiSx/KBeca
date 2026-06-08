@@ -2,15 +2,22 @@ import { useWizardUrl } from "@/features/wizard/hooks/useWizardUrl";
 import { UserCircle, Users, UserPlus } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { useState } from "react";
+
 export function StepTarget() {
-  const { target, setTarget, nextStep } = useWizardUrl();
+  const { target, step, setParams } = useWizardUrl();
   const t = useTranslations("Wizard.StepTarget");
 
+  const [isTransitioning, setIsTransitioning] = useState<"myself" | "child" | "other" | null>(null);
+
   const handleSelect = (selectedTarget: "myself" | "child" | "other") => {
-    setTarget(selectedTarget);
+    setIsTransitioning(selectedTarget);
     // Give a tiny delay for visual feedback of the click before advancing
     setTimeout(() => {
-      nextStep();
+      setParams({
+        target: selectedTarget,
+        step: (step + 1).toString()
+      });
     }, 150);
   };
 
@@ -52,7 +59,7 @@ export function StepTarget() {
             key={option.id}
             onClick={() => handleSelect(option.id)}
             className={`group relative flex flex-col items-center justify-center p-6 md:p-8 border-[3px] border-on-background rounded-sm transition-all duration-200 flex-1 w-full md:max-w-[280px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary ${
-              target === option.id
+              target === option.id || isTransitioning === option.id
                 ? "bg-primary text-on-primary shadow-none translate-x-[4px] translate-y-[4px]"
                 : "bg-surface-container-lowest text-on-background shadow-[6px_6px_0px_0px_#1c1c18] hover:bg-primary hover:text-on-primary hover:shadow-[2px_2px_0px_0px_#1c1c18] hover:translate-x-[4px] hover:translate-y-[4px]"
             }`}
@@ -60,7 +67,7 @@ export function StepTarget() {
             {/* Halftone texture sutil en hover */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.1] bg-[radial-gradient(circle,#fff_1px,transparent_1px)] bg-[length:4px_4px] pointer-events-none transition-opacity duration-300" />
             
-            <div className={`transition-colors duration-200 ${target === option.id ? "text-on-primary" : "text-primary group-hover:text-on-primary"}`}>
+            <div className={`transition-colors duration-200 ${target === option.id || isTransitioning === option.id ? "text-on-primary" : "text-primary group-hover:text-on-primary"}`}>
               {option.icon}
             </div>
             <span className="font-display-md text-lg md:text-xl uppercase tracking-wider mt-4 text-center font-bold relative z-10">

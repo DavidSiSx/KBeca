@@ -10,17 +10,19 @@ export function useWizardUrl() {
   const getAllParams = useCallback((key: string) => searchParams.getAll(key), [searchParams]);
 
   const setParam = useCallback((key: string, value: string | null) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const currentSearch = typeof window !== 'undefined' ? window.location.search : searchParams.toString();
+    const params = new URLSearchParams(currentSearch);
     if (value === null) {
       params.delete(key);
     } else {
       params.set(key, value);
     }
-    router.replace(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
   }, [searchParams, pathname, router]);
 
   const setParams = useCallback((updates: Record<string, string | null>) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const currentSearch = typeof window !== 'undefined' ? window.location.search : searchParams.toString();
+    const params = new URLSearchParams(currentSearch);
     for (const [key, value] of Object.entries(updates)) {
       if (value === null) {
         params.delete(key);
@@ -28,14 +30,15 @@ export function useWizardUrl() {
         params.set(key, value);
       }
     }
-    router.replace(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
   }, [searchParams, pathname, router]);
   
   const setArrayParam = useCallback((key: string, values: string[]) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const currentSearch = typeof window !== 'undefined' ? window.location.search : searchParams.toString();
+    const params = new URLSearchParams(currentSearch);
     params.delete(key);
     values.forEach(v => params.append(key, v));
-    router.replace(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
   }, [searchParams, pathname, router]);
 
   // Derivar estados directamente de la URL
@@ -77,6 +80,6 @@ export function useWizardUrl() {
 
   return {
     step, target, estado, nivelAcademico, gender, age, hasChildren, isPregnant, groups,
-    nextStep, prevStep, setTarget, setEstado, setNivelAcademico, setGender, setAge, setHasChildren, setIsPregnant, setGroups, reset
+    nextStep, prevStep, setTarget, setEstado, setNivelAcademico, setGender, setAge, setHasChildren, setIsPregnant, setGroups, reset, setParams
   };
 }
